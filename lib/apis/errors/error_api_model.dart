@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:split/apis/errors/error_api_helper.dart';
 import 'package:split/apis/errors/locale_dio_exceptions.dart';
-import 'package:split/core/failures.dart';
 
-class ErrorApiModel extends Failure {
+class ErrorApiModel {
   final bool isMessageLocalizationKey;
   final String message;
   final int code;
