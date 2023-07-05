@@ -1,87 +1,135 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:split/core/widgets/base_stateful_screen_widget.dart';
+import 'package:split/feature/appbar/appbar.dart';
+import 'package:split/feature/home/widget/add_photo_widget.dart';
+import 'package:split/feature/home/widget/home_elevated_button_custom.dart';
+import 'package:split/feature/home/widget/text_from_field_custom.dart';
+import 'package:split/feature/home/widget/types_itmes_list.dart';
+import 'package:split/feature/widgets/custom_text.dart';
+import 'package:split/res/app_colors.dart';
+import 'package:split/res/app_icons.dart';
+import 'package:split/utils/locale/app_localization_keys.dart';
+import 'package:split/utils/widgets/text_with_asterisk_widget.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+class HomeScreen extends BaseStatefulScreenWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  BaseScreenState<HomeScreen> baseScreenCreateState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  int _counter = 0;
+class _HomeScreenState extends BaseScreenState<HomeScreen> {
+  final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+  bool? isSelected;
+  int counter = 0;
+  FormFieldState<List<String>> state = FormFieldState<List<String>>();
+  TextEditingController textEditingController = TextEditingController();
+  List<IconData> typeListIcons = [
+    AppIcons.plane,
+    AppIcons.home,
+    AppIcons.tower,
+    AppIcons.plane
+  ];
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  List<String> typeListStrings = [
+    LocalizationKeys.trip,
+    LocalizationKeys.home,
+    LocalizationKeys.tower,
+    LocalizationKeys.tower,
+  ];
+  List<String> typeOfSplitListStrings = [
+    LocalizationKeys.equal,
+    LocalizationKeys.specified,
+    LocalizationKeys.percentage,
+  ];
 
   @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the HomeScreen object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: const Text("Home"),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+  Widget baseScreenBuild(BuildContext context) {
+    return SafeArea(
+        child: Scaffold(
+      backgroundColor: AppColors.homeScreenBackground,
+      appBar: PreferredSize(
+          preferredSize: Size(0.0, 59.h),
+          child: AppBarWidget(
+            title: translate(LocalizationKeys.createNewGroup) ??
+                "Create New group",
+          )),
+      body: Form(
+        key: _globalKey,
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 19.w, vertical: 25.h),
+          children: [
+            // IconButton(
+            //     onPressed: () {
+            //       _globalKey.currentState!.validate();
+            //     },
+            //     icon: const Icon(Icons.toc_sharp)),
+            const AddPhotoWidget(),
+            SizedBox(height: 15.h),
+            _textWithAsterisk(translate(LocalizationKeys.groupName)!),
+            SizedBox(height: 8.h),
+            TextFormFieldCustom(
+                hintText: translate(LocalizationKeys.enterGroupName)!,
+                controller: textEditingController,
+                textInputAction: TextInputAction.done,
+                secureText: false,
+                textInputType: TextInputType.text),
+            SizedBox(height: 15.h),
+            _textWithAsterisk(translate(LocalizationKeys.type)!),
+            SizedBox(height: 8.h),
+            TypesItemsList(
+                typeListIcons, typeListStrings, const ScrollPhysics()),
+            SizedBox(height: 15.h),
+            _textWithAsterisk(translate(LocalizationKeys.addParticipants)!),
+            _addParticipants(),
+            _textWithAsterisk(translate(LocalizationKeys.typeOfSplit)!),
+            TypesItemsList(null, typeOfSplitListStrings,
+                const NeverScrollableScrollPhysics()),
+            SizedBox(height: 15.h),
+            _textWithAsterisk(translate(LocalizationKeys.currency)!),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+    ));
   }
+
+  /// //////////////////////////////////////////////////////////////////
+  /// //////////////////////Helper Widgets /////////////////////////////
+  /// //////////////////////////////////////////////////////////////////
+  Widget _textWithAsterisk(String text) => TextWithAsterisk(
+      style: textTheme.bodyMedium!
+          .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
+      labelText: text);
+
+  Widget _addParticipants() => InkWell(
+        onTap: () {
+          debugPrint("add participant Pressed");
+        },
+        child: Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(16.w, 25.h, 0, 25.h),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const Flexible(
+                  flex: 1,
+                  child: Icon(
+                    AppIcons.addParticipant,
+                    size: 16,
+                    weight: 400,
+                  )),
+              SizedBox(width: 10.w),
+              Flexible(
+                flex: 2,
+                child: CustomText(
+                    alignment: AlignmentDirectional.center,
+                    boxFit: BoxFit.scaleDown,
+                    text: translate(LocalizationKeys.addParticipants)!,
+                    style: textTheme.bodyLarge!
+                        .copyWith(fontWeight: FontWeight.w600, fontSize: 16)),
+              )
+            ],
+          ),
+        ),
+      );
 }

@@ -31,6 +31,21 @@ class AppIcons {
       fontFamily: _homeFontFamilyKey, fontPackage: _fontPackageKey);
   static const IconData video = IconData(0xe807,
       fontFamily: _homeFontFamilyKey, fontPackage: _fontPackageKey);
+
+  static const _homeScreenIconsFamily = 'HomeScreenIconsFamily';
+
+  static const IconData plane =
+      IconData(0xe811, fontFamily: _homeScreenIconsFamily);
+  static const IconData tower =
+      IconData(0xe812, fontFamily: _homeScreenIconsFamily);
+  static const IconData home =
+      IconData(0xe813, fontFamily: _homeScreenIconsFamily);
+  static const IconData addPhoto =
+      IconData(0xe814, fontFamily: _homeScreenIconsFamily);
+  static const _addParticipantFamily = 'AddParticipantIconFamily';
+
+  static const IconData addParticipant =
+      IconData(0xe815, fontFamily: _addParticipantFamily);
 }
 
 /// generator helper website

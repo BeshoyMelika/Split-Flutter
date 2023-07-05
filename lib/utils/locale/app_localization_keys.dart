@@ -50,4 +50,18 @@ class LocalizationKeys {
   static const languageValue = 'language_value';
   static const noInternetConnection = "no_internet_connection";
   static const connectionRestored = "connection_restored";
+  static const createNewGroup = "create_new_group";
+  static const groupName = "group_name";
+  static const enterGroupName = "enter_group_name";
+  static const type = "type";
+  static const typeOfSplit = "type_of_split";
+  static const trip = "trip";
+  static const tower = "tower";
+  static const addParticipants = "add_participants";
+  static const equal = "equal";
+  static const specified = "specified";
+  static const percentage = "percentage";
+  static const currency = "currency";
+  static const dollar = "dollar";
+  static const pound = "pound";
 }

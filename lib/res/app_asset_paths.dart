@@ -13,4 +13,5 @@ class AppAssetPaths {
   static const approveIcon = "assets/icon/approve_icon.png";
   static const rejectIcon = "assets/icon/reject_icon.png";
   static const pdfIcon = "assets/icon/pdf_icon.png";
+  static const addPhoto = "assets/home_screen/add_photo.svg";
 }

@@ -43,6 +43,21 @@
   "account": "الحساب",
   "language_value": "En",
   "no_internet_connection": "لا يوجد اتصال بالإنترنت",
-  "connection_restored": "تمت استعادة الاتصال"
+  "connection_restored": "تمت استعادة الاتصال",
+  "create_new_group": "إنشاء مجموعة جديدة",
+  "group_name": "أسم المجموعة",
+  "enter_group_name": "أدخل اسم المجموعة",
+  "type": "نوع",
+  "trip": "رحلة",
+  "tower": "برج",
+  "add_participants": "أضف مشاركين",
+  "equal": "متساوي",
+  "specified": "محدد",
+  "percentage": "نسبة مئوية",
+  "type_of_split": "نوع الانقسام",
+  "currency": "عملة",
+
+  "dollar": "دولار",
+  "pound": "جنية"
 
 }
