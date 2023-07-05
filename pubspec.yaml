@@ -51,7 +51,10 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   connectivity_plus: ^4.0.1
   intl: ^0.18.0
-
+  #drop down menu
+  #dropdown_button2: ^2.1.0
+  #indicating current pageView
+  smooth_page_indicator: ^1.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

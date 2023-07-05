@@ -50,4 +50,8 @@ class LocalizationKeys {
   static const languageValue = 'language_value';
   static const noInternetConnection = "no_internet_connection";
   static const connectionRestored = "connection_restored";
+  static const calculateAllOfYourExpensesInOnePlace =
+      "calculate_all_of_your_expenses_in_one_place";
+  static const aPlatFormToManageYourFinancesWithAnyoneEasily =
+      "a_platform_to_manage_your_finances_with_anyone_easily";
 }
