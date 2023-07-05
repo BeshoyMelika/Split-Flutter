@@ -15,6 +15,12 @@ class AppColors {
   static const _chestnutRose = Color(0xffD15957);
   static const _blueRibbon = Color(0xff0437F2);
   static const _silver = Color(0xffc8c8c8);
+  static const _cloudBurst = Color(0xff253659);
+  static const _robinsEggBlue = Color(0xff00DCB4);
+  static const _alto = Color(0x000000FF);
+  //#D9D9D900 //   static const _alto = Color(0xffD9D9D9);
+
+  static const _alabaster = Color(0xffF9F9F9);
 
   static const _whisper = Color(0xffF5F5FA);
 
@@ -109,4 +115,18 @@ class AppColors {
 
   /// Auth Screen
   static const loginButtonBg = _apple;
+
+  ///
+  ///
+  ///
+  /// groups manger
+
+  static const emptyGroupButton = _cloudBurst;
+  static const scaffoldBackGround = _alabaster;
+  static const unSelectedNavBarIcon = _silver;
+  static const selectedNavBarIcon = _alto;
+  static const floatingactionButtonLightMode = _robinsEggBlue;
+  static const appBarLightMode = _alto;
+  static const mediumText = _mineShaft;
+  static const bodyLargeText = _silver;
 }

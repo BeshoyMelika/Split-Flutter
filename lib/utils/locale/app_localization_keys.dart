@@ -46,8 +46,20 @@ class LocalizationKeys {
   static const phone = 'phone';
   static const category = 'category';
   static const orders = 'orders';
-  static const account = 'account';
   static const languageValue = 'language_value';
   static const noInternetConnection = "no_internet_connection";
   static const connectionRestored = "connection_restored";
+
+  ///
+  /// groups manger
+  static const groups = "groups";
+  static const friends = "friends";
+  static const activity = "activity";
+  static const account = 'account';
+  static const createNewGroup = "create_new_group";
+  static const youDonNotHaveAnyGroupStatement =
+      "you_don't_have_any_groups_statement";
+  static const expense = 'expense';
+  static const quickAccess = 'quick_access';
+  static const allGroups = 'all_groups';
 }

@@ -43,5 +43,14 @@
   "account": "الحساب",
   "language_value": "En",
   "no_internet_connection": "لا يوجد اتصال بالإنترنت",
-  "connection_restored": "تمت استعادة الاتصال"
+  "connection_restored": "تمت استعادة الاتصال",
+
+  "groups": "مجموعات",
+  "all_groups": "كل المجموعات",
+  "friends": "أصدقاء",
+  "activity": "النشاط",
+  "expenses": "المصاريف",
+  "quick_access": "الوصول السريع",
+  "you_don't_have_any_groups_statement": "ليس لديك أي مجموعات بعد. قم بإنشاء مجموعة الآن!",
+  "create_new_group": "إنشاء مجموعة جديدة"
 }
