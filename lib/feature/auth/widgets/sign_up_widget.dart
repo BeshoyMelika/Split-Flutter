@@ -4,6 +4,7 @@ import 'package:split/feature/auth/screens/sign_in_screen.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
 import 'package:split/feature/auth/widgets/app_text_form_field.dart';
 import 'package:split/feature/auth/widgets/social_button.dart';
+import 'package:split/res/app_asset_paths.dart';
 import 'package:split/res/app_colors.dart';
 
 class SignUpWidget extends StatelessWidget {
@@ -232,7 +233,7 @@ class _SignUpFormState extends State<SignUpForm> {
               Expanded(
                 child: SocialButton(
                   title: 'Google',
-                  image: 'assets/images/google.png',
+                  image: AppAssetPaths.googleLogo,
                 ),
               ),
               SizedBox(
@@ -240,7 +241,7 @@ class _SignUpFormState extends State<SignUpForm> {
               ),
               Expanded(
                 child: SocialButton(
-                    title: 'Apple', image: 'assets/images/apple.png'),
+                    title: 'Apple', image: AppAssetPaths.appleLogo),
               ),
             ],
           ),

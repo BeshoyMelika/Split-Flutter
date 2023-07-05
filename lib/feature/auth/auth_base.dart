@@ -8,23 +8,29 @@ class AuthBase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          SizedBox(
-            width: double.infinity,
-            height: double.infinity,
-            child: Image.asset(
-              AppAssetPaths.splashScreenBackground,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Stack(
             children: [
-              body,
+              SizedBox(
+                width: double.infinity,
+                height: double.infinity,
+                child: Image.asset(
+                  AppAssetPaths.splashScreenBackground,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  body,
+                ],
+              ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
