@@ -5,9 +5,14 @@ import 'package:split/res/app_asset_paths.dart';
 
 // ignore: must_be_immutable
 class PageViewCustom extends BaseStatelessWidget {
-  PageViewCustom({Key? key, required this.text, required this.imagePath})
+  PageViewCustom(
+      {Key? key,
+      required this.mainText,
+      required this.subText,
+      required this.imagePath})
       : super(key: key);
-  final String text;
+  final String mainText;
+  final String subText;
   final String imagePath;
   @override
   Widget baseBuild(BuildContext context) {
@@ -16,15 +21,25 @@ class PageViewCustom extends BaseStatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       children: [
         SizedBox(
-          height: 275.h,
-          width: 368.w,
-          child: Image.network(AppAssetPaths.networkImageHold),
+          height: 300.h,
+          width: 300.w,
+          child: Image.network(
+            AppAssetPaths.networkImageHold,
+            fit: BoxFit.fill,
+          ),
+        ),
+        SizedBox(height: 70.h),
+        Text(
+          mainText,
+          style: textTheme.bodyLarge!
+              .copyWith(fontWeight: FontWeight.w700, fontSize: 24),
+          textAlign: TextAlign.center,
         ),
         SizedBox(height: 23.h),
         Text(
-          text,
-          style: textTheme.bodySmall!
-              .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
+          subText,
+          style: textTheme.bodyMedium!
+              .copyWith(fontWeight: FontWeight.w600, fontSize: 14),
           textAlign: TextAlign.center,
         ),
       ],

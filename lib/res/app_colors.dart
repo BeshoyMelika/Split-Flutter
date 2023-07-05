@@ -17,6 +17,7 @@ class AppColors {
   static const _silver = Color(0xffc8c8c8);
   static const _silverSplit = Color(0xffBDBDBD);
   static const _cloudBurst = Color(0xff253659);
+  static const _alto = Color(0xffD9D9D9);
 
   static const _whisper = Color(0xffF5F5FA);
   static const _alabaster = Color(0xffF9F9F9);
@@ -133,9 +134,13 @@ class AppColors {
   static const homeScreenTypeListIconsUnSelected = _silverSplit;
   static const homeScreenTypeListIconsSelected = _white;
   static const homeScreenTypeListCardSelected = _cloudBurst;
+  static const homeScreenAddPhotoBorder = _alto;
+  static const homeScreenButton = _cloudBurst;
   static const homeScreenTypeListCardUnSelected = _white;
+  static const homeScreenCancelButton = _alto;
 
   /// onboarding screen
 
   static const onBoardingScreenScaffoldBackground = _white;
+  static const onBoardingScreenIndicatorDots = _cloudBurst;
 }

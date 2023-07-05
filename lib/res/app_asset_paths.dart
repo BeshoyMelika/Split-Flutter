@@ -13,6 +13,10 @@ class AppAssetPaths {
   static const approveIcon = "assets/icon/approve_icon.png";
   static const rejectIcon = "assets/icon/reject_icon.png";
   static const pdfIcon = "assets/icon/pdf_icon.png";
+
   static const networkImageHold =
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4CtaDk3U49ukzwQTk5h6n1mwtWT9HULw-piOF2eF4&s";
+
+  static const addPhoto = "assets/home_screen/add_photo.svg";
+  static const shapes = "assets/onboarding/shapes.png";
 }
