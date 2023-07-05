@@ -30,6 +30,14 @@ class AppColors {
   static const _goblink = Color(0xff378A3A);
   static const _madang = Color(0xffC0F1C2);
   static const _apple = Color(0xff54B435);
+  static const _alabaster = Color(0xFFF9F9F9);
+  static const _cloudBurst = Color(0xFF253659);
+  static const _mineShaft2 = Color(0xFF333333);
+  static const _gallery = Color(0xFFECECEC);
+  static const _silver2 = Color(0xFFBDBDBD);
+  static const _alto = Color(0xffD9D9D9);
+  static const _robinsEggBlue = Color(0xFF00DCB4);
+
 
   /// app main theme ...
 
@@ -109,4 +117,24 @@ class AppColors {
 
   /// Auth Screen
   static const loginButtonBg = _apple;
+
+  /// Auth Feature
+  static const backgroundOfWidget = _alabaster;
+  static const titleOfWidget = _cloudBurst;
+  static const textButtonOfSignInOutRequestAgain = _cloudBurst;
+  static const appElevatedButton = _cloudBurst;
+  static const titleOfTextField = _mineShaft2;
+  static const textOfAgreeToAll = _mineShaft2;
+  static const descriptionOfWidget = _mineShaft2;
+  static const textOfQuestion = _mineShaft2;
+  static const divider = _gallery;
+  static const otpBorder = _gallery;
+  static const textBetweenDivider = _silver2;
+  static const backgroundOfTextFormField = _white;
+  static const appElevatedButtonTitle = _white;
+  static const backgroundOfOtp = _white;
+  static const backgroundOfSocialButton = _white;
+  static const hintText = _alto;
+  static const textOfTermsCondition = _robinsEggBlue;
+  static const socialButtonTitle = _black;
 }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:split/core/widgets/base_stateful_widget.dart';
+import 'package:split/feature/auth/screens/sign_in_screen.dart';
 import 'package:split/preferences/preferences_manager.dart';
 import 'package:split/res/app_asset_paths.dart';
 
@@ -17,7 +18,9 @@ class SplashScreen extends BaseStatefulWidget {
 
 class _SplashScreenState extends BaseState<SplashScreen> {
   var preferencesManager = GetIt.I<PreferencesManager>();
-  late Timer time;
+  //late Timer time;
+  Timer? time;
+
   @override
   void initState() {
     super.initState();
@@ -28,7 +31,7 @@ class _SplashScreenState extends BaseState<SplashScreen> {
 
   @override
   void dispose() {
-    time.cancel();
+    time?.cancel();
     super.dispose();
   }
 
@@ -85,8 +88,8 @@ class _SplashScreenState extends BaseState<SplashScreen> {
   }
 
   void _openLoginScreen() async {
-    // await Navigator.of(context)
-    //     .pushNamedAndRemoveUntil(LoginScreen.routeName, (_) => false);
+    await Navigator.of(context)
+        .pushNamedAndRemoveUntil(SignInScreen.routeName, (_) => false);
   }
 
   void _openHomeScreen() async {

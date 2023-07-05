@@ -51,6 +51,9 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   connectivity_plus: ^4.0.1
   intl: ^0.18.0
+  pinput: ^2.2.31
+
+
 
 dev_dependencies:
   flutter_test:

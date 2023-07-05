@@ -9,6 +9,14 @@ import 'package:get_it/get_it.dart';
 
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:split/apis/_base/dio_api_manager.dart';
+import 'package:split/feature/auth/auth_bloc/sign_in_bloc/sign_in_bloc.dart';
+import 'package:split/feature/auth/auth_bloc/sign_up_bloc/sign_up_bloc.dart';
+import 'package:split/feature/auth/screens/forget_password_screen.dart';
+import 'package:split/feature/auth/screens/otp_screen.dart';
+import 'package:split/feature/auth/screens/reset_password_screen.dart';
+import 'package:split/feature/auth/screens/sign_in_screen.dart';
+import 'package:split/feature/auth/screens/sign_up_screen.dart';
+import 'package:split/feature/auth/screens/success_message_screen.dart';
 import 'package:split/feature/splash/screen/splash_screen.dart';
 
 import 'package:split/preferences/preferences_manager.dart';
@@ -38,6 +46,8 @@ class MyApp extends StatelessWidget {
           create: (context) => LocaleCubit(
               LocaleRepository(dioApiManager, (GetIt.I<PreferencesManager>()))),
         ),
+        BlocProvider(create: (context) => SignInBloc()),
+        BlocProvider(create: (context) => SignUpBloc()),
       ],
       child: BlocBuilder<LocaleCubit, Locale>(
         builder: (context, state) {
@@ -80,7 +90,17 @@ class MyApp extends StatelessWidget {
                 ],
                 locale: state,
 
-                routes: const {},
+                routes: {
+                  SignInScreen.routeName: (context) => const SignInScreen(),
+                  SignUpScreen.routeName: (context) => const SignUpScreen(),
+                  ForgetPasswordScreen.routeName: (context) =>
+                      const ForgetPasswordScreen(),
+                  ResetPasswordScreen.routeName: (context) =>
+                      const ResetPasswordScreen(),
+                  SuccessMessageScreen.routeName: (context) =>
+                      const SuccessMessageScreen(),
+                  OTPScreen.routName: (context) => const OTPScreen(),
+                },
                 home: const SplashScreen(),
               ),
             ),
