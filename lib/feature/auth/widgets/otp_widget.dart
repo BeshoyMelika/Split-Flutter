@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
-import 'package:split/feature/auth/screens/success_message_screen.dart';
+import 'package:split/feature/auth/auth_bloc/otp_verification_bloc/otp_verification_bloc.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
 import 'package:split/res/app_colors.dart';
 
@@ -95,8 +96,8 @@ class _OtpFormState extends State<OtpForm> {
                   child: AppButton(
                 title: 'Verify',
                 onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed(SuccessMessageScreen.routeName);
+                  BlocProvider.of<OtpVerificationBloc>(context)
+                      .add(OtpVerifyEvent());
                 },
               )),
             ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:split/feature/auth/screens/success_message_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:split/feature/auth/auth_bloc/reset_password_bloc/reset_password_bloc.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
 import 'package:split/feature/auth/widgets/app_text_form_field.dart';
 import 'package:split/res/app_colors.dart';
@@ -115,8 +116,8 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                     child: AppButton(
                   title: 'Submit',
                   onPressed: () {
-                    Navigator.of(context)
-                        .pushNamed(SuccessMessageScreen.routeName);
+                    BlocProvider.of<ResetPasswordBloc>(context)
+                        .add(SubmitPasswordEvent());
                   },
                 )),
               ],

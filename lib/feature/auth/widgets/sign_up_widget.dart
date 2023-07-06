@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:split/feature/auth/screens/otp_screen.dart';
-import 'package:split/feature/auth/screens/sign_in_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:split/feature/auth/auth_bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
 import 'package:split/feature/auth/widgets/app_text_form_field.dart';
 import 'package:split/feature/auth/widgets/social_button.dart';
@@ -189,7 +189,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   child: AppButton(
                 title: 'Sign Up',
                 onPressed: () {
-                  Navigator.of(context).pushNamed(OTPScreen.routName);
+                  BlocProvider.of<SignUpBloc>(context).add(RegisterEvent());
                 },
               )),
             ],
@@ -228,20 +228,30 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(
             height: 16,
           ),
-          const Row(
+          Row(
             children: [
               Expanded(
                 child: SocialButton(
+                  onPressed: () {
+                    BlocProvider.of<SignUpBloc>(context)
+                        .add(RegisterWithGoogleEvent());
+                  },
                   title: 'Google',
                   image: AppAssetPaths.googleLogo,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Expanded(
                 child: SocialButton(
-                    title: 'Apple', image: AppAssetPaths.appleLogo),
+                  onPressed: () {
+                    BlocProvider.of<SignUpBloc>(context)
+                        .add(RegisterWithAppleEvent());
+                  },
+                  title: 'Apple',
+                  image: AppAssetPaths.appleLogo,
+                ),
               ),
             ],
           ),
@@ -258,7 +268,7 @@ class _SignUpFormState extends State<SignUpForm> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(SignInScreen.routeName);
+                  BlocProvider.of<SignUpBloc>(context).add(SignInScreenEvent());
                 },
                 child: const Text(
                   'Login',

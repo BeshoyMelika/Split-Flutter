@@ -5,10 +5,12 @@ abstract class SignInState {}
 
 class SignInInitial extends SignInState {}
 
-class SignInSuccess extends SignInState {}
+class SignInSuccessState extends SignInState {}
 
-class SignInFail extends SignInState {}
+class SignInFailureState extends SignInState {}
 
-class SignInLoading extends SignInState {}
+class SignInLoadingState extends SignInState {}
 
-class ViewSignUpScreen extends SignInState {}
+class ForgetPasswordState extends SignInState {}
+
+class SignUpScreenState extends SignInState {}

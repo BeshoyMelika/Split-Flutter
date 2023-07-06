@@ -3,13 +3,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:split/res/app_colors.dart';
 
 class SocialButton extends StatelessWidget {
-  const SocialButton({super.key, required this.title, required this.image});
+  const SocialButton({super.key, required this.title, required this.image, this.onPressed});
   final String title;
   final String image;
+  final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed,
         style: ButtonStyle(
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(

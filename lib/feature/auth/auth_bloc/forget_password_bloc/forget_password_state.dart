@@ -4,3 +4,9 @@ part of 'forget_password_bloc.dart';
 abstract class ForgetPasswordState {}
 
 class ForgetPasswordInitial extends ForgetPasswordState {}
+
+class ResetPasswordSuccessState extends ForgetPasswordState {}
+
+class ResetPasswordLoadingState extends ForgetPasswordState {}
+
+class ResetPasswordFailureState extends ForgetPasswordState {}

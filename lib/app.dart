@@ -9,6 +9,9 @@ import 'package:get_it/get_it.dart';
 
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:split/apis/_base/dio_api_manager.dart';
+import 'package:split/feature/auth/auth_bloc/forget_password_bloc/forget_password_bloc.dart';
+import 'package:split/feature/auth/auth_bloc/otp_verification_bloc/otp_verification_bloc.dart';
+import 'package:split/feature/auth/auth_bloc/reset_password_bloc/reset_password_bloc.dart';
 import 'package:split/feature/auth/auth_bloc/sign_in_bloc/sign_in_bloc.dart';
 import 'package:split/feature/auth/auth_bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:split/feature/auth/screens/forget_password_screen.dart';
@@ -48,6 +51,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(create: (context) => SignInBloc()),
         BlocProvider(create: (context) => SignUpBloc()),
+        BlocProvider(create: (context) => OtpVerificationBloc()),
+        BlocProvider(create: (context) => ForgetPasswordBloc()),
+        BlocProvider(create: (context) => ResetPasswordBloc()),
       ],
       child: BlocBuilder<LocaleCubit, Locale>(
         builder: (context, state) {
@@ -99,7 +105,7 @@ class MyApp extends StatelessWidget {
                       const ResetPasswordScreen(),
                   SuccessMessageScreen.routeName: (context) =>
                       const SuccessMessageScreen(),
-                  OTPScreen.routName: (context) => const OTPScreen(),
+                  OtpScreen.routName: (context) => const OtpScreen(),
                 },
                 home: const SplashScreen(),
               ),

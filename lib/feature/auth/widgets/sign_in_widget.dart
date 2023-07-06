@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:split/feature/auth/auth_bloc/sign_in_bloc/sign_in_bloc.dart';
-import 'package:split/feature/auth/screens/forget_password_screen.dart';
+import 'package:split/feature/auth/screens/sign_up_screen.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
 import 'package:split/feature/auth/widgets/app_text_form_field.dart';
 import 'package:split/feature/auth/widgets/social_button.dart';
@@ -114,8 +114,8 @@ class _SignInFormState extends State<SignInForm> {
             children: [
               TextButton(
                 onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed(ForgetPasswordScreen.routeName);
+                  BlocProvider.of<SignInBloc>(context)
+                      .add(ForgetPasswordEvent());
                 },
                 child: const Text(
                   'Forget password?',
@@ -173,20 +173,30 @@ class _SignInFormState extends State<SignInForm> {
           const SizedBox(
             height: 16,
           ),
-          const Row(
+          Row(
             children: [
               Expanded(
                 child: SocialButton(
+                  onPressed: () {
+                    BlocProvider.of<SignInBloc>(context)
+                        .add(LoginWithGoogleEvent());
+                  },
                   title: 'Google',
                   image: AppAssetPaths.googleLogo,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Expanded(
                 child: SocialButton(
-                    title: 'Apple', image: AppAssetPaths.appleLogo),
+                  onPressed: () {
+                    BlocProvider.of<SignInBloc>(context)
+                        .add(LoginWithAppleEvent());
+                  },
+                  title: 'Apple',
+                  image: AppAssetPaths.appleLogo,
+                ),
               ),
             ],
           ),
@@ -206,7 +216,8 @@ class _SignInFormState extends State<SignInForm> {
               ),
               TextButton(
                 onPressed: () {
-                  BlocProvider.of<SignInBloc>(context).add(GoToSignUpEvent());
+                  //BlocProvider.of<SignInBloc>(context).add(SignUpScreenEvent());
+                  Navigator.of(context).pushNamed(SignUpScreen.routeName);
                 },
                 child: const Text(
                   'Sign up',
