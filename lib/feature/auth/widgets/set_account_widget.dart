@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:split/feature/auth/auth_bloc/forget_password_bloc/forget_password_bloc.dart';
+import 'package:split/feature/auth/auth_bloc/set_account_bloc/set_account_bloc.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
 import 'package:split/feature/auth/widgets/app_text_form_field.dart';
 import 'package:split/res/app_colors.dart';
 
-class ForgetPasswordWidget extends StatelessWidget {
-  const ForgetPasswordWidget({super.key});
+class SetAccountWidget extends StatelessWidget {
+  const SetAccountWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,25 +20,25 @@ class ForgetPasswordWidget extends StatelessWidget {
       ),
       child: const Padding(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-        child: ForgetPasswordForm(),
+        child: SetAccountForm(),
       ),
     );
   }
 }
 
-//Form of Forget Password
-class ForgetPasswordForm extends StatefulWidget {
-  const ForgetPasswordForm({
+class SetAccountForm extends StatefulWidget {
+  const SetAccountForm({
     super.key,
   });
 
   @override
-  State<ForgetPasswordForm> createState() => _ForgetPasswordFormState();
+  State<SetAccountForm> createState() => _SetAccountFormState();
 }
 
-class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
+class _SetAccountFormState extends State<SetAccountForm> {
   final GlobalKey<FormState> formKey = GlobalKey();
-  String? email;
+  String? userName;
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -48,7 +48,7 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             const Text(
-              'Forget your password?',
+              'Set your account',
               style: TextStyle(
                 fontSize: 27.0,
                 fontWeight: FontWeight.w700,
@@ -59,7 +59,7 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
               height: 8,
             ),
             const Text(
-              'Please enter your email address',
+              'Please set username and password',
               style: TextStyle(
                 fontSize: 16.0,
                 fontWeight: FontWeight.w500,
@@ -70,7 +70,7 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
               height: 30,
             ),
             const Text(
-              'Email',
+              'Username',
               style: TextStyle(
                 fontSize: 12.0,
                 fontWeight: FontWeight.w600,
@@ -81,22 +81,22 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
               height: 8,
             ),
             AppTextFormField(
-              hint: 'Enter your email',
+              hint: 'Set username',
               onSaved: (value) {
-                email = value;
+                userName = value;
               },
             ),
             const SizedBox(
-              height: 150,
+              height: 30,
             ),
             Row(
               children: [
                 Expanded(
                     child: AppButton(
-                  title: 'Reset your password',
+                  title: 'Submit',
                   onPressed: () {
-                    BlocProvider.of<ForgetPasswordBloc>(context)
-                        .add(ResetPasswordEvent());
+                    BlocProvider.of<SetAccountBloc>(context)
+                        .add(SubmitSetAccountEvent());
                   },
                 )),
               ],

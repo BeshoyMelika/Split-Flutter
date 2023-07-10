@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:split/feature/auth/auth_bloc/success_message_bloc/success_message_bloc.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
 import 'package:split/res/app_asset_paths.dart';
 import 'package:split/res/app_colors.dart';
+
+bool previous = true;
 
 class SuccessMessageWidget extends StatelessWidget {
   const SuccessMessageWidget({super.key});
@@ -38,9 +42,11 @@ class SuccessMessageWidget extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            const Text(
-              'Reset password successfully',
-              style: TextStyle(
+            Text(
+              previous
+                  ? 'Reset password successfully'
+                  : 'You have successfully Registered',
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 color: AppColors.descriptionOfWidget,
@@ -49,9 +55,16 @@ class SuccessMessageWidget extends StatelessWidget {
             const SizedBox(
               height: 72,
             ),
-            const Row(
+            Row(
               children: [
-                Expanded(child: AppButton(title: 'Done')),
+                Expanded(
+                    child: AppButton(
+                  title: 'Done',
+                  onPressed: () {
+                    BlocProvider.of<SuccessMessageBloc>(context)
+                        .add(DoneEvent());
+                  },
+                )),
               ],
             ),
           ],

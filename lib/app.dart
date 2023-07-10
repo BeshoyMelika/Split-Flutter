@@ -12,8 +12,10 @@ import 'package:split/apis/_base/dio_api_manager.dart';
 import 'package:split/feature/auth/auth_bloc/forget_password_bloc/forget_password_bloc.dart';
 import 'package:split/feature/auth/auth_bloc/otp_verification_bloc/otp_verification_bloc.dart';
 import 'package:split/feature/auth/auth_bloc/reset_password_bloc/reset_password_bloc.dart';
+import 'package:split/feature/auth/auth_bloc/set_account_bloc/set_account_bloc.dart';
 import 'package:split/feature/auth/auth_bloc/sign_in_bloc/sign_in_bloc.dart';
 import 'package:split/feature/auth/auth_bloc/sign_up_bloc/sign_up_bloc.dart';
+import 'package:split/feature/auth/auth_bloc/success_message_bloc/success_message_bloc.dart';
 import 'package:split/feature/auth/screens/forget_password_screen.dart';
 import 'package:split/feature/auth/screens/otp_screen.dart';
 import 'package:split/feature/auth/screens/reset_password_screen.dart';
@@ -54,6 +56,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => OtpVerificationBloc()),
         BlocProvider(create: (context) => ForgetPasswordBloc()),
         BlocProvider(create: (context) => ResetPasswordBloc()),
+        BlocProvider(create: (context) => SuccessMessageBloc()),
+        BlocProvider(create: (context) => SetAccountBloc()),
       ],
       child: BlocBuilder<LocaleCubit, Locale>(
         builder: (context, state) {
