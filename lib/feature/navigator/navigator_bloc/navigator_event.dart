@@ -1,7 +1,23 @@
-abstract class NavigatorEvent {}
+import 'package:equatable/equatable.dart';
 
-class TabChange extends NavigatorEvent {
-  final int tabIndex;
+abstract class NavigatorEvent extends Equatable {}
 
-  TabChange({required this.tabIndex});
+class NavigateToGroupScreenEvent extends NavigatorEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class NavigateToFriendsScreenEvent extends NavigatorEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class NavigateToActivityScreenEvent extends NavigatorEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class NavigateToProfileScreenEvent extends NavigatorEvent {
+  @override
+  List<Object?> get props => [];
 }

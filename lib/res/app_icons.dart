@@ -5,7 +5,7 @@ class AppIcons {
 
   static const String? _fontPackageKey = null;
   static const _homeFontFamilyKey = 'HomeIconsFont';
-
+  static const _GroupFontFam = 'GroupsFontIcon';
   static const _connectivityIcons = 'ConnectivityIcons';
 
   //
@@ -31,6 +31,14 @@ class AppIcons {
       fontFamily: _homeFontFamilyKey, fontPackage: _fontPackageKey);
   static const IconData video = IconData(0xe807,
       fontFamily: _homeFontFamilyKey, fontPackage: _fontPackageKey);
+
+  // groups
+  static const IconData activity =
+      IconData(0xe800, fontFamily: _GroupFontFam, fontPackage: _fontPackageKey);
+  static const IconData expenses =
+      IconData(0xe801, fontFamily: _GroupFontFam, fontPackage: _fontPackageKey);
+  static const IconData page =
+      IconData(0xe802, fontFamily: _GroupFontFam, fontPackage: _fontPackageKey);
 }
 
 /// generator helper website

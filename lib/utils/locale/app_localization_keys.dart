@@ -59,7 +59,8 @@ class LocalizationKeys {
   static const createNewGroup = "create_new_group";
   static const youDonNotHaveAnyGroupStatement =
       "you_don't_have_any_groups_statement";
-  static const expense = 'expense';
+  static const createGroupNow = 'create_group_now';
+  static const expenses = 'expenses';
   static const quickAccess = 'quick_access';
   static const allGroups = 'all_groups';
 }

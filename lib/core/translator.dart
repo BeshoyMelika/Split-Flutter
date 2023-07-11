@@ -17,7 +17,7 @@ mixin Translator {
   String? translate(String localizationKey) {
     String? value;
 
-    value = appLocale.translate(localizationKey)!;
+    value = appLocale.translate(localizationKey) ?? 'null key';
     return value;
   }
 

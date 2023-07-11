@@ -1,5 +1,7 @@
 class Routes {
   static const String initialRoute = '/';
+
+  static const String? toWork = null;
   static const String navigator = 'navigator';
   static const String register = '/Regster';
   static const String verify = '/verify';

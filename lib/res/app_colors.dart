@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'package:flutter/material.dart';
 
 /// to control all colors, app theme, without any need to dig into code
@@ -17,7 +19,7 @@ class AppColors {
   static const _silver = Color(0xffc8c8c8);
   static const _cloudBurst = Color(0xff253659);
   static const _robinsEggBlue = Color(0xff00DCB4);
-  static const _alto = Color(0x000000FF);
+  static const _alto = Color(0xff253659);
   //#D9D9D900 //   static const _alto = Color(0xffD9D9D9);
 
   static const _alabaster = Color(0xffF9F9F9);
@@ -42,16 +44,14 @@ class AppColors {
   static const colorSchemeSeed = _blueRibbon;
   static const colorPrimary = _blueRibbon;
   static const focus = _blueRibbon;
-  static const scaffoldBackground = _whisper;
-  static const appBarBackground = _white;
-  static const appBarTextColor = _blueZodiac;
+  static const appBarTextColor = _white;
   static const statusBar = _blueZodiac;
   static const floatActionBtnIcon = _white;
   static const floatActionBtnText = _white;
   static const floatActionBtnBackground = _ecstasy;
   static const buttonTextLight = _white;
   static const iconTheme = _blueZodiac;
-  static const appBarIcon = _blueZodiac;
+  static const appBarIcon = _white;
   static const titleMedium = _blueRibbon;
   static const headlineMedium = _blueZodiac;
   static const bodyMedium = _blueZodiac;
@@ -122,11 +122,17 @@ class AppColors {
   /// groups manger
 
   static const emptyGroupButton = _cloudBurst;
-  static const scaffoldBackGround = _alabaster;
+  static const scaffoldBackground = _alabaster;
   static const unSelectedNavBarIcon = _silver;
   static const selectedNavBarIcon = _alto;
   static const floatingactionButtonLightMode = _robinsEggBlue;
-  static const appBarLightMode = _alto;
+  static const appBarBackground = _alto;
   static const mediumText = _mineShaft;
   static const bodyLargeText = _silver;
+
+  static const groupItemBorder = _silver;
+  static const groupItemIcon = _silver;
+  static const groupItemText = _silver;
+  static const groupItemPinedIcon = _alto;
+  static const groupItemColor = _white;
 }

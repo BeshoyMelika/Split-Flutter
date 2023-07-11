@@ -58,7 +58,7 @@ class AppTheme {
             titleTextStyle: txtThemeLight.bodyMedium?.copyWith(
               fontSize: 20,
               color: AppColors.appBarTextColor,
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w600,
             ),
             backgroundColor: AppColors.appBarBackground,
           ),

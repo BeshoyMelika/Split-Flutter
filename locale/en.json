@@ -53,6 +53,7 @@
   "activity": "Activity",
   "expenses": "Expenses",
   "quick_access": "Quick Access",
-  "you_don't_have_any_groups_statement": "You don’t have any groups yet.Create group now!",
-  "create_new_group": "Create new group"
+  "you_don't_have_any_groups_statement": "You don’t have any groups yet.",
+  "create_new_group": "Create new group",
+  "create_group_now": "Create group now !"
 }
