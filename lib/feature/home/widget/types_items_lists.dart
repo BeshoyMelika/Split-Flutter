@@ -1,12 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:split/res/app_colors.dart';
+import 'package:split/feature/home/widget/home_screen_list_item.dart';
 
 class SelectableWidgetItem extends Equatable {
   final String value;
   final String key;
+  final IconData? icon;
   const SelectableWidgetItem({
     required this.value,
+    this.icon,
     required this.key,
   });
 
@@ -14,7 +16,7 @@ class SelectableWidgetItem extends Equatable {
   List<Object?> get props => [value, key];
 }
 
-class SelectableFormFieldWidget extends FormField<SelectableWidgetItem> {
+class TypesItemsList extends FormField<SelectableWidgetItem> {
   /// Creates a [Select Gender Widget] widget that is a [FormField], wrapped in an
   /// [InputDecorator].
   ///
@@ -24,7 +26,7 @@ class SelectableFormFieldWidget extends FormField<SelectableWidgetItem> {
   final ValueChanged<SelectableWidgetItem?>? onChanged;
   final List<SelectableWidgetItem> items;
 
-  SelectableFormFieldWidget({
+  TypesItemsList({
     Key? key,
     SelectableWidgetItem? value,
     AutovalidateMode? autovalidateMode,
@@ -87,14 +89,14 @@ class _SelectableFormFieldState extends FormFieldState<SelectableWidgetItem> {
   @override
   void didChange(SelectableWidgetItem? value) {
     super.didChange(value);
-    final SelectableFormFieldWidget dropdownButtonFormField = widget;
+    final TypesItemsList dropdownButtonFormField = widget;
     if (dropdownButtonFormField.onChanged != null) {
       dropdownButtonFormField.onChanged!(value);
     }
   }
 
   @override
-  void didUpdateWidget(SelectableFormFieldWidget oldWidget) {
+  void didUpdateWidget(TypesItemsList oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.initialValue != widget.initialValue) {
       setValue(widget.initialValue);
@@ -102,8 +104,7 @@ class _SelectableFormFieldState extends FormFieldState<SelectableWidgetItem> {
   }
 
   @override
-  SelectableFormFieldWidget get widget =>
-      super.widget as SelectableFormFieldWidget;
+  TypesItemsList get widget => super.widget as TypesItemsList;
 }
 
 // ignore: must_be_immutable
@@ -126,10 +127,40 @@ class _SelectableWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-        children: items
-            .map(
-              (selectableWidgetItem) => Expanded(
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+          children: items
+              .map(
+                (selectableWidgetItem) => InkWell(
+                  onTap: () => changeChoose(selectableWidgetItem),
+                  child: selectableWidgetItem.icon == null
+                      ? HomeScreenListItem(
+                          null,
+                          text: selectableWidgetItem.value,
+                          selected: selectedItem == selectableWidgetItem,
+                        )
+                      : HomeScreenListItem(selectableWidgetItem.icon,
+                          text: selectableWidgetItem.value,
+                          selected: selectedItem == selectableWidgetItem),
+                ),
+              )
+              .toList()),
+    );
+  }
+
+  changeChoose(SelectableWidgetItem choose) {
+    selectedItem = choose;
+    if (onChange != null) {
+      onChange!(selectedItem!);
+    }
+    if (onSaved != null) {
+      onSaved!(selectedItem!);
+    }
+  }
+}
+/*
+* Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: OutlinedButton(
@@ -160,18 +191,5 @@ class _SelectableWidget extends StatelessWidget {
                       ),
                       onPressed: () => changeChoose(selectableWidgetItem)),
                 ),
-              ),
-            )
-            .toList());
-  }
-
-  changeChoose(SelectableWidgetItem choose) {
-    selectedItem = choose;
-    if (onChange != null) {
-      onChange!(selectedItem!);
-    }
-    if (onSaved != null) {
-      onSaved!(selectedItem!);
-    }
-  }
-}
+              )
+* */

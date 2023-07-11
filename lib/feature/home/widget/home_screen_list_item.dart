@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
-import 'package:split/feature/widgets/custom_text.dart';
+import 'package:split/feature/widgets/app_text_widget.dart';
 import 'package:split/res/app_colors.dart';
 
 // ignore: must_be_immutable
@@ -21,6 +21,7 @@ class HomeScreenListItem extends BaseStatelessWidget {
   Widget baseBuild(BuildContext context) {
     return Center(
       child: Card(
+          margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
           elevation: 3,
           color: selected
               ? AppColors.homeScreenTypeListCardSelected
@@ -31,7 +32,7 @@ class HomeScreenListItem extends BaseStatelessWidget {
               ? Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-                  child: CustomText(
+                  child: AppTextWidget(
                     alignment: AlignmentDirectional.center,
                     boxFit: BoxFit.scaleDown,
                     text: text,
@@ -45,16 +46,15 @@ class HomeScreenListItem extends BaseStatelessWidget {
               : Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: Icon(icon,
-                              color: selected
-                                  ? AppColors.homeScreenTypeListIconsSelected
-                                  : AppColors
-                                      .homeScreenTypeListIconsUnSelected)),
-                      Expanded(
-                        child: CustomText(
+                  child: SizedBox(
+                    child: Row(
+                      children: [
+                        Icon(icon,
+                            color: selected
+                                ? AppColors.homeScreenTypeListIconsSelected
+                                : AppColors.homeScreenTypeListIconsUnSelected),
+                        SizedBox(width: 5.w),
+                        AppTextWidget(
                           alignment: AlignmentDirectional.center,
                           boxFit: BoxFit.scaleDown,
                           text: text,
@@ -63,9 +63,9 @@ class HomeScreenListItem extends BaseStatelessWidget {
                                   fontWeight: FontWeight.w600, fontSize: 16)
                               : textTheme.bodySmall!.copyWith(
                                   fontWeight: FontWeight.w600, fontSize: 16),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 )),
     );

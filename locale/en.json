@@ -59,13 +59,15 @@
   "percentage": "Percentage",
   "type_of_split": "Type of split",
   "currency": "Currency",
-  "dollar": "Dollar",
+  "dollar": "$ Dollar ",
   "pound": "Pound",
   "get_started": "Get Started",
   "description": "Description",
   "create": "Create",
   "cancel": "Cancel",
+  "write_description": "write description ",
 
-  "write_description": "write description "
+
+  "add_photo": "Add Photo"
 
 }

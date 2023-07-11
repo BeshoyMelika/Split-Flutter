@@ -55,15 +55,15 @@ class TextFormFieldCustom extends BaseStatelessWidget {
 
   InputDecoration inputDecorationForTextFormFields(String hintTxt) {
     return InputDecoration(
-      errorBorder: OutlineInputBorder(
-        borderSide: const BorderSide(
-            color: AppColors.homeScreenTextFormFieldErrorBorder),
-        borderRadius: BorderRadius.circular(15.r),
+      errorBorder: const OutlineInputBorder(
+        borderSide:
+            BorderSide(color: AppColors.homeScreenTextFormFieldErrorBorder),
+        // borderRadius: BorderRadius.circular(15.r),
       ),
-      focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(
-            color: AppColors.homeScreenTextFormFieldFocusBorder),
-        borderRadius: BorderRadius.circular(15.r),
+      focusedBorder: const OutlineInputBorder(
+        borderSide:
+            BorderSide(color: AppColors.homeScreenTextFormFieldFocusBorder),
+        //borderRadius: BorderRadius.circular(15.r),
       ),
       contentPadding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
       errorStyle: const TextStyle(
@@ -76,14 +76,14 @@ class TextFormFieldCustom extends BaseStatelessWidget {
           fontWeight: FontWeight.w600),
       fillColor: AppColors.homeScreenTextFormFieldFilled,
       filled: true,
-      enabledBorder: OutlineInputBorder(
-          borderSide:
-              const BorderSide(color: AppColors.homeScreenTextFormFieldFilled),
-          borderRadius: BorderRadius.circular(15.r)),
-      focusedErrorBorder: OutlineInputBorder(
-        borderSide: const BorderSide(
+      enabledBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: AppColors.homeScreenTextFormFieldFilled),
+        //  borderRadius: BorderRadius.circular(15.r),
+      ),
+      focusedErrorBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
             color: AppColors.homeScreenTextFormFieldErrorBorder, width: 1.5),
-        borderRadius: BorderRadius.circular(15.r),
+        //  borderRadius: BorderRadius.circular(15.r),
       ),
     );
   }

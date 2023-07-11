@@ -58,13 +58,14 @@
   "percentage": "نسبة مئوية",
   "type_of_split": "نوع الانقسام",
   "currency": "عملة",
-  "dollar": "دولار",
+  "dollar": "$ دولار",
   "pound": "جنية",
   "get_started": "البدء",
   "description": "وصف",
   "create": "انشاء",
   "cancel": "الغاء",
+  "write_description": "اكتب الوصف",
 
-  "write_description": "اكتب الوصف"
+  "add_photo": "اضافة صورة"
 
 }

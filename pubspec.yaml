@@ -53,11 +53,11 @@ dependencies:
   intl: ^0.18.0
   #pick images from phone
   image_picker: ^0.8.9
-  #drop down menu
-  #dropdown_button2: ^2.1.0
+#  drop down menu
+  dropdown_button2: ^2.1.0
   #indicating current pageView
   smooth_page_indicator: ^1.1.0
-  #dotted border
+  #give a dotted border
   dotted_border: ^2.0.0+3
 
 

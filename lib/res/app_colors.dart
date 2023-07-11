@@ -137,6 +137,7 @@ class AppColors {
   static const homeScreenAddPhotoBorder = _alto;
   static const homeScreenButton = _cloudBurst;
   static const homeScreenTypeListCardUnSelected = _white;
+  static const homeScreenGenderPickerDropDownMenu = _white;
   static const homeScreenCancelButton = _alto;
 
   /// onboarding screen

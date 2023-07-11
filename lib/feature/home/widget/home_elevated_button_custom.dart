@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
-import 'package:split/feature/widgets/custom_text.dart';
+import 'package:split/feature/widgets/app_text_widget.dart';
 import 'package:split/res/app_colors.dart';
 
 // ignore: must_be_immutable
@@ -11,6 +11,7 @@ class HomeElevatedButtonCustom extends BaseStatelessWidget {
       required this.onPressed,
       this.buttonColor,
       this.icon,
+      this.textStyle,
       required this.buttonHeight,
       this.buttonWidth,
       required this.alignment,
@@ -21,6 +22,7 @@ class HomeElevatedButtonCustom extends BaseStatelessWidget {
     required this.icon,
     required this.buttonHeight,
     this.buttonWidth,
+    this.textStyle,
     required this.onPressed,
     this.buttonColor,
     required this.alignment,
@@ -28,6 +30,7 @@ class HomeElevatedButtonCustom extends BaseStatelessWidget {
   });
   final IconData? icon;
   final String text;
+  final TextStyle? textStyle;
   final double buttonHeight;
   final double? buttonWidth;
   final VoidCallback onPressed;
@@ -52,12 +55,13 @@ class HomeElevatedButtonCustom extends BaseStatelessWidget {
               debugPrint("button pressed");
             },
             child: icon == null
-                ? CustomText(
+                ? AppTextWidget(
                     alignment: AlignmentDirectional.center,
                     boxFit: BoxFit.scaleDown,
                     text: text,
-                    style: textTheme.titleLarge!
-                        .copyWith(fontWeight: FontWeight.w600, fontSize: 16))
+                    style: textStyle ??
+                        textTheme.titleLarge!.copyWith(
+                            fontWeight: FontWeight.w600, fontSize: 16))
                 : Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
@@ -65,7 +69,7 @@ class HomeElevatedButtonCustom extends BaseStatelessWidget {
                       children: [
                         Expanded(child: Icon(icon)),
                         Expanded(
-                          child: CustomText(
+                          child: AppTextWidget(
                             alignment: AlignmentDirectional.center,
                             boxFit: BoxFit.scaleDown,
                             text: text,

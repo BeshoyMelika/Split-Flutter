@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class CustomText extends StatelessWidget {
-  const CustomText(
-      {Key? key,
-      required this.text,
-      required this.boxFit,
-      required this.alignment,
-      required this.style})
-      : super(key: key);
+class AppTextWidget extends StatelessWidget {
   final String text;
   final BoxFit boxFit;
   final AlignmentGeometry alignment;
-  final TextStyle style;
+  final TextStyle? style;
+  const AppTextWidget(
+      {Key? key,
+      required this.text,
+      this.boxFit = BoxFit.scaleDown,
+      this.alignment = AlignmentDirectional.center,
+      this.style})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return FittedBox(

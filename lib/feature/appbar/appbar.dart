@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
-import 'package:split/feature/widgets/custom_text.dart';
+import 'package:split/feature/widgets/app_text_widget.dart';
 import 'package:split/res/app_colors.dart';
 
 // ignore: must_be_immutable
@@ -18,7 +18,7 @@ class AppBarWidget extends BaseStatelessWidget {
               bottomLeft: Radius.circular(10.r),
               bottomRight: Radius.circular(10.r))),
       leading: _backArrow(),
-      title: CustomText(
+      title: AppTextWidget(
           text: title,
           boxFit: BoxFit.scaleDown,
           alignment: Alignment.center,

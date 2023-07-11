@@ -73,4 +73,5 @@ class LocalizationKeys {
   static const create = "create";
   static const cancel = "cancel";
   static const writeDescription = "write_description";
+  static const addPhoto = "add_photo";
 }
