@@ -44,6 +44,7 @@
   "language_value": "En",
   "no_internet_connection": "لا يوجد اتصال بالإنترنت",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "connection_restored": "تمت استعادة الاتصال",
   "calculate_all_of_your_expenses_in_one_place": "احسب كل ما تبذلونه من المصروفات في مكان واحد",
   "a_platform_to_manage_your_finances_with_anyone_easily": "منصة مصممة لإدارة أموالك مع أي شخص بسهولة",
@@ -69,6 +70,9 @@
 
   "add_photo": "اضافة صورة"
 
+=======
+  "connection_restored": "تمت استعادة الاتصال"
+>>>>>>> origin/development
 =======
   "connection_restored": "تمت استعادة الاتصال"
 >>>>>>> origin/development

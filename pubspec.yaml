@@ -93,8 +93,13 @@ flutter:
     - locale/en.json
     - locale/ar.json
 <<<<<<< HEAD
+<<<<<<< HEAD
     - assets/home_screen/
     - assets/onboarding/
+=======
+    # Images Folder
+    - assets/images/
+>>>>>>> origin/development
 =======
     # Images Folder
     - assets/images/
