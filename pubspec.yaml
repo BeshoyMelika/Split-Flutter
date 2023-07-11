@@ -92,8 +92,13 @@ flutter:
     # Localization json files
     - locale/en.json
     - locale/ar.json
+<<<<<<< HEAD
     - assets/home_screen/
     - assets/onboarding/
+=======
+    # Images Folder
+    - assets/images/
+>>>>>>> origin/development
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

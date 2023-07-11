@@ -19,4 +19,6 @@ class AppAssetPaths {
 
   static const addPhoto = "assets/home_screen/add_photo.svg";
   static const shapes = "assets/onboarding/shapes.png";
+  static const splashScreenBackground =
+      "assets/images/splash_screen_background.png";
 }
