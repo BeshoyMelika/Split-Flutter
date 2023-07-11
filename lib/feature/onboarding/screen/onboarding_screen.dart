@@ -54,7 +54,7 @@ class _OnBoardingScreenState extends BaseScreenState<OnBoardingScreen> {
               fit: BoxFit.cover,
             ),
           ),
-          child: Column(
+          child: Stack(
             children: [
               SizedBox(height: 26.h),
               Expanded(

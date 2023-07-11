@@ -271,6 +271,9 @@ class _HomeScreenWithBlocState extends BaseScreenState<HomeScreenWithBloc> {
         ],
       );
 
+  /// //////////////////////////////////////////////////////////////////
+  /// //////////////////////Helper Methods /////////////////////////////
+  /// //////////////////////////////////////////////////////////////////
   void _onCreatePressed() {
     BlocProvider.of<HomeScreenBloc>(context)
         .add(ValidateFormFieldsEvent(globalKey: _globalKey));

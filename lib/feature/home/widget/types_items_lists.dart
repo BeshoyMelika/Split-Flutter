@@ -159,37 +159,3 @@ class _SelectableWidget extends StatelessWidget {
     }
   }
 }
-/*
-* Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: OutlinedButton(
-                      style: ButtonStyle(
-                          backgroundColor: (selectedItem ==
-                                  selectableWidgetItem)
-                              ? MaterialStateProperty.all<Color>(
-                                  AppColors.selectableFormFieldBackground)
-                              : MaterialStateProperty.all<Color>(
-                                  AppColors.unSelectableFormFieldBackground),
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                              const EdgeInsets.all(18)),
-                          side: MaterialStateProperty.all<BorderSide>(
-                              BorderSide.none),
-                          shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5.0)))),
-                      child: Text(
-                        selectableWidgetItem.value,
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelMedium
-                            ?.copyWith(
-                                color: (selectedItem == selectableWidgetItem)
-                                    ? AppColors.selectableFormFieldText
-                                    : AppColors.unSelectableFormFieldText),
-                      ),
-                      onPressed: () => changeChoose(selectableWidgetItem)),
-                ),
-              )
-* */
