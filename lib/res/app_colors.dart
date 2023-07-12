@@ -41,8 +41,8 @@ class AppColors {
 
   /// app main theme ...
 
-  static const colorSchemeSeed = _blueRibbon;
-  static const colorPrimary = _blueRibbon;
+  static const colorSchemeSeed = _silver;
+  static const colorPrimary = _alto;
   static const focus = _blueRibbon;
   static const appBarTextColor = _white;
   static const statusBar = _blueZodiac;
@@ -53,7 +53,7 @@ class AppColors {
   static const iconTheme = _blueZodiac;
   static const appBarIcon = _white;
   static const titleMedium = _blueRibbon;
-  static const headlineMedium = _blueZodiac;
+  static const headlineMedium = _silver;
   static const bodyMedium = _blueZodiac;
   static const labelLarge = _thunder;
   static const labelMedium = _mineShaft;
@@ -122,6 +122,8 @@ class AppColors {
   /// groups manger
 
   static const emptyGroupButton = _cloudBurst;
+
+  static const emptyGroupIconButton = _white;
   static const scaffoldBackground = _alabaster;
   static const unSelectedNavBarIcon = _silver;
   static const selectedNavBarIcon = _alto;
@@ -135,4 +137,5 @@ class AppColors {
   static const groupItemText = _silver;
   static const groupItemPinedIcon = _alto;
   static const groupItemColor = _white;
+  static const groupMainText = _silver;
 }

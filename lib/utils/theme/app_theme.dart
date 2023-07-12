@@ -68,7 +68,7 @@ class AppTheme {
   TextTheme get txtThemeLight => _textTheme.copyWith(
         headlineMedium: _textTheme.headlineMedium?.copyWith(
           color: AppColors.headlineMedium,
-          fontSize: 22,
+          fontSize: 20,
         ),
         bodyMedium: _textTheme.bodyMedium?.copyWith(
           color: AppColors.bodyMedium,

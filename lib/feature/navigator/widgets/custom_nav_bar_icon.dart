@@ -30,14 +30,14 @@ class BottomNavigationBarCustomIconWidget extends BaseStatelessWidget {
   final List<IconData> _iconList = const [
     Icons.people_alt_outlined,
     Icons.person,
-    AppIcons.activity,
+    AppIcons.activityIcon,
     Icons.account_circle_sharp
   ];
 
   @override
   Widget baseBuild(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(5.sp),
+      padding: EdgeInsets.symmetric(horizontal: 5.sp),
       child: Column(
         children: [
           Expanded(

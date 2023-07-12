@@ -37,19 +37,16 @@ class GroupsMangerBloc extends Bloc<GroupsMangerEvent, GroupsMangerState> {
     // Add more items here
   ];
   GroupsMangerBloc() : super(GroupsMangerInitial()) {
-    on<GroupsMangerEvent>((event, emit) {});
-
-    on<PinItemSwitcherEvent>(_onPinItemEventFired);
+    on<PinItemSwitcherEvent>(_onPinItemSwitcherEvent);
     // this is a temporary event to stater the block only
     // this will change wile fixing bug of hot start
     on<StartBlocEvent>(_onStartBlocEvent);
-    // on<AddItemEvent>(_onPinItemEventFired);
   }
 
   // GroupsMangerState get getInitial =>
   //     AllGroupsListItemsLoaded(allGroupsList, quickAccessGroupsList);
 
-  FutureOr<void> _onPinItemEventFired(
+  FutureOr<void> _onPinItemSwitcherEvent(
       PinItemSwitcherEvent event, Emitter<GroupsMangerState> emit) {
     // if (event.index >= 0 && event.index < allGroupsList.length) {
     GroupItemDate groupItemDate = allGroupsList[event.index];
@@ -69,9 +66,6 @@ class GroupsMangerBloc extends Bloc<GroupsMangerEvent, GroupsMangerState> {
       //}
     }
   }
-
-  void _onAddItemEventFired(
-      AddItemEvent event, Emitter<GroupsMangerState> emit) {}
 
   void _onStartBlocEvent(
       StartBlocEvent event, Emitter<GroupsMangerState> emit) {

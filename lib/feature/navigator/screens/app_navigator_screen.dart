@@ -46,33 +46,29 @@ class AppNavScreenBlocProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      //
-
-      // backgroundColor: AppColors.scaffoldBackground,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.red,
-      // ),
-      //body
-      body: IndexedStack(
-        index: currentScreen,
-        children: bottomNavScreen,
-      ),
-
-      //fab
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        margin: const EdgeInsets.only(bottom: 10),
-        child: FloatingActionButton(
-          elevation: 0,
-          onPressed: () {},
-          backgroundColor: AppColors.floatingactionButtonLightMode,
-          child: const Icon(AppIcons.page),
+    return SafeArea(
+      child: Scaffold(
+        //
+        body: IndexedStack(
+          index: currentScreen,
+          children: bottomNavScreen,
         ),
-      ),
 
-      // bottomNavBar
-      bottomNavigationBar: CustomNavBar(),
+        //fab
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Container(
+          margin: const EdgeInsets.all(3),
+          child: FloatingActionButton(
+            elevation: 0,
+            onPressed: () {},
+            backgroundColor: AppColors.floatingactionButtonLightMode,
+            child: const Center(child: Icon(AppIcons.page)),
+          ),
+        ),
+
+        // bottomNavBar
+        bottomNavigationBar: CustomNavBar(),
+      ),
     );
   }
 }

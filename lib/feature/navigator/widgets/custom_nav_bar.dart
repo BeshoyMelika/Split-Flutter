@@ -22,33 +22,42 @@ class CustomNavBar extends BaseStatelessWidget {
       child: SizedBox(
         height: 50,
         child: BlocBuilder<NavigatorBloc, NavigatorBlocSates>(
-          builder: (context, state) {
-            if (state is NavigateToGroupScreenState) {
+          buildWhen: (previous, current) {
+            if (current is NavigateToGroupScreenState) {
               currentScreen = 0;
-            } else if (state is NavigateToFriendsScreenState) {
+            } else if (current is NavigateToFriendsScreenState) {
               currentScreen = 1;
-            } else if (state is NavigateToActivityScreenState) {
+            } else if (current is NavigateToFriendsScreenState) {
+              currentScreen = 1;
+            } else if (current is NavigateToActivityScreenState) {
               currentScreen = 2;
-            } else if (state is NavigateToProfileScreenState) {
+            } else if (current is NavigateToProfileScreenState) {
               currentScreen = 3;
             }
+            return true;
+          },
+          builder: (context, state) {
             return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+              padding: EdgeInsets.symmetric(horizontal: 8.w),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   /// Group Icon
-                  _navigationIconWidget(
-                      LocalizationKeys.groups, 0, currentScreen, context),
+                  _navigationIconWidget(translate(LocalizationKeys.groups)!, 0,
+                      currentScreen, context),
 
                   /// friends Icon
-                  _navigationIconWidget(
-                      LocalizationKeys.friends, 1, currentScreen, context),
-                  _navigationIconWidget(
-                      LocalizationKeys.activity, 2, currentScreen, context),
-                  _navigationIconWidget(
-                      LocalizationKeys.account, 3, currentScreen, context)
+                  _navigationIconWidget(translate(LocalizationKeys.friends)!, 1,
+                      currentScreen, context),
+
+                  ///  activity
+                  _navigationIconWidget(translate(LocalizationKeys.activity)!,
+                      2, currentScreen, context),
+
+                  // account
+                  _navigationIconWidget(translate(LocalizationKeys.account)!, 3,
+                      currentScreen, context)
                 ],
               ),
             );

@@ -4,11 +4,12 @@ import 'package:split/core/widgets/base_stateless_widget.dart';
 import 'package:split/res/app_colors.dart';
 
 // ignore: must_be_immutable
-class GlobalAppBar extends BaseStatelessWidget implements PreferredSizeWidget {
-  GlobalAppBar({required this.title, Key? key, required this.emptyGroupList})
+class GroupsAppBar extends BaseStatelessWidget implements PreferredSizeWidget {
+  GroupsAppBar(
+      {required this.titleLocalizationsKey, Key? key, required this.showAction})
       : super(key: key);
-  final String title;
-  final bool emptyGroupList;
+  final String titleLocalizationsKey;
+  final bool showAction;
   @override
   Widget baseBuild(BuildContext context) {
     return AppBar(
@@ -18,7 +19,7 @@ class GlobalAppBar extends BaseStatelessWidget implements PreferredSizeWidget {
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(10.r),
               bottomRight: Radius.circular(10.r))),
-      actions: emptyGroupList == false
+      actions: showAction == false
           ? const [
               IconButton(
                   onPressed: null,
@@ -38,12 +39,15 @@ class GlobalAppBar extends BaseStatelessWidget implements PreferredSizeWidget {
                   ))
             ]
           : null,
-      title: Text(translate(title) ?? title,
-          //  textAlign:  Alignment.center,
-          style: textTheme.titleLarge!.copyWith(
-              fontWeight: FontWeight.w700,
-              fontSize: 20,
-              color: AppColors.appBarTextColor)),
+      title: Padding(
+        padding: EdgeInsets.only(top: 20.h),
+        child: Text(translate(titleLocalizationsKey)!,
+            //  textAlign:  Alignment.center,
+            style: textTheme.titleLarge!.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: 20,
+                color: AppColors.appBarTextColor)),
+      ),
     );
   }
 

@@ -72,7 +72,8 @@ flutter:
   fonts:
     - family: GroupsFontIcon
       fonts:
-        - asset: assets/groups_font_icons/GroupsFontIcon.ttf
+        - asset: assets/groups_font_icons/groups_font_icon.ttf
+        
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

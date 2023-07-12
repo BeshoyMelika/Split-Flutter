@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
-import 'package:split/feature/global_app_widgets/global_app_bar.dart';
+import 'package:split/feature/groups/widgets/groups_app_bar.dart';
 import 'package:split/feature/groups/bloc/groups_manger_bloc.dart';
 import 'package:split/feature/groups/models/group_item_data.dart';
 import 'package:split/feature/groups/widgets/group_item.dart';
@@ -27,12 +27,9 @@ class GroupsMangerScreen extends BaseStatelessWidget {
         builder: (context, state) {
           if (state is AllGroupsListLoadedState) {
             return Scaffold(
-                appBar: GlobalAppBar(
-                    title: LocalizationKeys.groups, emptyGroupList: false),
-                //
-                // floatingActionButtonLocation:
-                //     FloatingActionButtonLocation.centerDocked,
-                //
+                appBar: GroupsAppBar(
+                    titleLocalizationsKey: LocalizationKeys.groups,
+                    showAction: false),
                 body: Container(
                   padding: EdgeInsets.fromLTRB(25.w, 10, 15.w, 0),
                   height: double.infinity,
@@ -111,44 +108,47 @@ class GroupsMangerScreen extends BaseStatelessWidget {
   /// ////////////////////////////////////////////////////////
   Widget emptyScreen(BuildContext context) {
     return Scaffold(
-      appBar:
-          GlobalAppBar(emptyGroupList: true, title: LocalizationKeys.groups),
+      appBar: GroupsAppBar(
+          showAction: true, titleLocalizationsKey: LocalizationKeys.groups),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 100.h),
+            SizedBox(height: 150.h),
             SvgPicture.asset(
               AppAssetPaths.emptyGroupBackground,
               height: 242,
               width: 200,
             ),
-            SizedBox(height: 20.h),
-            Text(translate(LocalizationKeys.youDonNotHaveAnyGroupStatement)!),
+            SizedBox(height: 30.h),
+            Text(translate(LocalizationKeys.youDonNotHaveAnyGroupStatement)!,
+                style: textTheme.headlineMedium),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 70),
-                child: Text(translate(LocalizationKeys.createGroupNow)!)),
+                child: Text(translate(LocalizationKeys.createGroupNow)!,
+                    style: textTheme.headlineMedium)),
             SizedBox(height: 30.h),
             GestureDetector(
                 onTap: () => currentBloc(context).add(StartBlocEvent()),
                 child: Container(
                     height: 50,
-                    margin: const EdgeInsets.symmetric(horizontal: 50),
+                    margin: const EdgeInsets.symmetric(horizontal: 120),
                     decoration: const BoxDecoration(
                         color: AppColors.emptyGroupButton,
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        const Icon(
+                          Icons.person_add_alt,
+                          color: AppColors.appBarIcon,
+                        ),
+                        const SizedBox(width: 15),
                         Text(
                           translate(LocalizationKeys.createNewGroup)!,
                           style: textTheme.titleMedium!
-                              .copyWith(color: Colors.white),
+                              .copyWith(color: AppColors.emptyGroupIconButton),
                         ),
-                        const Icon(
-                          Icons.person_add,
-                          color: AppColors.appBarIcon,
-                        )
                       ],
                     ))),
           ],
