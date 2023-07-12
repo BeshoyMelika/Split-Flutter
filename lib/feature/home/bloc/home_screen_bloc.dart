@@ -15,17 +15,24 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
   FutureOr<void> _validateFormFieldsEvent(
       ValidateFormFieldsEvent event, Emitter<HomeScreenState> emit) {
-    if (event.globalKey.currentState!.validate()) {
+    if (event.formKey.currentState!.validate()) {
+      event.formKey.currentState!.save();
       emit(ValidationDoneSuccessfullyHomeScreenState());
     } else {
-      emit(UnValidHomeScreenState());
+      emit(NotValidHomeScreenState());
     }
   }
 
   FutureOr<void> _createNewGroupEvent(
       CreateNewGroupEvent event, Emitter<HomeScreenState> emit) async {
-    emit(WaitingHomeScreenState());
-    await Future.delayed(const Duration(seconds: 2));
+    emit(LoadingHomeScreenState());
+    await Future.delayed(const Duration(seconds: 3));
+    debugPrint(event.newGroup.groupName);
+    debugPrint(event.newGroup.discription);
+    debugPrint(event.newGroup.type);
+    debugPrint(event.newGroup.typeOfSplit);
+    debugPrint(event.newGroup.image);
+    debugPrint(event.newGroup.currency);
     emit(NewGroupCreatedSuccessfullyState());
   }
 }

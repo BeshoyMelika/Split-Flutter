@@ -19,7 +19,7 @@ class PickedImageWidgetItem extends Equatable {
   List<Object?> get props => [value];
 }
 
-class ImagePickerWidget extends FormField<PickedImageWidgetItem> {
+class ImagePickerFormFieldWidget extends FormField<PickedImageWidgetItem> {
   /// Creates a [Select Gender Widget] widget that is a [FormField], wrapped in an
   /// [InputDecorator].
   ///
@@ -29,7 +29,7 @@ class ImagePickerWidget extends FormField<PickedImageWidgetItem> {
   final ValueChanged<PickedImageWidgetItem?>? onChanged;
   final PickedImageWidgetItem items;
 
-  ImagePickerWidget({
+  ImagePickerFormFieldWidget({
     Key? key,
     PickedImageWidgetItem? value,
     AutovalidateMode? autovalidateMode,
@@ -48,8 +48,8 @@ class ImagePickerWidget extends FormField<PickedImageWidgetItem> {
           validator: validator,
           autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
           builder: (FormFieldState<PickedImageWidgetItem> field) {
-            final _SelectableFormFieldState state =
-                field as _SelectableFormFieldState;
+            final _ImagePickerFormFieldState state =
+                field as _ImagePickerFormFieldState;
             const InputDecoration decorationArg = InputDecoration();
             final InputDecoration effectiveDecoration =
                 decorationArg.applyDefaults(
@@ -71,7 +71,7 @@ class ImagePickerWidget extends FormField<PickedImageWidgetItem> {
                   ),
                   isEmpty: state.value == null,
                   isFocused: Focus.of(context).hasFocus,
-                  child: _SelectableWidget(
+                  child: ImagePickerWidget(
                     initialValue: state.value,
                     onSaved: onSaved,
                     onChange: state.didChange,
@@ -85,21 +85,21 @@ class ImagePickerWidget extends FormField<PickedImageWidgetItem> {
 
   @override
   FormFieldState<PickedImageWidgetItem> createState() =>
-      _SelectableFormFieldState();
+      _ImagePickerFormFieldState();
 }
 
-class _SelectableFormFieldState extends FormFieldState<PickedImageWidgetItem> {
+class _ImagePickerFormFieldState extends FormFieldState<PickedImageWidgetItem> {
   @override
   void didChange(PickedImageWidgetItem? value) {
     super.didChange(value);
-    final ImagePickerWidget dropdownButtonFormField = widget;
+    final ImagePickerFormFieldWidget dropdownButtonFormField = widget;
     if (dropdownButtonFormField.onChanged != null) {
       dropdownButtonFormField.onChanged!(value);
     }
   }
 
   @override
-  void didUpdateWidget(ImagePickerWidget oldWidget) {
+  void didUpdateWidget(ImagePickerFormFieldWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.initialValue != widget.initialValue) {
       setValue(widget.initialValue);
@@ -107,11 +107,12 @@ class _SelectableFormFieldState extends FormFieldState<PickedImageWidgetItem> {
   }
 
   @override
-  ImagePickerWidget get widget => super.widget as ImagePickerWidget;
+  ImagePickerFormFieldWidget get widget =>
+      super.widget as ImagePickerFormFieldWidget;
 }
 
 // ignore: must_be_immutable
-class _SelectableWidget extends BaseStatelessWidget {
+class ImagePickerWidget extends BaseStatelessWidget {
   final void Function(PickedImageWidgetItem?)? onChange;
   final void Function(PickedImageWidgetItem?)? onSaved;
   final PickedImageWidgetItem item;
@@ -119,7 +120,7 @@ class _SelectableWidget extends BaseStatelessWidget {
 
   PickedImageWidgetItem? selectedItem;
 
-  _SelectableWidget(
+  ImagePickerWidget(
       {Key? key,
       required this.item,
       this.onChange,
@@ -132,12 +133,7 @@ class _SelectableWidget extends BaseStatelessWidget {
   Widget baseBuild(BuildContext context) {
     return InkWell(
       onTap: () async {
-        String? hold = await _pickImage();
-        if (hold != null) {
-          PickedImageWidgetItem selectableWidgetItem =
-              PickedImageWidgetItem(value: hold);
-          changeChoose(selectableWidgetItem);
-        }
+        await _onDefaultImageTapped();
       },
       child: Align(
         alignment: AlignmentDirectional.centerStart,
@@ -234,6 +230,15 @@ class _SelectableWidget extends BaseStatelessWidget {
       return pickedImage.path;
     } else {
       return null;
+    }
+  }
+
+  Future<void> _onDefaultImageTapped() async {
+    String? hold = await _pickImage();
+    if (hold != null) {
+      PickedImageWidgetItem selectableWidgetItem =
+          PickedImageWidgetItem(value: hold);
+      changeChoose(selectableWidgetItem);
     }
   }
 }

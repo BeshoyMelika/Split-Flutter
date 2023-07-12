@@ -8,14 +8,17 @@ class HomeScreenInitial extends HomeScreenState {
   List<Object?> get props => [];
 }
 
-class WaitingHomeScreenState extends HomeScreenState {
+class LoadingHomeScreenState extends HomeScreenState {
   @override
   List<Object?> get props => [];
 }
 
 class ErrorCaughtHomeScreenState extends HomeScreenState {
+  final String errorMessage;
+
+  ErrorCaughtHomeScreenState({required this.errorMessage});
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [errorMessage];
 }
 
 class ValidationDoneSuccessfullyHomeScreenState extends HomeScreenState {
@@ -23,7 +26,7 @@ class ValidationDoneSuccessfullyHomeScreenState extends HomeScreenState {
   List<Object?> get props => [];
 }
 
-class UnValidHomeScreenState extends HomeScreenState {
+class NotValidHomeScreenState extends HomeScreenState {
   @override
   List<Object?> get props => [];
 }

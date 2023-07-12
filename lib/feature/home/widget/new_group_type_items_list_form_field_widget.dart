@@ -2,11 +2,11 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:split/feature/home/widget/home_screen_list_item.dart';
 
-class SelectableWidgetItem extends Equatable {
+class NewGroupTypeItem extends Equatable {
   final String value;
   final String key;
   final IconData? icon;
-  const SelectableWidgetItem({
+  const NewGroupTypeItem({
     required this.value,
     this.icon,
     required this.key,
@@ -16,27 +16,27 @@ class SelectableWidgetItem extends Equatable {
   List<Object?> get props => [value, key];
 }
 
-class TypesItemsList extends FormField<SelectableWidgetItem> {
+class NewGroupTypeItemsListFormFieldWidget extends FormField<NewGroupTypeItem> {
   /// Creates a [Select Gender Widget] widget that is a [FormField], wrapped in an
   /// [InputDecorator].
   ///
   /// For a description of the `onSaved`, `validator`, or `autovalidateMode`
   /// parameters, see [FormField].
   ///
-  final ValueChanged<SelectableWidgetItem?>? onChanged;
-  final List<SelectableWidgetItem> items;
+  final ValueChanged<NewGroupTypeItem?>? onChanged;
+  final List<NewGroupTypeItem> items;
 
-  TypesItemsList({
+  NewGroupTypeItemsListFormFieldWidget({
     Key? key,
-    SelectableWidgetItem? value,
+    NewGroupTypeItem? value,
     AutovalidateMode? autovalidateMode,
     FocusNode? focusNode,
     bool enabled = true,
     bool? autoFocus = false,
-    FormFieldSetter<SelectableWidgetItem>? onSaved,
+    FormFieldSetter<NewGroupTypeItem>? onSaved,
     this.onChanged,
     required this.items,
-    required FormFieldValidator<SelectableWidgetItem> validator,
+    required FormFieldValidator<NewGroupTypeItem> validator,
   })  : assert(autoFocus != null),
         super(
           key: key,
@@ -44,9 +44,9 @@ class TypesItemsList extends FormField<SelectableWidgetItem> {
           initialValue: value,
           validator: validator,
           autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
-          builder: (FormFieldState<SelectableWidgetItem> field) {
-            final _SelectableFormFieldState state =
-                field as _SelectableFormFieldState;
+          builder: (FormFieldState<NewGroupTypeItem> field) {
+            final _NewGroupTypeFormFieldState state =
+                field as _NewGroupTypeFormFieldState;
             const InputDecoration decorationArg = InputDecoration();
             final InputDecoration effectiveDecoration =
                 decorationArg.applyDefaults(
@@ -68,7 +68,7 @@ class TypesItemsList extends FormField<SelectableWidgetItem> {
                   ),
                   isEmpty: state.value == null,
                   isFocused: Focus.of(context).hasFocus,
-                  child: _SelectableWidget(
+                  child: _NewGoupItemsListWidget(
                     initialValue: state.value,
                     onSaved: onSaved,
                     onChange: state.didChange,
@@ -81,22 +81,22 @@ class TypesItemsList extends FormField<SelectableWidgetItem> {
         );
 
   @override
-  FormFieldState<SelectableWidgetItem> createState() =>
-      _SelectableFormFieldState();
+  FormFieldState<NewGroupTypeItem> createState() =>
+      _NewGroupTypeFormFieldState();
 }
 
-class _SelectableFormFieldState extends FormFieldState<SelectableWidgetItem> {
+class _NewGroupTypeFormFieldState extends FormFieldState<NewGroupTypeItem> {
   @override
-  void didChange(SelectableWidgetItem? value) {
+  void didChange(NewGroupTypeItem? value) {
     super.didChange(value);
-    final TypesItemsList dropdownButtonFormField = widget;
+    final NewGroupTypeItemsListFormFieldWidget dropdownButtonFormField = widget;
     if (dropdownButtonFormField.onChanged != null) {
       dropdownButtonFormField.onChanged!(value);
     }
   }
 
   @override
-  void didUpdateWidget(TypesItemsList oldWidget) {
+  void didUpdateWidget(NewGroupTypeItemsListFormFieldWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.initialValue != widget.initialValue) {
       setValue(widget.initialValue);
@@ -104,19 +104,20 @@ class _SelectableFormFieldState extends FormFieldState<SelectableWidgetItem> {
   }
 
   @override
-  TypesItemsList get widget => super.widget as TypesItemsList;
+  NewGroupTypeItemsListFormFieldWidget get widget =>
+      super.widget as NewGroupTypeItemsListFormFieldWidget;
 }
 
 // ignore: must_be_immutable
-class _SelectableWidget extends StatelessWidget {
-  final void Function(SelectableWidgetItem?)? onChange;
-  final void Function(SelectableWidgetItem?)? onSaved;
-  final List<SelectableWidgetItem> items;
-  final SelectableWidgetItem? initialValue;
+class _NewGoupItemsListWidget extends StatelessWidget {
+  final void Function(NewGroupTypeItem?)? onChange;
+  final void Function(NewGroupTypeItem?)? onSaved;
+  final List<NewGroupTypeItem> items;
+  final NewGroupTypeItem? initialValue;
 
-  SelectableWidgetItem? selectedItem;
+  NewGroupTypeItem? selectedItem;
 
-  _SelectableWidget(
+  _NewGoupItemsListWidget(
       {Key? key,
       required this.items,
       this.onChange,
@@ -149,7 +150,7 @@ class _SelectableWidget extends StatelessWidget {
     );
   }
 
-  changeChoose(SelectableWidgetItem choose) {
+  changeChoose(NewGroupTypeItem choose) {
     selectedItem = choose;
     if (onChange != null) {
       onChange!(selectedItem!);

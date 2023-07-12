@@ -4,9 +4,9 @@ part of 'home_screen_bloc.dart';
 abstract class HomeScreenEvent extends Equatable {}
 
 class ValidateFormFieldsEvent extends HomeScreenEvent {
-  final GlobalKey<FormState> globalKey;
+  final GlobalKey<FormState> formKey;
 
-  ValidateFormFieldsEvent({required this.globalKey});
+  ValidateFormFieldsEvent({required this.formKey});
   @override
   List<Object?> get props => [identityHashCode(this)];
 }
@@ -16,5 +16,5 @@ class CreateNewGroupEvent extends HomeScreenEvent {
 
   CreateNewGroupEvent({required this.newGroup});
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [newGroup];
 }

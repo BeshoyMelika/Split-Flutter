@@ -4,9 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateful_screen_widget.dart';
 import 'package:split/feature/appbar/appbar.dart';
 import 'package:split/feature/home/bloc/home_screen_bloc.dart';
-import 'package:split/feature/home/widget/currency_picker_widget.dart';
-import 'package:split/feature/home/widget/image_picker_widget.dart';
-import 'package:split/feature/home/widget/types_items_lists.dart';
+import 'package:split/feature/home/helper/home_screen_helper.dart';
+import 'package:split/feature/home/widget/currency_picker_form_field_widget.dart';
+import 'package:split/feature/home/widget/image_picker_form_field_widget.dart';
+import 'package:split/feature/home/widget/new_group_type_items_list_form_field_widget.dart';
 import 'package:split/feature/home/widget/home_elevated_button_custom.dart';
 import 'package:split/feature/home/widget/text_from_field_custom.dart';
 import 'package:split/feature/widgets/app_text_widget.dart';
@@ -36,151 +37,73 @@ class HomeScreenWithBloc extends BaseStatefulScreenWidget {
 }
 
 class _HomeScreenWithBlocState extends BaseScreenState<HomeScreenWithBloc> {
-  final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
-  bool? isSelected;
-  int counter = 0;
-  FormFieldState<List<String>> state = FormFieldState<List<String>>();
-  TextEditingController groupName = TextEditingController();
-  TextEditingController description = TextEditingController();
-  List<IconData> typeListIcons = [
-    AppIcons.plane,
-    AppIcons.home,
-    AppIcons.tower,
-    AppIcons.plane
-  ];
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  HomeScreenHelper homeScreenHelper = HomeScreenHelper();
+  AutovalidateMode validationMode = AutovalidateMode.disabled;
+  GroupModel groupModel = GroupModel.groupModel;
 
-  List<String> typeListStrings = [
-    LocalizationKeys.trip,
-    LocalizationKeys.home,
-    LocalizationKeys.tower,
-    LocalizationKeys.tower,
-  ];
-  List<String> typeOfSplitListStrings = [
-    LocalizationKeys.equal,
-    LocalizationKeys.specified,
-    LocalizationKeys.percentage,
-  ];
-  final List<String> currencyListItems = [
-    LocalizationKeys.dollar,
-    LocalizationKeys.pound,
-  ];
-  bool autoValidate = false;
-  String? image;
-  GroupModel groupModel = GroupModel(
-      image: "image",
-      groupName: "groupName",
-      type: "type",
-      currency: "currency",
-      discription: "discription",
-      typeOfSplit: "typeOfSplit");
   @override
   Widget baseScreenBuild(BuildContext context) {
     return SafeArea(
         child: Scaffold(
       backgroundColor: AppColors.homeScreenBackground,
-      appBar: PreferredSize(
-          preferredSize: Size(0.0, 59.h),
-          child: AppBarWidget(
-            title: translate(LocalizationKeys.createNewGroup) ??
-                "Create New group",
-          )),
-      body: BlocBuilder<HomeScreenBloc, HomeScreenState>(
-        buildWhen: (previous, current) {
-          if (current is UnValidHomeScreenState) {
-            autoValidate = true;
-            return true;
-          } else if (current is ValidationDoneSuccessfullyHomeScreenState) {
+      appBar: AppBarWidget(title: translate(LocalizationKeys.createNewGroup)!),
+      body: BlocConsumer<HomeScreenBloc, HomeScreenState>(
+        listener: (context, state) {
+          if (state is NotValidHomeScreenState) {
+            validationMode = AutovalidateMode.always;
+          } else if (state is ValidationDoneSuccessfullyHomeScreenState) {
             _onValidationDoneSuccessfully();
-          } else if (current is WaitingHomeScreenState) {
-          } else if (current is ErrorCaughtHomeScreenState) {
-          } else if (current is NewGroupCreatedSuccessfullyState) {
+          } else if (state is LoadingHomeScreenState) {
+            _loadingHomeScreenState();
+          } else if (state is ErrorCaughtHomeScreenState) {
+            _errorCaughtHomeScreenState();
+          } else if (state is NewGroupCreatedSuccessfullyState) {
             _newGroupCreatedSuccessfully();
           }
-          return false;
         },
         builder: (context, state) {
           return Form(
-            autovalidateMode: autoValidate
-                ? AutovalidateMode.always
-                : AutovalidateMode.disabled,
-            key: _globalKey,
+            autovalidateMode: validationMode,
+            key: formKey,
             child: ListView(
               padding: EdgeInsets.symmetric(horizontal: 19.w, vertical: 25.h),
               children: [
-                ImagePickerWidget(
-                    onSaved: (pickedImageWidgetItem) {
-                      groupModel.image = pickedImageWidgetItem!.value!;
-                    },
-                    items: PickedImageWidgetItem(value: image),
-                    validator: (pickedImageWidgetItem) {
-                      if (pickedImageWidgetItem == null) {
-                        return translate(LocalizationKeys.required);
-                      }
-                      return null;
-                    }),
+                ImagePickerFormFieldWidget(
+                    onSaved: _onSaveImagePickerWidget,
+                    items: PickedImageWidgetItem(value: groupModel.image),
+                    validator: _validateImagePickerWidget),
                 SizedBox(height: 15.h),
                 _textWithAsterisk(translate(LocalizationKeys.groupName)!),
                 SizedBox(height: 8.h),
                 TextFormFieldCustom(
                     hintText: translate(LocalizationKeys.enterGroupName)!,
-                    controller: groupName,
                     textInputAction: TextInputAction.done,
                     secureText: false,
-                    textInputType: TextInputType.text),
+                    textInputType: TextInputType.text,
+                    onChange: _onChangeGroupName),
                 SizedBox(height: 15.h),
                 _textWithAsterisk(translate(LocalizationKeys.type)!),
                 SizedBox(height: 8.h),
-                TypesItemsList(
-                    onSaved: (selectableWidget) {
-                      groupModel.type = selectableWidget!.value;
-                    },
-                    items: typeListStrings
-                        .map((e) => SelectableWidgetItem(
-                            value: translate(e)!,
-                            key: e,
-                            icon: typeListIcons[typeListStrings.indexOf(e)]))
-                        .toList(),
-                    validator: (selectableWidgetItem) {
-                      if (selectableWidgetItem == null) {
-                        return translate(LocalizationKeys.required);
-                      }
-                      return null;
-                    }),
+                NewGroupTypeItemsListFormFieldWidget(
+                    onSaved: _typesItemsList,
+                    items: _getCurrentTypesItemsList(),
+                    validator: _typesItemsListValidator),
                 SizedBox(height: 15.h),
                 _textWithAsterisk(translate(LocalizationKeys.addParticipants)!),
                 _addParticipants(),
                 _textWithAsterisk(translate(LocalizationKeys.typeOfSplit)!),
-                TypesItemsList(
-                    onSaved: (selectableWidget) {
-                      groupModel.typeOfSplit = selectableWidget!.value;
-                    },
-                    items: typeOfSplitListStrings
-                        .map((e) => SelectableWidgetItem(
-                            value: translate(e)!, key: e, icon: null))
-                        .toList(),
-                    validator: (selectableWidgetItem) {
-                      if (selectableWidgetItem == null) {
-                        return translate(LocalizationKeys.required);
-                      }
-                      return null;
-                    }),
+                NewGroupTypeItemsListFormFieldWidget(
+                    onSaved: _onSaveTypeOfSplitItem,
+                    items: _getCurrentTypesOfSplitItemsList(),
+                    validator: _newGroupTypeOfSplitItemsValidator),
                 SizedBox(height: 15.h),
                 _textWithAsterisk(translate(LocalizationKeys.currency)!),
                 SizedBox(height: 8.h),
-                CurrencyPickerWidget(
-                    onSaved: (currentCurrency) {
-                      groupModel.currency = currentCurrency!.value;
-                    },
-                    items: currencyListItems
-                        .map((e) => CurrencyPickerWidgetItem(value: e, key: e))
-                        .toList(),
-                    validator: (selectableWidgetItem) {
-                      if (selectableWidgetItem == null) {
-                        return translate(LocalizationKeys.required);
-                      }
-                      return null;
-                    }),
-                //CurrencyPicker(onChanged: (value) {}),
+                CurrencyPickerFormFieldWidget(
+                    onSaved: _onSaveCurrencyPickerWidget,
+                    items: _getCurrencyPickerItemsList(),
+                    validator: _currencyPickerValidator),
                 SizedBox(height: 15.h),
                 Align(
                   alignment: AlignmentDirectional.centerStart,
@@ -193,8 +116,8 @@ class _HomeScreenWithBlocState extends BaseScreenState<HomeScreenWithBloc> {
                 ),
                 SizedBox(height: 8.h),
                 TextFormFieldCustom(
+                    onChange: _onChangeGroupDescription,
                     hintText: translate(LocalizationKeys.writeDescription)!,
-                    controller: description,
                     textInputAction: TextInputAction.done,
                     secureText: false,
                     maxLines: 6,
@@ -219,7 +142,7 @@ class _HomeScreenWithBlocState extends BaseScreenState<HomeScreenWithBloc> {
 
   Widget _addParticipants() => InkWell(
         onTap: () {
-          debugPrint("add participant Pressed");
+          _addParticipantsOnTap();
         },
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(16.w, 25.h, 0, 25.h),
@@ -264,7 +187,9 @@ class _HomeScreenWithBlocState extends BaseScreenState<HomeScreenWithBloc> {
                   textStyle: textTheme.bodySmall!
                       .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
                   text: translate(LocalizationKeys.cancel)!,
-                  onPressed: () {},
+                  onPressed: () {
+                    _onCancelPressed();
+                  },
                   buttonColor: AppColors.homeScreenCancelButton,
                   buttonHeight: 40.h,
                   alignment: AlignmentDirectional.center)),
@@ -276,18 +201,107 @@ class _HomeScreenWithBlocState extends BaseScreenState<HomeScreenWithBloc> {
   /// //////////////////////////////////////////////////////////////////
   void _onCreatePressed() {
     BlocProvider.of<HomeScreenBloc>(context)
-        .add(ValidateFormFieldsEvent(globalKey: _globalKey));
+        .add(ValidateFormFieldsEvent(formKey: formKey));
+  }
+
+  void _onCancelPressed() {
+    debugPrint("cancel Pressed");
   }
 
   void _onValidationDoneSuccessfully() {
-    groupModel.groupName = groupName.text;
-    groupModel.discription = description.text;
+    hideLoading();
     BlocProvider.of<HomeScreenBloc>(context)
         .add(CreateNewGroupEvent(newGroup: groupModel));
-    showLoading();
   }
 
   void _newGroupCreatedSuccessfully() {
     hideLoading();
+  }
+
+  /// image picker methods
+  String? _validateImagePickerWidget(pickedImageWidgetItem) {
+    if (pickedImageWidgetItem == null) {
+      return translate(LocalizationKeys.required);
+    }
+    return null;
+  }
+
+  void _onSaveImagePickerWidget(pickedImageWidgetItem) {
+    groupModel.image = pickedImageWidgetItem!.value!;
+  }
+
+  /// new group type methods
+  List<NewGroupTypeItem> _getCurrentTypesItemsList() =>
+      homeScreenHelper.typeListStrings
+          .map((e) => NewGroupTypeItem(
+              value: translate(e)!,
+              key: e,
+              icon: homeScreenHelper
+                  .typeListIcons[homeScreenHelper.typeListStrings.indexOf(e)]))
+          .toList();
+  void _typesItemsList(newGroupType) {
+    groupModel.type = newGroupType!.value;
+  }
+
+  String? _typesItemsListValidator(newGroupType) {
+    if (newGroupType == null) {
+      return translate(LocalizationKeys.required);
+    }
+    return null;
+  }
+
+  /// new group type of split methods
+  void _onSaveTypeOfSplitItem(newGroupSplitType) {
+    groupModel.typeOfSplit = newGroupSplitType!.value;
+  }
+
+  List<NewGroupTypeItem> _getCurrentTypesOfSplitItemsList() => homeScreenHelper
+      .typeOfSplitListStrings
+      .map((e) => NewGroupTypeItem(value: translate(e)!, key: e, icon: null))
+      .toList();
+
+  String? _newGroupTypeOfSplitItemsValidator(typeOfSplitItem) {
+    if (typeOfSplitItem == null) {
+      return translate(LocalizationKeys.required);
+    }
+    return null;
+  }
+
+  /// currency picker methods
+  void _onSaveCurrencyPickerWidget(currentCurrency) {
+    groupModel.currency = currentCurrency!.value;
+  }
+
+  List<CurrencyPickerWidgetItem> _getCurrencyPickerItemsList() =>
+      homeScreenHelper.currencyListItems
+          .map((e) => CurrencyPickerWidgetItem(value: e, key: e))
+          .toList();
+
+  String? _currencyPickerValidator(selectableWidgetItem) {
+    if (selectableWidgetItem == null) {
+      return translate(LocalizationKeys.required);
+    }
+    return null;
+  }
+
+  /// textFormFields methods
+  void _onChangeGroupName(String? value) {
+    groupModel.groupName = value ?? "";
+  }
+
+  void _onChangeGroupDescription(String? value) {
+    groupModel.discription = value ?? "";
+  }
+
+  void _addParticipantsOnTap() {
+    debugPrint("add participant Pressed");
+  }
+
+  void _errorCaughtHomeScreenState() {
+    hideLoading();
+  }
+
+  void _loadingHomeScreenState() {
+    showLoading();
   }
 }

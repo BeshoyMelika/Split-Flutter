@@ -19,7 +19,8 @@ class CurrencyPickerWidgetItem extends Equatable {
   List<Object?> get props => [value, key];
 }
 
-class CurrencyPickerWidget extends FormField<CurrencyPickerWidgetItem> {
+class CurrencyPickerFormFieldWidget
+    extends FormField<CurrencyPickerWidgetItem> {
   /// Creates a [Select Gender Widget] widget that is a [FormField], wrapped in an
   /// [InputDecorator].
   ///
@@ -29,7 +30,7 @@ class CurrencyPickerWidget extends FormField<CurrencyPickerWidgetItem> {
   final ValueChanged<CurrencyPickerWidgetItem?>? onChanged;
   final List<CurrencyPickerWidgetItem> items;
 
-  CurrencyPickerWidget({
+  CurrencyPickerFormFieldWidget({
     Key? key,
     CurrencyPickerWidgetItem? value,
     AutovalidateMode? autovalidateMode,
@@ -93,14 +94,14 @@ class _SelectableFormFieldState
   @override
   void didChange(CurrencyPickerWidgetItem? value) {
     super.didChange(value);
-    final CurrencyPickerWidget dropdownButtonFormField = widget;
+    final CurrencyPickerFormFieldWidget dropdownButtonFormField = widget;
     if (dropdownButtonFormField.onChanged != null) {
       dropdownButtonFormField.onChanged!(value);
     }
   }
 
   @override
-  void didUpdateWidget(CurrencyPickerWidget oldWidget) {
+  void didUpdateWidget(CurrencyPickerFormFieldWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.initialValue != widget.initialValue) {
       setValue(widget.initialValue);
@@ -108,7 +109,8 @@ class _SelectableFormFieldState
   }
 
   @override
-  CurrencyPickerWidget get widget => super.widget as CurrencyPickerWidget;
+  CurrencyPickerFormFieldWidget get widget =>
+      super.widget as CurrencyPickerFormFieldWidget;
 }
 
 // ignore: must_be_immutable
@@ -143,8 +145,8 @@ class _SelectableWidget extends BaseStatelessWidget {
                   alignment: AlignmentDirectional.center,
                   boxFit: BoxFit.scaleDown,
                   text: translate(item.value)!,
-                  style: textTheme.bodySmall!
-                      .copyWith(fontWeight: FontWeight.w500, fontSize: 18))),
+                  style: textTheme.bodyMedium!
+                      .copyWith(fontSize: 18, fontWeight: FontWeight.w400))),
         ),
       );
     }
@@ -161,10 +163,8 @@ class _SelectableWidget extends BaseStatelessWidget {
         child: DropdownButton2(
           focusNode: focusNode,
           isExpanded: true,
-          style: const TextStyle(
-              color: AppColors.bodyMedium,
-              fontSize: 18,
-              fontWeight: FontWeight.w400),
+          style: textTheme.bodyMedium!
+              .copyWith(fontSize: 18, fontWeight: FontWeight.w400),
           hint: AppTextWidget(
               alignment: AlignmentDirectional.center,
               boxFit: BoxFit.scaleDown,
@@ -174,13 +174,8 @@ class _SelectableWidget extends BaseStatelessWidget {
                   fontSize: 18,
                   fontWeight: FontWeight.w400)),
           items: _addDividersAfterItems(items),
-          value: selectedItem == null ? selectedValue : selectedItem!.value,
-          onChanged: (value) {
-            CurrencyPickerWidgetItem selectableWidgetItem =
-                CurrencyPickerWidgetItem(
-                    value: value ?? "s", key: value ?? "s");
-            changeChoose(selectableWidgetItem);
-          },
+          value: _getCurrentSelectedItem(),
+          onChanged: _onCurrencyChange,
           buttonStyleData: ButtonStyleData(
             padding: const EdgeInsets.only(left: 14, right: 14),
             decoration: BoxDecoration(
@@ -190,9 +185,7 @@ class _SelectableWidget extends BaseStatelessWidget {
             ),
           ),
           iconStyleData: const IconStyleData(
-              icon: Icon(
-                Icons.keyboard_arrow_down,
-              ),
+              icon: Icon(Icons.keyboard_arrow_down),
               iconSize: 16,
               iconEnabledColor: AppColors.bodyMedium),
           dropdownStyleData: DropdownStyleData(
@@ -217,4 +210,13 @@ class _SelectableWidget extends BaseStatelessWidget {
       onSaved!(selectedItem!);
     }
   }
+
+  void _onCurrencyChange(value) {
+    CurrencyPickerWidgetItem selectableWidgetItem =
+        CurrencyPickerWidgetItem(value: value, key: value);
+    changeChoose(selectableWidgetItem);
+  }
+
+  String? _getCurrentSelectedItem() =>
+      selectedItem == null ? selectedValue : selectedItem!.value;
 }

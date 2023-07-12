@@ -1,23 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:split/core/widgets/base_stateful_widget.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
 import 'package:split/res/app_colors.dart';
+
+class TextFormFieldCustoms extends BaseStatefulWidget {
+  const TextFormFieldCustoms({Key? key}) : super(key: key);
+
+  @override
+  BaseState<TextFormFieldCustoms> baseCreateState() =>
+      _TextFormFieldCustomState();
+}
+
+class _TextFormFieldCustomState extends BaseState<TextFormFieldCustoms> {
+  @override
+  Widget baseBuild(BuildContext context) {
+    return const Placeholder();
+  }
+}
 
 // ignore: must_be_immutable
 class TextFormFieldCustom extends BaseStatelessWidget {
   final String hintText;
-  final TextEditingController controller;
-  final TextEditingController? confirmPassword;
+  final String? confirmPassword;
   final TextInputAction textInputAction;
   final TextInputType textInputType;
   final bool secureText;
   final bool? showCursor;
   final int? maxLines;
   final bool? preventSpaces;
+  final void Function(String?) onChange;
   TextFormFieldCustom({
     Key? key,
     required this.hintText,
-    required this.controller,
+    required this.onChange,
     required this.textInputAction,
     required this.secureText,
     this.confirmPassword,
@@ -30,13 +46,15 @@ class TextFormFieldCustom extends BaseStatelessWidget {
   @override
   Widget baseBuild(BuildContext context) {
     return TextFormField(
-      controller: controller,
       style: textTheme.bodyMedium!
           .copyWith(fontWeight: FontWeight.w600, fontSize: 14),
       textInputAction: textInputAction,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       onTapOutside: (event) {
         FocusManager.instance.primaryFocus?.unfocus();
+      },
+      onChanged: (value) {
+        onChange(value);
       },
       showCursor: showCursor ?? true,
       keyboardType: textInputType,
@@ -81,8 +99,8 @@ class TextFormFieldCustom extends BaseStatelessWidget {
         //  borderRadius: BorderRadius.circular(15.r),
       ),
       focusedErrorBorder: const OutlineInputBorder(
-        borderSide: BorderSide(
-            color: AppColors.homeScreenTextFormFieldErrorBorder, width: 1.5),
+        borderSide:
+            BorderSide(color: AppColors.homeScreenTextFormFieldErrorBorder),
         //  borderRadius: BorderRadius.circular(15.r),
       ),
     );
