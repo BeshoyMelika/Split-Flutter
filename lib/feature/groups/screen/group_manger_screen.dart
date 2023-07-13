@@ -5,10 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
+import 'package:split/feature/groups/data/repositories/demy_group_data_repo.dart';
+import 'package:split/feature/groups/data/repositories/groups_parent_repo.dart';
 import 'package:split/feature/groups/widgets/groups_app_bar.dart';
 import 'package:split/feature/groups/bloc/groups_manger_bloc.dart';
-import 'package:split/feature/groups/models/group_item_data.dart';
-import 'package:split/feature/groups/widgets/group_item.dart';
+import 'package:split/feature/groups/data/models/group_item_data.dart';
+import 'package:split/feature/groups/widgets/group_item_view.dart';
 import 'package:split/res/app_asset_paths.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
@@ -18,12 +20,23 @@ class GroupsMangerScreen extends BaseStatelessWidget {
 
   @override
   Widget baseBuild(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
+    final DemyGroupsDataRepo demyRepoGroupsData = DemyGroupsDataRepo();
     return BlocProvider(
-      create: (context) => GroupsMangerBloc(),
-
-      //
+      create: (_) =>
+          GroupsMangerBloc(demyRepoGroupsData)..add(GetGroupsDataEvent()),
       child: BlocConsumer<GroupsMangerBloc, GroupsMangerState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is AllGroupsListLoadingState) {
+            const CircularProgressIndicator();
+          }
+        },
+        buildWhen: (previous, current) {
+          if (current is EmptyGroupsListState) {
+            emptyScreen(context);
+          }
+          return true;
+        },
         builder: (context, state) {
           if (state is AllGroupsListLoadedState) {
             return Scaffold(
@@ -37,6 +50,8 @@ class GroupsMangerScreen extends BaseStatelessWidget {
                   // this to scroll in the   all screen
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
+                    controller: scrollController,
+                    physics: const BouncingScrollPhysics(),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -45,23 +60,22 @@ class GroupsMangerScreen extends BaseStatelessWidget {
                           style: textTheme.bodyLarge!.copyWith(fontSize: 18),
                         ),
 
-                        // first list for quick access
+// first list for quick access
                         Container(
-                          height:
-                              height * .13 * state.quickAccessGroupsList.length,
+                          height: height * .13 * state.pinnedGroupsList.length,
                           child: ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
-                            itemCount: state.quickAccessGroupsList.length,
+                            itemCount: state.pinnedGroupsList.length,
                             itemBuilder: (context, index) {
                               GroupItemDate groupItemDate =
-                                  state.quickAccessGroupsList[index];
-                              return GroupItem(
+                                  state.pinnedGroupsList[index];
+                              return GroupItemView(
                                   groupItemDate: groupItemDate, index: index);
                             },
                           ),
                         ),
                         const SizedBox(height: 10),
-
+/////all group list
                         Text(
                           translate(LocalizationKeys.allGroups)!,
                           style: textTheme.bodyLarge!.copyWith(fontSize: 18),
@@ -74,7 +88,7 @@ class GroupsMangerScreen extends BaseStatelessWidget {
                             itemBuilder: (context, index) {
                               GroupItemDate groupItemDate =
                                   state.allGroupsList[index];
-                              return GroupItem(
+                              return GroupItemView(
                                   groupItemDate: groupItemDate, index: index);
                             },
                           ),
@@ -82,15 +96,12 @@ class GroupsMangerScreen extends BaseStatelessWidget {
                       ],
                     ),
                   ),
-                )
-
-                //bottomNavigationBar: customBottomNavBar(context, state),
-                );
+                ));
+          } else if (state is EmptyGroupsListState) {
+            return emptyScreen(context);
           }
-          // this is a temporary action  to start the block only
-          // this will change wile fixing bug of hot start
-          // because the bloc is working only when do hot reload
-          return emptyScreen(context);
+
+          return Container();
         },
       ),
     );
@@ -129,7 +140,7 @@ class GroupsMangerScreen extends BaseStatelessWidget {
                     style: textTheme.headlineMedium)),
             SizedBox(height: 30.h),
             GestureDetector(
-                onTap: () => currentBloc(context).add(StartBlocEvent()),
+                // onTap: () => currentBloc(context).add(GetGroupsDataEvent()),
                 child: Container(
                     height: 50,
                     margin: const EdgeInsets.symmetric(horizontal: 120),

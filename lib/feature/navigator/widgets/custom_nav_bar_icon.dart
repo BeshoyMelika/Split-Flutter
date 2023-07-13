@@ -1,8 +1,10 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
+import 'package:split/feature/navigator/widgets/bloc/account_photo_bloc.dart';
 import 'package:split/res/app_icons.dart';
 
 import '../../../res/app_colors.dart';
@@ -27,11 +29,10 @@ class BottomNavigationBarCustomIconWidget extends BaseStatelessWidget {
       : super(key: key);
 
   ///this List contains all possible icons
-  final List<IconData> _iconList = const [
+  final List<IconData> iconList = [
     Icons.people_alt_outlined,
     Icons.person,
     AppIcons.activityIcon,
-    Icons.account_circle_sharp
   ];
 
   @override
@@ -40,13 +41,18 @@ class BottomNavigationBarCustomIconWidget extends BaseStatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 5.sp),
       child: Column(
         children: [
-          Expanded(
-            flex: 1,
-            child: Icon(
-              _iconList[iconIndex],
-              color: _getCurrentIconColor(),
-            ),
-          ),
+          for (int i = 0; i < 1; i++)
+            Expanded(
+                flex: 1,
+                child: Icon(iconList[iconIndex % iconList.length],
+                    color: _getCurrentIconColor())),
+          for (int i = 0; i < 1; i++)
+            Expanded(
+                child: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: _getCurrentIconColor())),
+              child: accountPhoto(context),
+            )),
           Expanded(
             flex: 1,
             child: Text(
@@ -57,6 +63,35 @@ class BottomNavigationBarCustomIconWidget extends BaseStatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  /// ////////////////////////////////////////////////////////
+  /// ///////////////// Widget methods ///////////////////////
+  /// ////////////////////////////////////////////////////////
+  Widget accountPhoto(BuildContext context) {
+    return BlocProvider(
+      create: (_) => AccountPhotoBloc()..add(GetAccountPhoto()),
+      child: BlocBuilder<AccountPhotoBloc, AccountPhotoState>(
+        builder: (context, state) {
+          if (state is AccountPhotoLoadedState) {
+            return CircleAvatar(
+                radius: 15.r,
+                backgroundImage: const NetworkImage(
+                    'https://image.lexica.art/full_jpg/7515495b-982d-44d2-9931-5a8bbbf27532'));
+          }
+          if (state is AccountPhotoLoadingState) {
+            return CircleAvatar(
+              radius: 15.r,
+              child: const CircularProgressIndicator(),
+            );
+          }
+          if (state is AccountPhotoNotFoundState) {
+            return const Icon(Icons.account_circle_rounded);
+          }
+          return Container();
+        },
       ),
     );
   }

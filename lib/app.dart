@@ -38,10 +38,6 @@ class MyApp extends StatelessWidget {
           create: (context) => LocaleCubit(
               LocaleRepository(dioApiManager, (GetIt.I<PreferencesManager>()))),
         ),
-        // BlocProvider<NavigatorBloc>.value(value: NavigatorBloc()),
-        // BlocProvider(
-        //   create: (context) => GroupsMangerBloc(),
-        // )
       ],
       child: BlocBuilder<LocaleCubit, Locale>(
         builder: (context, state) {

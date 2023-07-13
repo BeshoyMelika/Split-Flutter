@@ -23,4 +23,4 @@ class AddItemEvent extends GroupsMangerEvent {
   List<Object> get props => [groupItemDate];
 }
 
-class StartBlocEvent extends GroupsMangerEvent {}
+class GetGroupsDataEvent extends GroupsMangerEvent {}

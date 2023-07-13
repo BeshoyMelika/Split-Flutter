@@ -5,24 +5,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
 import 'package:split/feature/groups/bloc/groups_manger_bloc.dart';
-import 'package:split/feature/groups/models/group_item_data.dart';
+import 'package:split/feature/groups/data/models/group_item_data.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/res/app_icons.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 
-class GroupItem extends BaseStatelessWidget {
+class GroupItemView extends BaseStatelessWidget {
   final GroupItemDate groupItemDate;
   final int index;
-  GroupItem({super.key, required this.groupItemDate, required this.index});
+  GroupItemView({super.key, required this.groupItemDate, required this.index});
 
   @override
   Widget baseBuild(BuildContext context) {
-    //
-
-    bool isPinned = BlocProvider.of<GroupsMangerBloc>(context)
-        .quickAccessGroupsList
-        .contains(groupItemDate);
-
+    bool isPinned = false;
+    // bool isPinned = BlocProvider.of<GroupsMangerBloc>(context)
+    //     .quickAccessGroupsList
+    //     .contains(groupItemDate);
     return BlocBuilder<GroupsMangerBloc, GroupsMangerState>(
       builder: (context, state) {
         return Container(
@@ -46,9 +44,8 @@ class GroupItem extends BaseStatelessWidget {
                           color: const Color.fromARGB(0, 194, 14, 14),
                           height: 71,
                           width: 71,
-                          // child: Image.network(
-                          //     'https://cdn2.vectorstock.com/i/1000x1000/03/11/home-house-building-and-family-design-vector-10680311.jpg')
-                        )
+                          child: Image.network(
+                              'https://cdn2.vectorstock.com/i/1000x1000/03/11/home-house-building-and-family-design-vector-10680311.jpg'))
                       : const CircularProgressIndicator()),
 
               //

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
+import 'package:split/feature/groups/bloc/groups_manger_bloc.dart';
+import 'package:split/feature/groups/data/repositories/demy_group_data_repo.dart';
 
 import 'package:split/feature/navigator/navigator_bloc/navigator_bloc.dart';
 import 'package:split/feature/navigator/navigator_bloc/navigator_event.dart';
@@ -22,21 +24,16 @@ class CustomNavBar extends BaseStatelessWidget {
       child: SizedBox(
         height: 50,
         child: BlocBuilder<NavigatorBloc, NavigatorBlocSates>(
-          buildWhen: (previous, current) {
-            if (current is NavigateToGroupScreenState) {
+          builder: (context, state) {
+            if (state is NavigateToGroupScreenState) {
               currentScreen = 0;
-            } else if (current is NavigateToFriendsScreenState) {
+            } else if (state is NavigateToFriendsScreenState) {
               currentScreen = 1;
-            } else if (current is NavigateToFriendsScreenState) {
-              currentScreen = 1;
-            } else if (current is NavigateToActivityScreenState) {
+            } else if (state is NavigateToActivityScreenState) {
               currentScreen = 2;
-            } else if (current is NavigateToProfileScreenState) {
+            } else if (state is NavigateToProfileScreenState) {
               currentScreen = 3;
             }
-            return true;
-          },
-          builder: (context, state) {
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w),
               child: Row(
@@ -97,8 +94,9 @@ class CustomNavBar extends BaseStatelessWidget {
       context.read<NavigatorBloc>();
 
   /// this is a list of fired events
-  _groupEventFired(BuildContext context) =>
-      currentBloc(context).add(NavigateToGroupScreenEvent());
+  _groupEventFired(BuildContext context) {
+    currentBloc(context).add(NavigateToGroupScreenEvent());
+  }
 
   _friendsEventFired(BuildContext context) =>
       currentBloc(context).add(NavigateToFriendsScreenEvent());

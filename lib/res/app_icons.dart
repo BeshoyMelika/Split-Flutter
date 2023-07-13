@@ -7,6 +7,7 @@ class AppIcons {
   static const _homeFontFamilyKey = 'HomeIconsFont';
   static const _groupFontFam = 'GroupsFontIcon';
   static const _connectivityIcons = 'ConnectivityIcons';
+  static const _kFontFam = 'Activty_icon';
 
   //
   // /// date time icons
@@ -35,12 +36,16 @@ class AppIcons {
   // groups
   static const IconData activityIcon =
       IconData(0xe800, fontFamily: _groupFontFam, fontPackage: _fontPackageKey);
-  static const IconData activity =
-      IconData(0xe800, fontFamily: _groupFontFam, fontPackage: _fontPackageKey);
+
   static const IconData expenses =
       IconData(0xe801, fontFamily: _groupFontFam, fontPackage: _fontPackageKey);
   static const IconData page =
       IconData(0xe802, fontFamily: _groupFontFam, fontPackage: _fontPackageKey);
+
+  //
+
+  static const IconData activtyIcon =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _fontPackageKey);
 }
 
 /// generator helper website
