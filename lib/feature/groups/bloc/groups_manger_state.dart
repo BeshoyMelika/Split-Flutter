@@ -8,6 +8,13 @@ abstract class GroupsMangerState extends Equatable {
   List<Object> get props => [];
 }
 
+class GroupItemIsPinnedState extends GroupsMangerState {
+  final bool isPinned;
+  const GroupItemIsPinnedState({
+    required this.isPinned,
+  });
+}
+
 ///
 /// these are the states of allGroups list
 ///
@@ -24,7 +31,8 @@ class AllGroupsListLoadedState extends GroupsMangerState {
   const AllGroupsListLoadedState(this.allGroupsList, this.pinnedGroupsList);
 
   @override
-  List<Object> get props => [allGroupsList, pinnedGroupsList];
+  List<Object> get props =>
+      [allGroupsList, pinnedGroupsList, identityHashCode(this)];
 }
 
 class GroupsListLoadingFailedState extends GroupsMangerState {

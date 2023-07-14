@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
-import 'package:split/feature/groups/bloc/groups_manger_bloc.dart';
-import 'package:split/feature/groups/data/repositories/demy_group_data_repo.dart';
-
 import 'package:split/feature/navigator/navigator_bloc/navigator_bloc.dart';
 import 'package:split/feature/navigator/navigator_bloc/navigator_event.dart';
 import 'package:split/feature/navigator/navigator_bloc/navigator_state.dart';
@@ -81,7 +78,7 @@ class CustomNavBar extends BaseStatelessWidget {
           _accountEventFired(context);
         }
       },
-      child: BottomNavigationBarCustomIconWidget(
+      child: CustomNavigationBarIcon(
           name: name, iconIndex: iconIndex, selectedIconIndex: currentScreen),
     );
   }

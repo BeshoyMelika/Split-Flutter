@@ -11,7 +11,7 @@ import '../../../res/app_colors.dart';
 
 /// This Class is Used to make Icons in BottomNavigationBar
 /// it takes string and int
-class BottomNavigationBarCustomIconWidget extends BaseStatelessWidget {
+class CustomNavigationBarIcon extends BaseStatelessWidget {
   /// this is the text used under the icon
   final String name;
 
@@ -21,7 +21,7 @@ class BottomNavigationBarCustomIconWidget extends BaseStatelessWidget {
   /// this variable is used to define which icon to show in the BottomNavigationBar
   final int selectedIconIndex;
 
-  BottomNavigationBarCustomIconWidget(
+  CustomNavigationBarIcon(
       {Key? key,
       required this.name,
       required this.iconIndex,
@@ -29,7 +29,7 @@ class BottomNavigationBarCustomIconWidget extends BaseStatelessWidget {
       : super(key: key);
 
   ///this List contains all possible icons
-  final List<IconData> iconList = [
+  final List<dynamic> iconList = [
     Icons.people_alt_outlined,
     Icons.person,
     AppIcons.activityIcon,
@@ -41,18 +41,13 @@ class BottomNavigationBarCustomIconWidget extends BaseStatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 5.sp),
       child: Column(
         children: [
-          for (int i = 0; i < 1; i++)
-            Expanded(
-                flex: 1,
-                child: Icon(iconList[iconIndex % iconList.length],
-                    color: _getCurrentIconColor())),
-          for (int i = 0; i < 1; i++)
-            Expanded(
-                child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: _getCurrentIconColor())),
-              child: accountPhoto(context),
-            )),
+          Expanded(
+            flex: 1,
+            child: iconIndex < 3
+                ? Icon(iconList[iconIndex % iconList.length],
+                    color: _getCurrentIconColor())
+                : accountPhoto(context),
+          ),
           Expanded(
             flex: 1,
             child: Text(
@@ -76,10 +71,14 @@ class BottomNavigationBarCustomIconWidget extends BaseStatelessWidget {
       child: BlocBuilder<AccountPhotoBloc, AccountPhotoState>(
         builder: (context, state) {
           if (state is AccountPhotoLoadedState) {
-            return CircleAvatar(
-                radius: 15.r,
-                backgroundImage: const NetworkImage(
-                    'https://image.lexica.art/full_jpg/7515495b-982d-44d2-9931-5a8bbbf27532'));
+            return Container(
+                width: 25,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(50.r)),
+                    border: Border.all(color: _getCurrentIconColor()),
+                    image: const DecorationImage(
+                        image: NetworkImage(
+                            'https://image.lexica.art/full_jpg/7515495b-982d-44d2-9931-5a8bbbf27532'))));
           }
           if (state is AccountPhotoLoadingState) {
             return CircleAvatar(

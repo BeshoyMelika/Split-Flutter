@@ -12,15 +12,11 @@ import 'package:split/utils/locale/app_localization_keys.dart';
 
 class GroupItemView extends BaseStatelessWidget {
   final GroupItemDate groupItemDate;
-  final int index;
-  GroupItemView({super.key, required this.groupItemDate, required this.index});
+
+  GroupItemView({super.key, required this.groupItemDate});
 
   @override
   Widget baseBuild(BuildContext context) {
-    bool isPinned = false;
-    // bool isPinned = BlocProvider.of<GroupsMangerBloc>(context)
-    //     .quickAccessGroupsList
-    //     .contains(groupItemDate);
     return BlocBuilder<GroupsMangerBloc, GroupsMangerState>(
       builder: (context, state) {
         return Container(
@@ -55,13 +51,13 @@ class GroupItemView extends BaseStatelessWidget {
               Align(
                 alignment: Alignment.topLeft,
                 child: IconButton(
-                  onPressed: () =>
-                      currentBloc(context).add(PinItemSwitcherEvent(index)),
+                  onPressed: () => currentBloc(context)
+                      .add(PinItemSwitcherEvent(groupItemDate)),
                   icon: Icon(
                     Icons.push_pin_rounded,
-                    color: isPinned == false
-                        ? AppColors.groupItemIcon
-                        : AppColors.groupItemPinedIcon,
+                    color: groupItemDate.isPinned
+                        ? AppColors.groupItemPinedIcon
+                        : AppColors.groupItemIcon,
                   ),
                 ),
               )
@@ -81,7 +77,7 @@ class GroupItemView extends BaseStatelessWidget {
       children: [
         Container(
           width: 220.w,
-          padding: const EdgeInsets.fromLTRB(0, 20, 0, 5),
+          padding: EdgeInsets.only(top: 10.h),
           child: Text(
             groupItemDate.groupName,
             maxLines: 1,

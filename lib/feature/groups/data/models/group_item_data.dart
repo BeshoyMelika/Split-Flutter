@@ -6,14 +6,14 @@ class GroupItemDate {
   final String groupName;
   final int friendsNumber;
   final String expensesValue;
-  final bool isPined;
+  bool isPinned;
 
   GroupItemDate({
     required this.groupName,
     required this.imagePath,
     required this.friendsNumber,
     required this.expensesValue,
-    required this.isPined,
+    required this.isPinned,
   });
 
   Map<String, dynamic> toMap() {
@@ -22,7 +22,7 @@ class GroupItemDate {
       'imagePath': imagePath,
       'friendsNumber': friendsNumber,
       'expensesValue': expensesValue,
-      'isPined': isPined,
+      'isPined': isPinned,
     };
   }
 
@@ -32,7 +32,7 @@ class GroupItemDate {
       imagePath: map['imagePath'] as String,
       friendsNumber: map['friendsNumber'] as int,
       expensesValue: map['expensesValue'] as String,
-      isPined: map['isPined'] as bool,
+      isPinned: map['isPined'] as bool,
     );
   }
 

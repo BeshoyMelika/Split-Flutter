@@ -6,7 +6,7 @@ import 'package:split/core/widgets/base_stateless_widget.dart';
 import 'package:split/feature/navigator/navigator_bloc/navigator_bloc.dart';
 import 'package:split/feature/navigator/navigator_bloc/navigator_state.dart';
 import 'package:split/feature/navigator/navigator_widget_list.dart';
-import 'package:split/feature/navigator/widgets/bottom_nav_bar_custom_icon.dart';
+import 'package:split/feature/navigator/widgets/custom_nav_bar.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/res/app_icons.dart';
 

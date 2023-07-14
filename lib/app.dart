@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,17 +7,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:split/apis/_base/dio_api_manager.dart';
-
 import 'package:split/preferences/preferences_manager.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 import 'package:split/utils/locale/locale_cubit.dart';
 import 'package:split/utils/locale/locale_repository.dart';
-
 import 'package:split/utils/status_bar/statusbar_controller.dart';
 import 'package:split/utils/theme/app_theme.dart';
-
 import 'feature/navigator/screens/app_navigator_screen.dart';
 
 // ignore: must_be_immutable
@@ -79,9 +75,8 @@ class MyApp extends StatelessWidget {
                   GlobalCupertinoLocalizations.delegate,
                   DefaultCupertinoLocalizations.delegate,
                 ],
-                locale: state,
-                // initialRoute: Routes.initialRoute,
-                // onGenerateRoute: AppRoutes.onGenerateRoute,
+                locale: Locale('ar'),
+
                 home: AppNavigatorScreen(),
               ),
             ),

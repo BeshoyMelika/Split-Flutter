@@ -5,7 +5,7 @@ import 'package:split/feature/groups/screen/group_manger_screen.dart';
 //but your screen here
 List<Widget> bottomNavScreen = <Widget>[
   GroupsMangerScreen(),
-  const Text('Index 2: '),
-  const Text('Index 3: '),
-  const Text('Index 4: '),
+  const Center(child: Text('friends')),
+  const Center(child: Text('activity')),
+  const Center(child: Text('account')),
 ];
