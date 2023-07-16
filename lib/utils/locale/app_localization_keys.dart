@@ -106,4 +106,6 @@ class LocalizationKeys {
   static const pleaseEnterUsername = "please_enter_username";
   static const pleaseEnterValidPassword = "please_enter_valid_password";
   static const pleaseEnterPassword = "please_enter_password";
+  static const checkOtpCode = "please_enter_password";
+  static const passMatch = "please_enter_password";
 }

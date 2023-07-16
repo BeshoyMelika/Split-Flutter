@@ -13,7 +13,6 @@ import 'package:split/feature/home/screen/home_screen.dart';
 import 'package:split/res/app_asset_paths.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
-import 'package:split/utils/validations/vaildtors_translator.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});

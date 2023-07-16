@@ -18,7 +18,7 @@ class Validator {
     return regExp.hasMatch(number.trim());
   }
 
-  static bool isName(String name) {
+  static bool isUserName(String name) {
     const String pattern = r'^[a-zA-Z]+$';
     var regExp = RegExp(pattern);
     return regExp.hasMatch(name.trim());
