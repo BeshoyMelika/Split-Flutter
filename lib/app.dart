@@ -9,19 +9,14 @@ import 'package:get_it/get_it.dart';
 
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:split/apis/_base/dio_api_manager.dart';
-import 'package:split/feature/auth/auth_bloc/forget_password_bloc/forget_password_bloc.dart';
-import 'package:split/feature/auth/auth_bloc/otp_verification_bloc/otp_verification_bloc.dart';
-import 'package:split/feature/auth/auth_bloc/reset_password_bloc/reset_password_bloc.dart';
-import 'package:split/feature/auth/auth_bloc/set_account_bloc/set_account_bloc.dart';
-import 'package:split/feature/auth/auth_bloc/sign_in_bloc/sign_in_bloc.dart';
-import 'package:split/feature/auth/auth_bloc/sign_up_bloc/sign_up_bloc.dart';
-import 'package:split/feature/auth/auth_bloc/success_message_bloc/success_message_bloc.dart';
-import 'package:split/feature/auth/screens/forget_password_screen.dart';
-import 'package:split/feature/auth/screens/otp_screen.dart';
-import 'package:split/feature/auth/screens/reset_password_screen.dart';
-import 'package:split/feature/auth/screens/sign_in_screen.dart';
-import 'package:split/feature/auth/screens/sign_up_screen.dart';
-import 'package:split/feature/auth/screens/success_message_screen.dart';
+import 'package:split/feature/auth/forget_password/screen/forget_password_screen.dart';
+import 'package:split/feature/auth/otp_verification/screen/otp_screen.dart';
+import 'package:split/feature/auth/reset_password/screen/reset_password_screen.dart';
+import 'package:split/feature/auth/set_account/screen/set_account_screen.dart';
+import 'package:split/feature/auth/sign_in/screen/sign_in_screen.dart';
+import 'package:split/feature/auth/sign_up/screen/sign_up_screen.dart';
+import 'package:split/feature/auth/success_message/screen/success_message_screen.dart';
+import 'package:split/feature/home/screen/home_screen.dart';
 import 'package:split/feature/splash/screen/splash_screen.dart';
 
 import 'package:split/preferences/preferences_manager.dart';
@@ -51,13 +46,6 @@ class MyApp extends StatelessWidget {
           create: (context) => LocaleCubit(
               LocaleRepository(dioApiManager, (GetIt.I<PreferencesManager>()))),
         ),
-        BlocProvider(create: (context) => SignInBloc()),
-        BlocProvider(create: (context) => SignUpBloc()),
-        BlocProvider(create: (context) => OtpVerificationBloc()),
-        BlocProvider(create: (context) => ForgetPasswordBloc()),
-        BlocProvider(create: (context) => ResetPasswordBloc()),
-        BlocProvider(create: (context) => SuccessMessageBloc()),
-        BlocProvider(create: (context) => SetAccountBloc()),
       ],
       child: BlocBuilder<LocaleCubit, Locale>(
         builder: (context, state) {
@@ -109,7 +97,11 @@ class MyApp extends StatelessWidget {
                       const ResetPasswordScreen(),
                   SuccessMessageScreen.routeName: (context) =>
                       const SuccessMessageScreen(),
-                  OtpScreen.routName: (context) => const OtpScreen(),
+                  OtpVerificationScreen.routName: (context) =>
+                      const OtpVerificationScreen(),
+                  SetAccountScreen.routeName: (context) =>
+                      const SetAccountScreen(),
+                  HomeScreen.routeName: (context) => const HomeScreen(),
                 },
                 home: const SplashScreen(),
               ),

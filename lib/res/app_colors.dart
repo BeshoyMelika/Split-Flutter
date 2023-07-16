@@ -128,13 +128,16 @@ class AppColors {
   static const descriptionOfWidget = _mineShaft2;
   static const textOfQuestion = _mineShaft2;
   static const divider = _gallery;
-  static const otpBorder = _gallery;
+  static const textFieldBorder = _gallery;
   static const textBetweenDivider = _silver2;
   static const backgroundOfTextFormField = _white;
   static const appElevatedButtonTitle = _white;
   static const backgroundOfOtp = _white;
   static const backgroundOfSocialButton = _white;
+  static const arrowBack = _white;
   static const hintText = _alto;
   static const textOfTermsCondition = _robinsEggBlue;
   static const socialButtonTitle = _black;
+  static const checkAgreeIcon = _cloudBurst;
+
 }

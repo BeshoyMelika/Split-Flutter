@@ -1,33 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:split/core/widgets/base_stateless_widget.dart';
 import 'package:split/res/app_asset_paths.dart';
+import 'package:split/res/app_colors.dart';
 
-class AuthBase extends StatelessWidget {
-  const AuthBase({super.key, required this.body});
+// ignore: must_be_immutable
+class AuthBase extends BaseStatelessWidget {
+  AuthBase({super.key, required this.body});
   final Widget body;
 
   @override
-  Widget build(BuildContext context) {
+  Widget baseBuild(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: height,
+          width: width,
           child: Stack(
             children: [
               SizedBox(
-                width: double.infinity,
-                height: double.infinity,
+                height: height,
+                width: width,
                 child: Image.asset(
                   AppAssetPaths.splashScreenBackground,
                   fit: BoxFit.cover,
                 ),
               ),
               Column(
-                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  body,
+                  Expanded(child: SvgPicture.asset(AppAssetPaths.splitLogo)),
+                  Container(
+                    constraints: BoxConstraints(
+                      maxHeight: height * 2.2 / 3,
+                    ),
+                    child: SingleChildScrollView(child: body),
+                  ),
                 ],
               ),
+              if (Navigator.of(context).canPop())
+                PositionedDirectional(
+                  top: 50,
+                  start: 8,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: AppColors.arrowBack,
+                    ),
+                  ),
+                ),
             ],
           ),
         ),

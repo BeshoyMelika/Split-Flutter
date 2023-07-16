@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:split/core/widgets/base_stateful_widget.dart';
-import 'package:split/feature/auth/screens/sign_in_screen.dart';
+import 'package:split/feature/auth/sign_in/screen/sign_in_screen.dart';
 import 'package:split/preferences/preferences_manager.dart';
 import 'package:split/res/app_asset_paths.dart';
 
@@ -49,7 +50,7 @@ class _SplashScreenState extends BaseState<SplashScreen> {
   ///////////////////////////////////////////////////////////
 
   Widget _logoWidget() {
-    return const Center(child: FlutterLogo());
+    return Center(child: SvgPicture.asset(AppAssetPaths.splitLogo));
   }
 
   Widget _backgroundImage() {
