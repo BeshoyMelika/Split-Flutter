@@ -28,12 +28,8 @@ class CreateGroupScreenBloc
       CreateNewGroupEvent event, Emitter<CreateGroupScreenState> emit) async {
     emit(LoadingCreateGroupScreenState());
     await Future.delayed(const Duration(seconds: 3));
-    debugPrint(event.newGroup.groupName);
-    debugPrint(event.newGroup.discription);
-    debugPrint(event.newGroup.type);
-    debugPrint(event.newGroup.typeOfSplit);
-    debugPrint(event.newGroup.imageURL);
-    debugPrint(event.newGroup.currency);
+    debugPrint("${event.newGroup}");
+
     emit(NewGroupCreatedSuccessfullyState());
   }
 }
