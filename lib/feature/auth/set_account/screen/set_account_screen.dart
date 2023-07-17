@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateful_screen_widget.dart';
 import 'package:split/feature/auth/auth_base.dart';
 import 'package:split/feature/auth/set_account/bloc/set_account_bloc.dart';
@@ -68,7 +69,7 @@ class _SetAccountScreenWithBlocState
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+            padding:  EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
             child: Form(
               key: formKey,
               autovalidateMode: autovalidateMode,
@@ -77,36 +78,33 @@ class _SetAccountScreenWithBlocState
                   children: [
                     Text(
                       translate(LocalizationKeys.setYourAccount)!,
-                      style: const TextStyle(
-                        fontSize: 27.0,
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        fontSize: 27,
                         fontWeight: FontWeight.w700,
-                        color: AppColors.titleOfWidget,
                       ),
                     ),
-                    const SizedBox(
-                      height: 8,
+                     SizedBox(
+                      height: 8.h
                     ),
                     Text(
                       translate(LocalizationKeys.pleaseSetUsernameAndPassword)!,
-                      style: const TextStyle(
-                        fontSize: 16.0,
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: AppColors.descriptionOfWidget,
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
+                     SizedBox(
+                      height: 30.h
                     ),
                     Text(
                       translate(LocalizationKeys.username)!,
-                      style: const TextStyle(
-                        fontSize: 12.0,
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.titleOfTextField,
                       ),
                     ),
-                    const SizedBox(
-                      height: 8,
+                     SizedBox(
+                      height: 8.h
                     ),
                     AppTextFormField(
                       hint: translate(LocalizationKeys.setUsername)!,
@@ -116,13 +114,13 @@ class _SetAccountScreenWithBlocState
                       },
                       validator: validate.translatedUserName,
                     ),
-                    const SizedBox(
-                      height: 30,
+                     SizedBox(
+                      height: 30.h
                     ),
                     Row(
                       children: [
                         Expanded(
-                            child: AppButton(
+                            child: AppElevatedButton(
                           title: translate(LocalizationKeys.submit)!,
                           onPressed: () {
                             BlocProvider.of<SetAccountBloc>(context).add(

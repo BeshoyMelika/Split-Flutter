@@ -1,15 +1,39 @@
 part of 'otp_verification_bloc.dart';
 
-abstract class OtpVerificationState {}
+abstract class OtpVerificationState extends Equatable {}
 
-class OtpVerificationInitial extends OtpVerificationState {}
+class OtpVerificationInitial extends OtpVerificationState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class OtpVerifySuccessState extends OtpVerificationState {}
+class OtpVerifySuccessState extends OtpVerificationState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class OtpVerifyLoadingState extends OtpVerificationState {}
+class OtpVerifyLoadingState extends OtpVerificationState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class OtpVerifyFailureState extends OtpVerificationState {}
+class OtpVerifyFailureState extends OtpVerificationState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class ValidateOtpVerificationState extends OtpVerificationState {}
+class ValidateOtpVerificationState extends OtpVerificationState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class NotValidateOtpVerificationState extends OtpVerificationState {}
+class NotValidateOtpVerificationState extends OtpVerificationState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}

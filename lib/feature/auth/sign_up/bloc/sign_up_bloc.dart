@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,9 +31,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       RegisterWithGoogleEvent event, Emitter<SignUpState> emit) {
     emit(SignUpLoadingState());
     try {
-      emit(SignUpSuccessState());
+      emit(SignUpWithGoogleSuccessState());
     } catch (e) {
-      emit(SignUpFailureState());
+      emit(SignUpWithGoogleFailureState());
     }
   }
 
@@ -40,9 +41,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       RegisterWithAppleEvent event, Emitter<SignUpState> emit) {
     emit(SignUpLoadingState());
     try {
-      emit(SignUpSuccessState());
+      emit(SignUpWithAppleSuccessState());
     } catch (e) {
-      emit(SignUpFailureState());
+      emit(SignUpWithAppleFailureState());
     }
   }
 

@@ -1,6 +1,6 @@
 part of 'sign_up_bloc.dart';
 
-abstract class SignUpEvent {}
+abstract class SignUpEvent extends Equatable {}
 
 class RegisterEvent extends SignUpEvent {
   final String email, password, name, phone;
@@ -11,22 +11,42 @@ class RegisterEvent extends SignUpEvent {
     required this.name,
     required this.phone,
   });
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [email, password, name, phone];
 }
 
-class RegisterWithGoogleEvent extends SignUpEvent {}
+class RegisterWithGoogleEvent extends SignUpEvent {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class RegisterWithAppleEvent extends SignUpEvent {}
+class RegisterWithAppleEvent extends SignUpEvent {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class SignInScreenEvent extends SignUpEvent {}
+class SignInScreenEvent extends SignUpEvent {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
 class ChangeCheckIconEvent extends SignUpEvent {
-  /*final bool isAgree;
-
-  ChangeCheckIconEvent({required this.isAgree});*/
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
 }
 
 class ValidateRegisterFormEvent extends SignUpEvent {
   final GlobalKey<FormState> formKey;
 
   ValidateRegisterFormEvent({required this.formKey});
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [formKey];
 }

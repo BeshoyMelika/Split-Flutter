@@ -70,17 +70,29 @@ class AppTheme {
           color: AppColors.headlineMedium,
           fontSize: 22,
         ),
+
+        // white
+        titleLarge: _textTheme.titleLarge!.copyWith(
+          color: AppColors.titleLarge,
+        ),
+        // for desc of widget and title of text form field
+        bodyLarge: _textTheme.bodyLarge!.copyWith(
+          color: AppColors.bodyLarge,
+        ),
+        // black
         bodyMedium: _textTheme.bodyMedium?.copyWith(
           color: AppColors.bodyMedium,
-          fontSize: 16,
+        ),
+        //grey
+        bodySmall: _textTheme.bodySmall!.copyWith(
+          color: AppColors.bodySmall,
         ),
         titleMedium: _textTheme.titleMedium?.copyWith(
           color: AppColors.titleMedium,
         ),
-        // for subtitle
+        // for title of widget
         labelLarge: const TextStyle(
           color: AppColors.labelLarge,
-          fontSize: 14,
         ),
         labelMedium: const TextStyle(
           fontSize: 14,

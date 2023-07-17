@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateful_screen_widget.dart';
 import 'package:split/feature/auth/auth_base.dart';
 import 'package:split/feature/auth/reset_password/bloc/reset_password_bloc.dart';
@@ -68,7 +69,7 @@ class _ResetPasswordScreenWithBlocState
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
             child: Form(
               key: formKey,
               autovalidateMode: autovalidateMode,
@@ -77,37 +78,28 @@ class _ResetPasswordScreenWithBlocState
                   children: [
                     Text(
                       translate(LocalizationKeys.resetPassword)!,
-                      style: const TextStyle(
-                        fontSize: 27.0,
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        fontSize: 27,
                         fontWeight: FontWeight.w700,
-                        color: AppColors.titleOfWidget,
                       ),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    SizedBox(height: 8.h),
                     Text(
                       translate(LocalizationKeys.pleaseEnterYourNewPassword)!,
-                      style: const TextStyle(
-                        fontSize: 16.0,
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: AppColors.descriptionOfWidget,
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    SizedBox(height: 30.h),
                     Text(
                       translate(LocalizationKeys.newPassword)!,
-                      style: const TextStyle(
-                        fontSize: 12.0,
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.titleOfTextField,
                       ),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    SizedBox(height: 8.h),
                     AppTextFormField(
                       hint: translate(LocalizationKeys.enterYourNewPassword)!,
                       keyboardType: TextInputType.visiblePassword,
@@ -117,20 +109,15 @@ class _ResetPasswordScreenWithBlocState
                       },
                       validator: validate.translatedPassword,
                     ),
-                    const SizedBox(
-                      height: 24,
-                    ),
+                    SizedBox(height: 24.h),
                     Text(
                       translate(LocalizationKeys.confirmNewPassword)!,
-                      style: const TextStyle(
-                        fontSize: 12.0,
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.titleOfTextField,
                       ),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    SizedBox(height: 8.h),
                     AppTextFormField(
                       hint: translate(LocalizationKeys.confirmYourNewPassword)!,
                       keyboardType: TextInputType.visiblePassword,
@@ -140,13 +127,11 @@ class _ResetPasswordScreenWithBlocState
                       },
                       validator: validate.translatedPassword,
                     ),
-                    const SizedBox(
-                      height: 75,
-                    ),
+                    SizedBox(height: 75.h),
                     Row(
                       children: [
                         Expanded(
-                            child: AppButton(
+                            child: AppElevatedButton(
                           title: translate(LocalizationKeys.submit)!,
                           onPressed: () {
                             BlocProvider.of<ResetPasswordBloc>(context).add(

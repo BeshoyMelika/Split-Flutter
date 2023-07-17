@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateful_screen_widget.dart';
 import 'package:split/feature/auth/auth_base.dart';
 import 'package:split/feature/auth/forget_password/screen/forget_password_screen.dart';
@@ -71,15 +72,15 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
       builder: (context, state) {
         return AuthBase(
           body: Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: AppColors.backgroundOfWidget,
               borderRadius: BorderRadius.only(
-                topRight: Radius.circular(10),
-                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10.r),
+                topLeft: Radius.circular(10.r),
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
               child: Form(
                 key: formKey,
                 autovalidateMode: autovalidateMode,
@@ -88,37 +89,28 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                   children: [
                     Text(
                       translate(LocalizationKeys.signIn)!,
-                      style: const TextStyle(
-                        fontSize: 27.0,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.titleOfWidget,
-                      ),
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                            fontSize: 27,
+                            fontWeight: FontWeight.w700,
+                          ),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    SizedBox(height: 8.h),
                     Text(
                       translate(LocalizationKeys.plzEnterYourDetails)!,
-                      style: const TextStyle(
-                        fontSize: 16.0,
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: AppColors.descriptionOfWidget,
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    SizedBox(height: 30.h),
                     Text(
                       translate(LocalizationKeys.email)!,
-                      style: const TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.titleOfTextField,
-                      ),
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    SizedBox(height: 8.h),
                     AppTextFormField(
                       hint: translate(LocalizationKeys.enterYourEmail)!,
                       keyboardType: TextInputType.emailAddress,
@@ -127,20 +119,15 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                       },
                       validator: validate.translatedEmail,
                     ),
-                    const SizedBox(
-                      height: 24,
-                    ),
+                    SizedBox(height: 24.h),
                     Text(
                       translate(LocalizationKeys.password)!,
-                      style: const TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF333333),
-                      ),
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    SizedBox(height: 8.h),
                     AppTextFormField(
                       hint: translate(LocalizationKeys.enterYourPassword)!,
                       secure: true,
@@ -160,11 +147,11 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                           },
                           child: Text(
                             translate(LocalizationKeys.forgetPassword)!,
-                            style: const TextStyle(
-                              color: AppColors.textOfQuestion,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14.0,
-                            ),
+                            style:
+                                Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                           ),
                         ),
                       ],
@@ -172,7 +159,7 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                     Row(
                       children: [
                         Expanded(
-                            child: AppButton(
+                            child: AppElevatedButton(
                           title: translate(LocalizationKeys.signIn)!,
                           onPressed: () {
                             BlocProvider.of<SignInBloc>(context)
@@ -181,9 +168,7 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                         )),
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    SizedBox(height: 25.h),
                     Row(
                       children: [
                         Expanded(
@@ -191,9 +176,7 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                           color: AppColors.divider,
                           height: 1,
                         )),
-                        const SizedBox(
-                          width: 5,
-                        ),
+                        SizedBox(width: 5.w),
                         Text(
                           translate(LocalizationKeys.orSignInWith)!,
                           style: const TextStyle(
@@ -202,9 +185,7 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const SizedBox(
-                          width: 5,
-                        ),
+                        SizedBox(width: 5.w),
                         Expanded(
                             child: Container(
                           color: AppColors.divider,
@@ -212,9 +193,7 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                         )),
                       ],
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
+                    SizedBox(height: 16.h),
                     Row(
                       children: [
                         Expanded(
@@ -227,9 +206,7 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                             image: AppAssetPaths.googleLogo,
                           ),
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
+                        SizedBox(width: 10.w),
                         Expanded(
                           child: SocialButton(
                             onPressed: () {
@@ -242,19 +219,17 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 18,
-                    ),
+                    SizedBox(height: 18.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           translate(LocalizationKeys.doNotHaveAnAccount)!,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.textOfQuestion,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                         ),
                         TextButton(
                           onPressed: () {
@@ -263,12 +238,13 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                           },
                           child: Text(
                             translate(LocalizationKeys.signUp)!,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              color:
-                                  AppColors.textButtonOfSignInOutRequestAgain,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge!
+                                .copyWith(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                ),
                           ),
                         ),
                       ],

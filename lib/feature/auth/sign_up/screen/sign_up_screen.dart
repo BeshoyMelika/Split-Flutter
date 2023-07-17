@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateful_screen_widget.dart';
 import 'package:split/feature/auth/auth_base.dart';
 import 'package:split/feature/auth/otp_verification/screen/otp_screen.dart';
+import 'package:split/feature/auth/set_account/screen/set_account_screen.dart';
 import 'package:split/feature/auth/sign_in/screen/sign_in_screen.dart';
 import 'package:split/feature/auth/sign_up/bloc/sign_up_bloc.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
@@ -46,6 +48,9 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
       listener: (context, state) {
         if (state is SignUpSuccessState) {
           _openOtpScreen(context);
+        } else if (state is SignUpWithGoogleSuccessState ||
+            state is SignUpWithAppleSuccessState) {
+          _openSetAccountScreen(context);
         } else if (state is SignInScreenState) {
           _openSignInScreen(context);
         } else if (state is ValidateRegisterState) {
@@ -66,15 +71,15 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
       builder: (context, state) {
         return AuthBase(
           body: Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: AppColors.backgroundOfWidget,
               borderRadius: BorderRadius.only(
-                topRight: Radius.circular(10),
-                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10.r),
+                topLeft: Radius.circular(10.r),
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
               child: Form(
                 key: formKey,
                 autovalidateMode: autovalidateMode,
@@ -83,37 +88,28 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                   children: [
                     Text(
                       translate(LocalizationKeys.signUp)!,
-                      style: const TextStyle(
-                        fontSize: 27.0,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.titleOfWidget,
-                      ),
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                            fontSize: 27,
+                            fontWeight: FontWeight.w700,
+                          ),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    SizedBox(height: 8.h),
                     Text(
                       translate(LocalizationKeys.createYourOwnAccountNow)!,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.descriptionOfWidget,
-                      ),
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    SizedBox(height: 30.h),
                     Text(
                       translate(LocalizationKeys.name)!,
-                      style: const TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.titleOfTextField,
-                      ),
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    SizedBox(height: 8.h),
                     AppTextFormField(
                       hint: translate(LocalizationKeys.enterYourName)!,
                       keyboardType: TextInputType.text,
@@ -122,20 +118,15 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                       },
                       validator: validate.translatedUserName,
                     ),
-                    const SizedBox(
-                      height: 24,
-                    ),
+                    SizedBox(height: 24.h),
                     Text(
                       translate(LocalizationKeys.emailAddress)!,
-                      style: const TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.titleOfTextField,
-                      ),
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    SizedBox(height: 8.h),
                     AppTextFormField(
                       hint: translate(LocalizationKeys.enterYourEmailAddress)!,
                       keyboardType: TextInputType.emailAddress,
@@ -144,20 +135,15 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                       },
                       validator: validate.translatedEmail,
                     ),
-                    const SizedBox(
-                      height: 24,
-                    ),
+                    SizedBox(height: 24.h),
                     Text(
                       translate(LocalizationKeys.phoneNumber)!,
-                      style: const TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.titleOfTextField,
-                      ),
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    SizedBox(height: 8.h),
                     AppTextFormField(
                       hint: translate(LocalizationKeys.enterYourPhone)!,
                       keyboardType: TextInputType.phone,
@@ -166,20 +152,15 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                       },
                       validator: validate.translatedPhone,
                     ),
-                    const SizedBox(
-                      height: 24,
-                    ),
+                    SizedBox(height: 24.h),
                     Text(
                       translate(LocalizationKeys.password)!,
-                      style: const TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.titleOfTextField,
-                      ),
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    SizedBox(height: 8.h),
                     AppTextFormField(
                       hint: translate(LocalizationKeys.enterYourPassword)!,
                       keyboardType: TextInputType.visiblePassword,
@@ -189,9 +170,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                       },
                       validator: validate.translatedPassword,
                     ),
-                    const SizedBox(
-                      height: 18,
-                    ),
+                    SizedBox(height: 18.h),
                     Row(
                       children: [
                         GestureDetector(
@@ -211,16 +190,14 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                                   color: AppColors.checkAgreeIcon,
                                 ),
                         ),
-                        const SizedBox(
-                          width: 5,
-                        ),
+                        SizedBox(width: 5.w),
                         Text(
                           translate(LocalizationKeys.iAgreeToAll)!,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.textOfAgreeToAll,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                         ),
                         Text(
                           translate(LocalizationKeys.termsAndConditions)!,
@@ -232,13 +209,11 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 25,
-                    ),
+                    SizedBox(height: 25.h),
                     Row(
                       children: [
                         Expanded(
-                            child: AppButton(
+                            child: AppElevatedButton(
                           title: translate(LocalizationKeys.signUp)!,
                           onPressed: () {
                             BlocProvider.of<SignUpBloc>(context).add(
@@ -247,9 +222,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                         )),
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    SizedBox(height: 20.h),
                     Row(
                       children: [
                         Expanded(
@@ -257,9 +230,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                           color: AppColors.divider,
                           height: 1,
                         )),
-                        const SizedBox(
-                          width: 5,
-                        ),
+                        SizedBox(width: 5.w),
                         Text(
                           translate(LocalizationKeys.orRegisterWith)!,
                           style: const TextStyle(
@@ -268,9 +239,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const SizedBox(
-                          width: 5,
-                        ),
+                        SizedBox(width: 5.w),
                         Expanded(
                             child: Container(
                           color: AppColors.divider,
@@ -278,9 +247,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                         )),
                       ],
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
+                    SizedBox(height: 16.h),
                     Row(
                       children: [
                         Expanded(
@@ -293,9 +260,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                             image: AppAssetPaths.googleLogo,
                           ),
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
+                        SizedBox(width: 10.w),
                         Expanded(
                           child: SocialButton(
                             onPressed: () {
@@ -313,11 +278,11 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                       children: [
                         Text(
                           translate(LocalizationKeys.alreadyHaveAnAccount)!,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.textOfQuestion,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                         ),
                         TextButton(
                           onPressed: () {
@@ -326,12 +291,10 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                           },
                           child: Text(
                             translate(LocalizationKeys.login)!,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              color:
-                                  AppColors.textButtonOfSignInOutRequestAgain,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge!
+                                .copyWith(fontSize: 14),
                           ),
                         ),
                       ],
@@ -361,5 +324,9 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
       name: name!,
       phone: phone!,
     ));
+  }
+
+  void _openSetAccountScreen(BuildContext context) {
+    Navigator.of(context).pushNamed(SetAccountScreen.routeName);
   }
 }

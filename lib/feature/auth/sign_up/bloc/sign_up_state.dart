@@ -1,21 +1,81 @@
 part of 'sign_up_bloc.dart';
 
-abstract class SignUpState {}
+abstract class SignUpState extends Equatable {}
 
-class SignUpInitial extends SignUpState {}
+class SignUpInitial extends SignUpState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class SignUpSuccessState extends SignUpState {}
+class SignUpSuccessState extends SignUpState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class SignUpFailureState extends SignUpState {}
+class SignUpWithGoogleSuccessState extends SignUpState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class SignUpLoadingState extends SignUpState {}
+class SignUpWithAppleSuccessState extends SignUpState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class SignInScreenState extends SignUpState {}
+class SignUpFailureState extends SignUpState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class CheckAgreeState extends SignUpState {}
+class SignUpWithGoogleFailureState extends SignUpState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class NotCheckAgreeState extends SignUpState {}
+class SignUpWithAppleFailureState extends SignUpState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class ValidateRegisterState extends SignUpState {}
+class SignUpLoadingState extends SignUpState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class NotValidateRegisterState extends SignUpState {}
+class SignInScreenState extends SignUpState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
+
+class CheckAgreeState extends SignUpState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
+
+class NotCheckAgreeState extends SignUpState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
+
+class ValidateRegisterState extends SignUpState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
+
+class NotValidateRegisterState extends SignUpState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}

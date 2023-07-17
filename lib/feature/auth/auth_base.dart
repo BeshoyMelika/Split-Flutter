@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
 import 'package:split/res/app_asset_paths.dart';
@@ -14,13 +15,13 @@ class AuthBase extends BaseStatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
-          height: height,
-          width: width,
+          height: height.h,
+          width: width.w,
           child: Stack(
             children: [
               SizedBox(
-                height: height,
-                width: width,
+                height: height.h,
+                width: width.w,
                 child: Image.asset(
                   AppAssetPaths.splashScreenBackground,
                   fit: BoxFit.cover,
@@ -31,7 +32,7 @@ class AuthBase extends BaseStatelessWidget {
                   Expanded(child: SvgPicture.asset(AppAssetPaths.splitLogo)),
                   Container(
                     constraints: BoxConstraints(
-                      maxHeight: height * 2.2 / 3,
+                      maxHeight: height.h * 2.2 / 3,
                     ),
                     child: SingleChildScrollView(child: body),
                   ),
@@ -39,8 +40,8 @@ class AuthBase extends BaseStatelessWidget {
               ),
               if (Navigator.of(context).canPop())
                 PositionedDirectional(
-                  top: 50,
-                  start: 8,
+                  top: 50.h,
+                  start: 8.w,
                   child: IconButton(
                     onPressed: () {
                       Navigator.of(context).pop();

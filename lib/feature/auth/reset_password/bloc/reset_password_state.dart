@@ -1,15 +1,39 @@
 part of 'reset_password_bloc.dart';
 
-abstract class ResetPasswordState {}
+abstract class ResetPasswordState extends Equatable {}
 
-class ResetPasswordInitial extends ResetPasswordState {}
+class ResetPasswordInitial extends ResetPasswordState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class SubmitPasswordSuccessState extends ResetPasswordState {}
+class SubmitPasswordSuccessState extends ResetPasswordState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class SubmitPasswordFailureState extends ResetPasswordState {}
+class SubmitPasswordFailureState extends ResetPasswordState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class SubmitPasswordLoadingState extends ResetPasswordState {}
+class SubmitPasswordLoadingState extends ResetPasswordState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class ValidateResetPasswordFormState extends ResetPasswordState {}
+class ValidateResetPasswordFormState extends ResetPasswordState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class NotValidateResetPasswordFormState extends ResetPasswordState {}
+class NotValidateResetPasswordFormState extends ResetPasswordState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateful_screen_widget.dart';
 import 'package:split/feature/auth/auth_base.dart';
 import 'package:split/feature/auth/forget_password/bloc/forget_password_bloc.dart';
@@ -60,15 +61,15 @@ class _ForgetPasswordScreenWithBlocState
       builder: (context, state) {
         return AuthBase(
           body: Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: AppColors.backgroundOfWidget,
               borderRadius: BorderRadius.only(
-                topRight: Radius.circular(10),
-                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10.r),
+                topLeft: Radius.circular(10.r),
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
               child: Form(
                 key: formKey,
                 autovalidateMode: autovalidateMode,
@@ -77,38 +78,29 @@ class _ForgetPasswordScreenWithBlocState
                     children: [
                       Text(
                         translate(LocalizationKeys.forgetYourPassword)!,
-                        style: const TextStyle(
-                          fontSize: 27.0,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.titleOfWidget,
-                        ),
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                              fontSize: 27,
+                              fontWeight: FontWeight.w700,
+                            ),
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
+                      SizedBox(height: 8.h),
                       Text(
                         translate(
                             LocalizationKeys.pleaseEnterYourEmailAddress)!,
-                        style: const TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.descriptionOfWidget,
-                        ),
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
                       ),
-                      const SizedBox(
-                        height: 30,
-                      ),
+                      SizedBox(height: 30.h),
                       Text(
                         translate(LocalizationKeys.email)!,
-                        style: const TextStyle(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.titleOfTextField,
-                        ),
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
+                      SizedBox(height: 8.h),
                       AppTextFormField(
                         hint: translate(LocalizationKeys.enterYourEmail)!,
                         keyboardType: TextInputType.emailAddress,
@@ -117,13 +109,11 @@ class _ForgetPasswordScreenWithBlocState
                         },
                         validator: validate.translatedEmail,
                       ),
-                      const SizedBox(
-                        height: 150,
-                      ),
+                      SizedBox(height: 150.h),
                       Row(
                         children: [
                           Expanded(
-                              child: AppButton(
+                              child: AppElevatedButton(
                             title:
                                 translate(LocalizationKeys.resetYourPassword)!,
                             onPressed: () {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 import 'package:split/core/widgets/base_stateful_screen_widget.dart';
 import 'package:split/feature/auth/auth_base.dart';
@@ -60,15 +61,15 @@ class _OtpVerificationScreenWithBlocState
       builder: (context, state) {
         return AuthBase(
             body: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: AppColors.backgroundOfWidget,
             borderRadius: BorderRadius.only(
-              topRight: Radius.circular(10),
-              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10.r),
+              topLeft: Radius.circular(10.r),
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
             child: Form(
               key: formKey,
               autovalidateMode: autovalidateMode,
@@ -77,27 +78,21 @@ class _OtpVerificationScreenWithBlocState
                 children: [
                   Text(
                     translate(LocalizationKeys.otpVerification)!,
-                    style: const TextStyle(
-                      fontSize: 27.0,
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                      fontSize: 27,
                       fontWeight: FontWeight.w700,
-                      color: AppColors.titleOfWidget,
                     ),
                   ),
-                  const SizedBox(
-                    height: 8,
-                  ),
+                  SizedBox(height: 8.h),
                   Text(
                     translate(LocalizationKeys
                         .an4DigitsCodeHasBeenSentToYourNumberEndingWith)!,
-                    style: const TextStyle(
-                      fontSize: 16.0,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontSize: 16,
                       fontWeight: FontWeight.w500,
-                      color: AppColors.descriptionOfWidget,
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 20.h),
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Pinput(
@@ -105,11 +100,11 @@ class _OtpVerificationScreenWithBlocState
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       defaultPinTheme: PinTheme(
-                        height: 70,
-                        width: 70,
+                        height: 70.h,
+                        width: 70.w,
                         decoration: BoxDecoration(
                           color: AppColors.backgroundOfOtp,
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(10.r),
                           border: Border.all(
                             color: AppColors.textFieldBorder,
                           ),
@@ -127,13 +122,11 @@ class _OtpVerificationScreenWithBlocState
                       },
                     ),
                   ),
-                  const SizedBox(
-                    height: 40,
-                  ),
+                  SizedBox(height: 40.h),
                   Row(
                     children: [
                       Expanded(
-                          child: AppButton(
+                          child: AppElevatedButton(
                         title: translate(LocalizationKeys.verify)!,
                         onPressed: () {
                           BlocProvider.of<OtpVerificationBloc>(context).add(
@@ -148,20 +141,18 @@ class _OtpVerificationScreenWithBlocState
                     children: [
                       Text(
                         translate(LocalizationKeys.didNotReceiveACode)!,
-                        style: const TextStyle(
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: AppColors.textOfQuestion,
                         ),
                       ),
                       TextButton(
                         onPressed: () {},
                         child: Text(
                           translate(LocalizationKeys.requestAgain)!,
-                          style: const TextStyle(
+                          style:Theme.of(context).textTheme.labelLarge!.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
-                            color: AppColors.textButtonOfSignInOutRequestAgain,
                           ),
                         ),
                       ),

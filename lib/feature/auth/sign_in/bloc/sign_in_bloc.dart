@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,6 +19,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   FutureOr<void> _loginEvent(LoginEvent event, Emitter<SignInState> emit) {
     emit(SignInLoadingState());
+    //future delay
     try {
       emit(SignInSuccessState());
       debugPrint(event.email);
@@ -50,6 +52,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   FutureOr<void> _forgetPasswordEvent(
       ForgetPasswordEvent event, Emitter<SignInState> emit) {
     emit(ForgetPasswordState());
+    // open forget Password screen state
   }
 
   FutureOr<void> _signUpEvent(

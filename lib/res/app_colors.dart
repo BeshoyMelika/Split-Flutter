@@ -38,7 +38,6 @@ class AppColors {
   static const _alto = Color(0xffD9D9D9);
   static const _robinsEggBlue = Color(0xFF00DCB4);
 
-
   /// app main theme ...
 
   static const colorSchemeSeed = _blueRibbon;
@@ -56,14 +55,17 @@ class AppColors {
   static const appBarIcon = _blueZodiac;
   static const titleMedium = _blueRibbon;
   static const headlineMedium = _blueZodiac;
-  static const bodyMedium = _blueZodiac;
-  static const labelLarge = _thunder;
+  static const bodyMedium = _black;
+  static const bodySmall = _grey;
+  static const bodyLarge = _mineShaft2;
+  static const labelLarge = _cloudBurst;
   static const labelMedium = _mineShaft;
   static const labelSmall = _grey;
   static const backLoginIconBackground = _white;
   static const removeHighlight = _transparent;
   static const backGroundCard = _white;
   static const backGroundContainer = _white;
+  static const titleLarge = _white;
   static const removeTxt = _chestnutRose;
 
   /// base widget
@@ -120,24 +122,15 @@ class AppColors {
 
   /// Auth Feature
   static const backgroundOfWidget = _alabaster;
-  static const titleOfWidget = _cloudBurst;
-  static const textButtonOfSignInOutRequestAgain = _cloudBurst;
   static const appElevatedButton = _cloudBurst;
-  static const titleOfTextField = _mineShaft2;
-  static const textOfAgreeToAll = _mineShaft2;
-  static const descriptionOfWidget = _mineShaft2;
-  static const textOfQuestion = _mineShaft2;
   static const divider = _gallery;
   static const textFieldBorder = _gallery;
   static const textBetweenDivider = _silver2;
   static const backgroundOfTextFormField = _white;
-  static const appElevatedButtonTitle = _white;
   static const backgroundOfOtp = _white;
   static const backgroundOfSocialButton = _white;
   static const arrowBack = _white;
   static const hintText = _alto;
   static const textOfTermsCondition = _robinsEggBlue;
-  static const socialButtonTitle = _black;
   static const checkAgreeIcon = _cloudBurst;
-
 }
