@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:split/models/group_model.dart';
+import 'package:split/feature/home/models/group_send_ui_model.dart';
 part 'home_screen_event.dart';
 part 'home_screen_state.dart';
 
@@ -31,7 +31,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     debugPrint(event.newGroup.discription);
     debugPrint(event.newGroup.type);
     debugPrint(event.newGroup.typeOfSplit);
-    debugPrint(event.newGroup.image);
+    debugPrint(event.newGroup.imageURL);
     debugPrint(event.newGroup.currency);
     emit(NewGroupCreatedSuccessfullyState());
   }

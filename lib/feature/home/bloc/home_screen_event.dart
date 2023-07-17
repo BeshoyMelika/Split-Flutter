@@ -12,7 +12,7 @@ class ValidateFormFieldsEvent extends HomeScreenEvent {
 }
 
 class CreateNewGroupEvent extends HomeScreenEvent {
-  final GroupModel newGroup;
+  final GroupSendUIModel newGroup;
 
   CreateNewGroupEvent({required this.newGroup});
   @override

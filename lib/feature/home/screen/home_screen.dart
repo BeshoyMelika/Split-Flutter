@@ -5,13 +5,13 @@ import 'package:split/core/widgets/base_stateful_screen_widget.dart';
 import 'package:split/feature/appbar/appbar.dart';
 import 'package:split/feature/home/bloc/home_screen_bloc.dart';
 import 'package:split/feature/home/helper/home_screen_helper.dart';
+import 'package:split/feature/home/models/group_send_ui_model.dart';
 import 'package:split/feature/home/widget/currency_picker_form_field_widget.dart';
 import 'package:split/feature/home/widget/image_picker_form_field_widget.dart';
 import 'package:split/feature/home/widget/new_group_type_items_list_form_field_widget.dart';
 import 'package:split/feature/home/widget/home_elevated_button_custom.dart';
 import 'package:split/feature/home/widget/text_from_field_custom.dart';
 import 'package:split/feature/widgets/app_text_widget.dart';
-import 'package:split/models/group_model.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/res/app_icons.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
@@ -40,7 +40,7 @@ class _HomeScreenWithBlocState extends BaseScreenState<HomeScreenWithBloc> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   HomeScreenHelper homeScreenHelper = HomeScreenHelper();
   AutovalidateMode validationMode = AutovalidateMode.disabled;
-  GroupModel groupModel = GroupModel.groupModel;
+  GroupSendUIModel groupModel = GroupSendUIModel.groupModel;
 
   @override
   Widget baseScreenBuild(BuildContext context) {
@@ -71,7 +71,7 @@ class _HomeScreenWithBlocState extends BaseScreenState<HomeScreenWithBloc> {
               children: [
                 ImagePickerFormFieldWidget(
                     onSaved: _onSaveImagePickerWidget,
-                    items: PickedImageWidgetItem(value: groupModel.image),
+                    items: PickedImageWidgetItem(value: groupModel.imageURL),
                     validator: _validateImagePickerWidget),
                 SizedBox(height: 15.h),
                 _textWithAsterisk(translate(LocalizationKeys.groupName)!),
@@ -227,7 +227,7 @@ class _HomeScreenWithBlocState extends BaseScreenState<HomeScreenWithBloc> {
   }
 
   void _onSaveImagePickerWidget(pickedImageWidgetItem) {
-    groupModel.image = pickedImageWidgetItem!.value!;
+    groupModel.imageURL = pickedImageWidgetItem!.value!;
   }
 
   /// new group type methods
