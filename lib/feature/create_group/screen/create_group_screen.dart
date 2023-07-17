@@ -7,7 +7,7 @@ import 'package:split/feature/create_group/bloc/create_group_screen_bloc.dart';
 import 'package:split/feature/create_group/helper/create_group_screen_helper.dart';
 import 'package:split/feature/create_group/models/group_send_ui_model.dart';
 import 'package:split/feature/create_group/widget/create_group_elevated_button_custom.dart';
-import 'package:split/feature/create_group/widget/currency_picker_form_field_widget.dart';
+import 'package:split/feature/widgets/drop_down_form_field_widget.dart';
 import 'package:split/feature/create_group/widget/image_picker_form_field_widget.dart';
 import 'package:split/feature/create_group/widget/new_group_type_items_list_form_field_widget.dart';
 import 'package:split/feature/create_group/widget/text_from_field_custom.dart';
@@ -105,7 +105,7 @@ class _CreateGroupScreenWithBloc
                 SizedBox(height: 15.h),
                 _textWithAsterisk(translate(LocalizationKeys.currency)!),
                 SizedBox(height: 8.h),
-                CurrencyPickerFormFieldWidget(
+                DropDownFormFieldWidget(
                     onSaved: _onSaveCurrencyPicker,
                     items: createGroupScreenHelper.getCurrencyPickerItemsList(),
                     validator: _currencyPickerValidator),

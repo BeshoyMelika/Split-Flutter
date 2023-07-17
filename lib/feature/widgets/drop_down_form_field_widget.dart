@@ -7,10 +7,10 @@ import 'package:split/feature/widgets/app_text_widget.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 
-class CurrencyPickerWidgetItem extends Equatable {
+class DropDownWidgetItem extends Equatable {
   final String value;
   final String key;
-  const CurrencyPickerWidgetItem({
+  const DropDownWidgetItem({
     required this.value,
     required this.key,
   });
@@ -19,28 +19,27 @@ class CurrencyPickerWidgetItem extends Equatable {
   List<Object?> get props => [value, key];
 }
 
-class CurrencyPickerFormFieldWidget
-    extends FormField<CurrencyPickerWidgetItem> {
+class DropDownFormFieldWidget extends FormField<DropDownWidgetItem> {
   /// Creates a [Select Gender Widget] widget that is a [FormField], wrapped in an
   /// [InputDecorator].
   ///
   /// For a description of the `onSaved`, `validator`, or `autovalidateMode`
   /// parameters, see [FormField].
   ///
-  final ValueChanged<CurrencyPickerWidgetItem?>? onChanged;
-  final List<CurrencyPickerWidgetItem> items;
+  final ValueChanged<DropDownWidgetItem?>? onChanged;
+  final List<DropDownWidgetItem> items;
 
-  CurrencyPickerFormFieldWidget({
+  DropDownFormFieldWidget({
     Key? key,
-    CurrencyPickerWidgetItem? value,
+    DropDownWidgetItem? value,
     AutovalidateMode? autovalidateMode,
     FocusNode? focusNode,
     bool enabled = true,
     bool? autoFocus = false,
-    FormFieldSetter<CurrencyPickerWidgetItem>? onSaved,
+    FormFieldSetter<DropDownWidgetItem>? onSaved,
     this.onChanged,
     required this.items,
-    required FormFieldValidator<CurrencyPickerWidgetItem> validator,
+    required FormFieldValidator<DropDownWidgetItem> validator,
   })  : assert(autoFocus != null),
         super(
           key: key,
@@ -48,9 +47,9 @@ class CurrencyPickerFormFieldWidget
           initialValue: value,
           validator: validator,
           autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
-          builder: (FormFieldState<CurrencyPickerWidgetItem> field) {
-            final _SelectableFormFieldState state =
-                field as _SelectableFormFieldState;
+          builder: (FormFieldState<DropDownWidgetItem> field) {
+            final _DropDownFormFieldState state =
+                field as _DropDownFormFieldState;
             const InputDecoration decorationArg = InputDecoration();
             final InputDecoration effectiveDecoration =
                 decorationArg.applyDefaults(
@@ -72,7 +71,7 @@ class CurrencyPickerFormFieldWidget
                   ),
                   isEmpty: state.value == null,
                   isFocused: Focus.of(context).hasFocus,
-                  child: _SelectableWidget(
+                  child: _DropDownWidget(
                     initialValue: state.value,
                     onSaved: onSaved,
                     onChange: state.didChange,
@@ -85,23 +84,21 @@ class CurrencyPickerFormFieldWidget
         );
 
   @override
-  FormFieldState<CurrencyPickerWidgetItem> createState() =>
-      _SelectableFormFieldState();
+  FormFieldState<DropDownWidgetItem> createState() => _DropDownFormFieldState();
 }
 
-class _SelectableFormFieldState
-    extends FormFieldState<CurrencyPickerWidgetItem> {
+class _DropDownFormFieldState extends FormFieldState<DropDownWidgetItem> {
   @override
-  void didChange(CurrencyPickerWidgetItem? value) {
+  void didChange(DropDownWidgetItem? value) {
     super.didChange(value);
-    final CurrencyPickerFormFieldWidget dropdownButtonFormField = widget;
+    final DropDownFormFieldWidget dropdownButtonFormField = widget;
     if (dropdownButtonFormField.onChanged != null) {
       dropdownButtonFormField.onChanged!(value);
     }
   }
 
   @override
-  void didUpdateWidget(CurrencyPickerFormFieldWidget oldWidget) {
+  void didUpdateWidget(DropDownFormFieldWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.initialValue != widget.initialValue) {
       setValue(widget.initialValue);
@@ -109,20 +106,19 @@ class _SelectableFormFieldState
   }
 
   @override
-  CurrencyPickerFormFieldWidget get widget =>
-      super.widget as CurrencyPickerFormFieldWidget;
+  DropDownFormFieldWidget get widget => super.widget as DropDownFormFieldWidget;
 }
 
 // ignore: must_be_immutable
-class _SelectableWidget extends BaseStatelessWidget {
-  final void Function(CurrencyPickerWidgetItem?)? onChange;
-  final void Function(CurrencyPickerWidgetItem?)? onSaved;
-  final List<CurrencyPickerWidgetItem> items;
-  final CurrencyPickerWidgetItem? initialValue;
+class _DropDownWidget extends BaseStatelessWidget {
+  final void Function(DropDownWidgetItem?)? onChange;
+  final void Function(DropDownWidgetItem?)? onSaved;
+  final List<DropDownWidgetItem> items;
+  final DropDownWidgetItem? initialValue;
 
-  CurrencyPickerWidgetItem? selectedItem;
+  DropDownWidgetItem? selectedItem;
 
-  _SelectableWidget(
+  _DropDownWidget(
       {Key? key,
       required this.items,
       this.onChange,
@@ -133,7 +129,7 @@ class _SelectableWidget extends BaseStatelessWidget {
   String? selectedValue;
 
   List<DropdownMenuItem<String>> _addDividersAfterItems(
-      List<CurrencyPickerWidgetItem> items) {
+      List<DropDownWidgetItem> items) {
     List<DropdownMenuItem<String>> menuItems = [];
     for (var item in items) {
       menuItems.add(
@@ -175,7 +171,7 @@ class _SelectableWidget extends BaseStatelessWidget {
                   fontWeight: FontWeight.w400)),
           items: _addDividersAfterItems(items),
           value: _getCurrentSelectedItem(),
-          onChanged: _onCurrencyChange,
+          onChanged: _onDropDownChange,
           buttonStyleData: ButtonStyleData(
             padding: const EdgeInsets.only(left: 14, right: 14),
             decoration: BoxDecoration(
@@ -201,7 +197,7 @@ class _SelectableWidget extends BaseStatelessWidget {
     );
   }
 
-  changeChoose(CurrencyPickerWidgetItem choose) {
+  changeChoose(DropDownWidgetItem choose) {
     selectedItem = choose;
     if (onChange != null) {
       onChange!(selectedItem!);
@@ -211,9 +207,9 @@ class _SelectableWidget extends BaseStatelessWidget {
     }
   }
 
-  void _onCurrencyChange(value) {
-    CurrencyPickerWidgetItem selectableWidgetItem =
-        CurrencyPickerWidgetItem(value: value, key: value);
+  void _onDropDownChange(value) {
+    DropDownWidgetItem selectableWidgetItem =
+        DropDownWidgetItem(value: value, key: value);
     changeChoose(selectableWidgetItem);
   }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:split/feature/create_group/widget/currency_picker_form_field_widget.dart';
+import 'package:split/feature/widgets/drop_down_form_field_widget.dart';
 import 'package:split/feature/create_group/widget/new_group_type_items_list_form_field_widget.dart';
 import 'package:split/res/app_icons.dart';
 import 'package:split/utils/locale/app_localization.dart';
@@ -48,8 +48,7 @@ class CreateGroupScreenHelper {
           .toList();
 
   /// new group currency type list
-  List<CurrencyPickerWidgetItem> getCurrencyPickerItemsList() =>
-      currencyListItems
-          .map((e) => CurrencyPickerWidgetItem(value: e, key: e))
-          .toList();
+  List<DropDownWidgetItem> getCurrencyPickerItemsList() => currencyListItems
+      .map((e) => DropDownWidgetItem(value: e, key: e))
+      .toList();
 }
