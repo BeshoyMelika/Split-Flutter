@@ -13,7 +13,7 @@ import 'package:split/feature/auth/widgets/social_button.dart';
 import 'package:split/res/app_asset_paths.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
-import 'package:split/utils/validations/vaildtors_translator.dart';
+import 'package:split/utils/validations/auth_validate.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -36,14 +36,13 @@ class SignUpScreenWithBloc extends BaseStatefulScreenWidget {
       _SignUpScreenWithBlocState();
 }
 
-class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
+class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
+    with AuthValidate {
   final GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? email, password, name, phone;
   @override
   Widget baseScreenBuild(BuildContext context) {
-    TextFormValidatorsTranslator validate =
-        TextFormValidatorsTranslator(context);
     return BlocConsumer<SignUpBloc, SignUpState>(
       listener: (context, state) {
         if (state is SignUpSuccessState) {
@@ -116,7 +115,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                       onSaved: (value) {
                         name = value;
                       },
-                      validator: validate.translatedUserName,
+                      validator: textValidator,
                     ),
                     SizedBox(height: 24.h),
                     Text(
@@ -133,7 +132,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                       onSaved: (value) {
                         email = value;
                       },
-                      validator: validate.translatedEmail,
+                      validator: emailValidator,
                     ),
                     SizedBox(height: 24.h),
                     Text(
@@ -150,7 +149,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                       onSaved: (value) {
                         phone = value;
                       },
-                      validator: validate.translatedPhone,
+                      validator: phoneNumberValidator,
                     ),
                     SizedBox(height: 24.h),
                     Text(
@@ -168,7 +167,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc> {
                       onSaved: (value) {
                         password = value;
                       },
-                      validator: validate.translatedPassword,
+                      validator: passwordValidator,
                     ),
                     SizedBox(height: 18.h),
                     Row(

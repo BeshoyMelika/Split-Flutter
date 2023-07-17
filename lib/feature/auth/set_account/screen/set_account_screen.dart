@@ -9,7 +9,6 @@ import 'package:split/feature/auth/widgets/app_text_form_field.dart';
 import 'package:split/feature/home/screen/home_screen.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
-import 'package:split/utils/validations/vaildtors_translator.dart';
 
 class SetAccountScreen extends StatelessWidget {
   const SetAccountScreen({super.key});
