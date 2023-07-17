@@ -31,6 +31,7 @@ class AppCachedNetworkImage extends StatelessWidget {
   }
 }
 
+/// make image as background if itt require a provider not a widget
 class AppCachedNetworkImageProvider extends CachedNetworkImageProvider {
   final String imageUrl;
   const AppCachedNetworkImageProvider({
