@@ -120,7 +120,7 @@ class _OnBoardingScreenWithBloc
   /// //////////////////Helper Methods/////////////////////////////
   /// /////////////////////////////////////////////////////////////
   void _onGetStartedTap() {
-    BlocProvider.of<OnBoardingScreenBloc>(context).add(NavigateToHomePage());
+    currentBloc.add(NavigateToHomePage());
   }
 
   void _navigateToHomeScreen() {
@@ -129,4 +129,6 @@ class _OnBoardingScreenWithBloc
         MaterialPageRoute(builder: (context) => const CreateGroupScreen()),
         (route) => false);
   }
+
+  OnBoardingScreenBloc get currentBloc => context.read<OnBoardingScreenBloc>();
 }

@@ -34,13 +34,13 @@ class CreateGroupScreenWithBloc extends BaseStatefulScreenWidget {
 
   @override
   BaseScreenState<CreateGroupScreenWithBloc> baseScreenCreateState() =>
-      _HomeScreenWithBlocState();
+      _CreateGroupScreenWithBloc();
 }
 
-class _HomeScreenWithBlocState
+class _CreateGroupScreenWithBloc
     extends BaseScreenState<CreateGroupScreenWithBloc> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  CreateGroupScreenHelper homeScreenHelper = CreateGroupScreenHelper();
+  CreateGroupScreenHelper createGroupScreenHelper = CreateGroupScreenHelper();
   AutovalidateMode validationMode = AutovalidateMode.disabled;
   GroupSendUIModel groupModel = GroupSendUIModel.groupModel;
 
@@ -52,18 +52,19 @@ class _HomeScreenWithBlocState
       appBar: AppBarWidget(title: translate(LocalizationKeys.createNewGroup)!),
       body: BlocConsumer<CreateGroupScreenBloc, CreateGroupScreenState>(
         listener: (context, state) {
+          if (state is LoadingCreateGroupScreenState) {
+            showLoading();
+          } else {
+            hideLoading();
+          }
           if (state is NotValidCreateGroupScreenState) {
             validationMode = AutovalidateMode.always;
           } else if (state
               is ValidationDoneSuccessfullyCreateGroupScreenState) {
-            _onValidationDoneSuccessfully();
-          } else if (state is LoadingCreateGroupScreenState) {
-            _loadingHomeScreenState();
+            _createNewGroup();
           } else if (state is ErrorCaughtCreateGroupScreenState) {
-            _errorCaughtHomeScreenState();
-          } else if (state is NewGroupCreatedSuccessfullyState) {
-            _newGroupCreatedSuccessfully();
-          }
+            _errorCaughtCreateGroupScreenState();
+          } else if (state is NewGroupCreatedSuccessfullyState) {}
         },
         builder: (context, state) {
           return Form(
@@ -90,7 +91,8 @@ class _HomeScreenWithBlocState
                 SizedBox(height: 8.h),
                 NewGroupTypeItemsListFormFieldWidget(
                     onSaved: _typesItemsList,
-                    items: _getCurrentTypesItemsList(),
+                    items: createGroupScreenHelper
+                        .getCurrentTypesItemsList(appLocale),
                     validator: _typesItemsListValidator),
                 SizedBox(height: 15.h),
                 _textWithAsterisk(translate(LocalizationKeys.addParticipants)!),
@@ -98,14 +100,15 @@ class _HomeScreenWithBlocState
                 _textWithAsterisk(translate(LocalizationKeys.typeOfSplit)!),
                 NewGroupTypeItemsListFormFieldWidget(
                     onSaved: _onSaveTypeOfSplitItem,
-                    items: _getCurrentTypesOfSplitItemsList(),
+                    items: createGroupScreenHelper
+                        .getCurrentTypesOfSplitItemsList(appLocale),
                     validator: _newGroupTypeOfSplitItemsValidator),
                 SizedBox(height: 15.h),
                 _textWithAsterisk(translate(LocalizationKeys.currency)!),
                 SizedBox(height: 8.h),
                 CurrencyPickerFormFieldWidget(
                     onSaved: _onSaveCurrencyPickerWidget,
-                    items: _getCurrencyPickerItemsList(),
+                    items: createGroupScreenHelper.getCurrencyPickerItemsList(),
                     validator: _currencyPickerValidator),
                 SizedBox(height: 15.h),
                 Align(
@@ -144,9 +147,7 @@ class _HomeScreenWithBlocState
       labelText: text);
 
   Widget _addParticipants() => InkWell(
-        onTap: () {
-          _addParticipantsOnTap();
-        },
+        onTap: _addParticipantsOnTap,
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(16.w, 25.h, 0, 25.h),
           child: Row(
@@ -179,9 +180,7 @@ class _HomeScreenWithBlocState
           Expanded(
               child: CreateGroupElevatedButtonCustom(
                   text: translate(LocalizationKeys.create)!,
-                  onPressed: () {
-                    _onCreatePressed();
-                  },
+                  onPressed: _onCreatePressed,
                   buttonHeight: 40.h,
                   alignment: AlignmentDirectional.center)),
           SizedBox(width: 12.w),
@@ -190,9 +189,7 @@ class _HomeScreenWithBlocState
                   textStyle: textTheme.bodySmall!
                       .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
                   text: translate(LocalizationKeys.cancel)!,
-                  onPressed: () {
-                    _onCancelPressed();
-                  },
+                  onPressed: _onCancelPressed,
                   buttonColor: AppColors.homeScreenCancelButton,
                   buttonHeight: 40.h,
                   alignment: AlignmentDirectional.center)),
@@ -203,22 +200,16 @@ class _HomeScreenWithBlocState
   /// //////////////////////Helper Methods /////////////////////////////
   /// //////////////////////////////////////////////////////////////////
   void _onCreatePressed() {
-    BlocProvider.of<CreateGroupScreenBloc>(context)
-        .add(ValidateFormFieldsEvent(formKey: formKey));
+    currentBloc.add(ValidateFormFieldsEvent(formKey: formKey));
   }
 
   void _onCancelPressed() {
     debugPrint("cancel Pressed");
   }
 
-  void _onValidationDoneSuccessfully() {
+  void _createNewGroup() {
     hideLoading();
-    BlocProvider.of<CreateGroupScreenBloc>(context)
-        .add(CreateNewGroupEvent(newGroup: groupModel));
-  }
-
-  void _newGroupCreatedSuccessfully() {
-    hideLoading();
+    currentBloc.add(CreateNewGroupEvent(newGroup: groupModel));
   }
 
   /// image picker methods
@@ -234,14 +225,7 @@ class _HomeScreenWithBlocState
   }
 
   /// new group type methods
-  List<NewGroupTypeItem> _getCurrentTypesItemsList() =>
-      homeScreenHelper.typeListStrings
-          .map((e) => NewGroupTypeItem(
-              value: translate(e)!,
-              key: e,
-              icon: homeScreenHelper
-                  .typeListIcons[homeScreenHelper.typeListStrings.indexOf(e)]))
-          .toList();
+
   void _typesItemsList(newGroupType) {
     groupModel.type = newGroupType!.value;
   }
@@ -258,11 +242,6 @@ class _HomeScreenWithBlocState
     groupModel.typeOfSplit = newGroupSplitType!.value;
   }
 
-  List<NewGroupTypeItem> _getCurrentTypesOfSplitItemsList() => homeScreenHelper
-      .typeOfSplitListStrings
-      .map((e) => NewGroupTypeItem(value: translate(e)!, key: e, icon: null))
-      .toList();
-
   String? _newGroupTypeOfSplitItemsValidator(typeOfSplitItem) {
     if (typeOfSplitItem == null) {
       return translate(LocalizationKeys.required);
@@ -274,11 +253,6 @@ class _HomeScreenWithBlocState
   void _onSaveCurrencyPickerWidget(currentCurrency) {
     groupModel.currency = currentCurrency!.value;
   }
-
-  List<CurrencyPickerWidgetItem> _getCurrencyPickerItemsList() =>
-      homeScreenHelper.currencyListItems
-          .map((e) => CurrencyPickerWidgetItem(value: e, key: e))
-          .toList();
 
   String? _currencyPickerValidator(selectableWidgetItem) {
     if (selectableWidgetItem == null) {
@@ -300,11 +274,10 @@ class _HomeScreenWithBlocState
     debugPrint("add participant Pressed");
   }
 
-  void _errorCaughtHomeScreenState() {
+  void _errorCaughtCreateGroupScreenState() {
     hideLoading();
   }
 
-  void _loadingHomeScreenState() {
-    showLoading();
-  }
+  CreateGroupScreenBloc get currentBloc =>
+      context.read<CreateGroupScreenBloc>();
 }
