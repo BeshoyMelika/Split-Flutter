@@ -74,9 +74,9 @@ class _CreateGroupScreenWithBloc
               padding: EdgeInsets.symmetric(horizontal: 19.w, vertical: 25.h),
               children: [
                 ImagePickerFormFieldWidget(
-                    onSaved: _onSaveImagePickerWidget,
+                    onSaved: _onSaveImagePicker,
                     items: PickedImageWidgetItem(value: groupModel.imageURL),
-                    validator: _validateImagePickerWidget),
+                    validator: _validateImagePicker),
                 SizedBox(height: 15.h),
                 _textWithAsterisk(translate(LocalizationKeys.groupName)!),
                 SizedBox(height: 8.h),
@@ -90,7 +90,7 @@ class _CreateGroupScreenWithBloc
                 _textWithAsterisk(translate(LocalizationKeys.type)!),
                 SizedBox(height: 8.h),
                 NewGroupTypeItemsListFormFieldWidget(
-                    onSaved: _typesItemsList,
+                    onSaved: _onSaveTypesItemsList,
                     items: createGroupScreenHelper
                         .getCurrentTypesItemsList(appLocale),
                     validator: _typesItemsListValidator),
@@ -107,7 +107,7 @@ class _CreateGroupScreenWithBloc
                 _textWithAsterisk(translate(LocalizationKeys.currency)!),
                 SizedBox(height: 8.h),
                 CurrencyPickerFormFieldWidget(
-                    onSaved: _onSaveCurrencyPickerWidget,
+                    onSaved: _onSaveCurrencyPicker,
                     items: createGroupScreenHelper.getCurrencyPickerItemsList(),
                     validator: _currencyPickerValidator),
                 SizedBox(height: 15.h),
@@ -208,25 +208,24 @@ class _CreateGroupScreenWithBloc
   }
 
   void _createNewGroup() {
-    hideLoading();
     currentBloc.add(CreateNewGroupEvent(newGroup: groupModel));
   }
 
   /// image picker methods
-  String? _validateImagePickerWidget(pickedImageWidgetItem) {
+  String? _validateImagePicker(pickedImageWidgetItem) {
     if (pickedImageWidgetItem == null) {
       return translate(LocalizationKeys.required);
     }
     return null;
   }
 
-  void _onSaveImagePickerWidget(pickedImageWidgetItem) {
+  void _onSaveImagePicker(pickedImageWidgetItem) {
     groupModel.imageURL = pickedImageWidgetItem!.value!;
   }
 
   /// new group type methods
 
-  void _typesItemsList(newGroupType) {
+  void _onSaveTypesItemsList(newGroupType) {
     groupModel.type = newGroupType!.value;
   }
 
@@ -250,7 +249,7 @@ class _CreateGroupScreenWithBloc
   }
 
   /// currency picker methods
-  void _onSaveCurrencyPickerWidget(currentCurrency) {
+  void _onSaveCurrencyPicker(currentCurrency) {
     groupModel.currency = currentCurrency!.value;
   }
 
@@ -274,9 +273,7 @@ class _CreateGroupScreenWithBloc
     debugPrint("add participant Pressed");
   }
 
-  void _errorCaughtCreateGroupScreenState() {
-    hideLoading();
-  }
+  void _errorCaughtCreateGroupScreenState() {}
 
   CreateGroupScreenBloc get currentBloc =>
       context.read<CreateGroupScreenBloc>();

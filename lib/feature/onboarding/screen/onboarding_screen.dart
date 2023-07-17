@@ -52,12 +52,15 @@ class _OnBoardingScreenWithBloc
           ),
           child: BlocConsumer<OnBoardingScreenBloc, OnBoardingScreenState>(
             listener: (context, state) {
-              if (state is OnBoardingImagesListLoadedSuccessfullyState) {
+              if (state is LoadingDataOnBoardingState) {
+                showLoading();
+              } else {
                 hideLoading();
+              }
+
+              if (state is OnBoardingImagesListLoadedSuccessfullyState) {
                 onBoardingDataList = state.onBoardingDataList;
                 dataHasBeenLoaded = true;
-              } else if (state is LoadingDataOnBoardingState) {
-                showLoading();
               } else if (state is OpenHomeScreenState) {
                 _navigateToHomeScreen();
               }
@@ -100,9 +103,7 @@ class _OnBoardingScreenWithBloc
                     child: Center(
                       child: CreateGroupElevatedButtonCustom(
                           text: translate(LocalizationKeys.getStarted)!,
-                          onPressed: () {
-                            _onGetStartedTap();
-                          },
+                          onPressed: _onGetStartedTap,
                           buttonHeight: 50.h,
                           alignment: AlignmentDirectional.center),
                     ),
