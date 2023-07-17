@@ -11,7 +11,6 @@ import 'package:split/feature/create_group/widget/currency_picker_form_field_wid
 import 'package:split/feature/create_group/widget/image_picker_form_field_widget.dart';
 import 'package:split/feature/create_group/widget/new_group_type_items_list_form_field_widget.dart';
 import 'package:split/feature/create_group/widget/text_from_field_custom.dart';
-
 import 'package:split/feature/widgets/app_text_widget.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/res/app_icons.dart';
