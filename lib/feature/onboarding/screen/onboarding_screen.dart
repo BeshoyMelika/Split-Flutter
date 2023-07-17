@@ -35,7 +35,6 @@ class _OnBoardingScreenWithBloc
     extends BaseScreenState<OnBoardingScreenWithBloc> {
   final PageController _pageController = PageController(initialPage: 0);
   List<OnBoardingUIModel> onBoardingDataList = [];
-  bool dataHasBeenLoaded = false;
   @override
   Widget baseScreenBuild(BuildContext context) {
     return SafeArea(
@@ -60,7 +59,6 @@ class _OnBoardingScreenWithBloc
 
               if (state is OnBoardingImagesListLoadedSuccessfullyState) {
                 onBoardingDataList = state.onBoardingDataList;
-                dataHasBeenLoaded = true;
               } else if (state is OpenHomeScreenState) {
                 _navigateToHomeScreen();
               }
@@ -68,7 +66,7 @@ class _OnBoardingScreenWithBloc
             builder: (context, state) {
               return Stack(
                 children: [
-                  dataHasBeenLoaded
+                  onBoardingDataList.isNotEmpty
                       ? PageView.builder(
                           controller: _pageController,
                           itemCount: onBoardingDataList.length,

@@ -84,9 +84,6 @@ class TextFormFieldCustom extends BaseStatelessWidget {
         //borderRadius: BorderRadius.circular(15.r),
       ),
       contentPadding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
-      errorStyle: const TextStyle(
-        fontWeight: FontWeight.bold,
-      ),
       hintText: hintTxt,
       hintStyle: const TextStyle(
           color: AppColors.homeScreenTextFormFieldHintText,
