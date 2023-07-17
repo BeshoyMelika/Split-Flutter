@@ -3,42 +3,44 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateful_screen_widget.dart';
 import 'package:split/feature/appbar/appbar.dart';
-import 'package:split/feature/home/bloc/home_screen_bloc.dart';
-import 'package:split/feature/home/helper/home_screen_helper.dart';
-import 'package:split/feature/home/models/group_send_ui_model.dart';
-import 'package:split/feature/home/widget/currency_picker_form_field_widget.dart';
-import 'package:split/feature/home/widget/image_picker_form_field_widget.dart';
-import 'package:split/feature/home/widget/new_group_type_items_list_form_field_widget.dart';
-import 'package:split/feature/home/widget/home_elevated_button_custom.dart';
-import 'package:split/feature/home/widget/text_from_field_custom.dart';
+import 'package:split/feature/create_group/bloc/create_group_screen_bloc.dart';
+import 'package:split/feature/create_group/helper/create_group_screen_helper.dart';
+import 'package:split/feature/create_group/models/group_send_ui_model.dart';
+import 'package:split/feature/create_group/widget/create_group_elevated_button_custom.dart';
+import 'package:split/feature/create_group/widget/currency_picker_form_field_widget.dart';
+import 'package:split/feature/create_group/widget/image_picker_form_field_widget.dart';
+import 'package:split/feature/create_group/widget/new_group_type_items_list_form_field_widget.dart';
+import 'package:split/feature/create_group/widget/text_from_field_custom.dart';
+
 import 'package:split/feature/widgets/app_text_widget.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/res/app_icons.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 import 'package:split/utils/widgets/text_with_asterisk_widget.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class CreateGroupScreen extends StatelessWidget {
+  const CreateGroupScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => HomeScreenBloc(),
-        child: const HomeScreenWithBloc());
+        create: (context) => CreateGroupScreenBloc(),
+        child: const CreateGroupScreenWithBloc());
   }
 }
 
-class HomeScreenWithBloc extends BaseStatefulScreenWidget {
-  const HomeScreenWithBloc({Key? key}) : super(key: key);
+class CreateGroupScreenWithBloc extends BaseStatefulScreenWidget {
+  const CreateGroupScreenWithBloc({Key? key}) : super(key: key);
 
   @override
-  BaseScreenState<HomeScreenWithBloc> baseScreenCreateState() =>
+  BaseScreenState<CreateGroupScreenWithBloc> baseScreenCreateState() =>
       _HomeScreenWithBlocState();
 }
 
-class _HomeScreenWithBlocState extends BaseScreenState<HomeScreenWithBloc> {
+class _HomeScreenWithBlocState
+    extends BaseScreenState<CreateGroupScreenWithBloc> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  HomeScreenHelper homeScreenHelper = HomeScreenHelper();
+  CreateGroupScreenHelper homeScreenHelper = CreateGroupScreenHelper();
   AutovalidateMode validationMode = AutovalidateMode.disabled;
   GroupSendUIModel groupModel = GroupSendUIModel.groupModel;
 
@@ -48,15 +50,16 @@ class _HomeScreenWithBlocState extends BaseScreenState<HomeScreenWithBloc> {
         child: Scaffold(
       backgroundColor: AppColors.homeScreenBackground,
       appBar: AppBarWidget(title: translate(LocalizationKeys.createNewGroup)!),
-      body: BlocConsumer<HomeScreenBloc, HomeScreenState>(
+      body: BlocConsumer<CreateGroupScreenBloc, CreateGroupScreenState>(
         listener: (context, state) {
-          if (state is NotValidHomeScreenState) {
+          if (state is NotValidCreateGroupScreenState) {
             validationMode = AutovalidateMode.always;
-          } else if (state is ValidationDoneSuccessfullyHomeScreenState) {
+          } else if (state
+              is ValidationDoneSuccessfullyCreateGroupScreenState) {
             _onValidationDoneSuccessfully();
-          } else if (state is LoadingHomeScreenState) {
+          } else if (state is LoadingCreateGroupScreenState) {
             _loadingHomeScreenState();
-          } else if (state is ErrorCaughtHomeScreenState) {
+          } else if (state is ErrorCaughtCreateGroupScreenState) {
             _errorCaughtHomeScreenState();
           } else if (state is NewGroupCreatedSuccessfullyState) {
             _newGroupCreatedSuccessfully();
@@ -174,7 +177,7 @@ class _HomeScreenWithBlocState extends BaseScreenState<HomeScreenWithBloc> {
   Widget _createAndCancelButtons() => Row(
         children: [
           Expanded(
-              child: HomeElevatedButtonCustom(
+              child: CreateGroupElevatedButtonCustom(
                   text: translate(LocalizationKeys.create)!,
                   onPressed: () {
                     _onCreatePressed();
@@ -183,7 +186,7 @@ class _HomeScreenWithBlocState extends BaseScreenState<HomeScreenWithBloc> {
                   alignment: AlignmentDirectional.center)),
           SizedBox(width: 12.w),
           Expanded(
-              child: HomeElevatedButtonCustom(
+              child: CreateGroupElevatedButtonCustom(
                   textStyle: textTheme.bodySmall!
                       .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
                   text: translate(LocalizationKeys.cancel)!,
@@ -200,7 +203,7 @@ class _HomeScreenWithBlocState extends BaseScreenState<HomeScreenWithBloc> {
   /// //////////////////////Helper Methods /////////////////////////////
   /// //////////////////////////////////////////////////////////////////
   void _onCreatePressed() {
-    BlocProvider.of<HomeScreenBloc>(context)
+    BlocProvider.of<CreateGroupScreenBloc>(context)
         .add(ValidateFormFieldsEvent(formKey: formKey));
   }
 
@@ -210,7 +213,7 @@ class _HomeScreenWithBlocState extends BaseScreenState<HomeScreenWithBloc> {
 
   void _onValidationDoneSuccessfully() {
     hideLoading();
-    BlocProvider.of<HomeScreenBloc>(context)
+    BlocProvider.of<CreateGroupScreenBloc>(context)
         .add(CreateNewGroupEvent(newGroup: groupModel));
   }
 

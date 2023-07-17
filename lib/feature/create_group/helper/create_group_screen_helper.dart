@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:split/res/app_icons.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 
-class HomeScreenHelper {
+class CreateGroupScreenHelper {
   List<IconData> typeListIcons = [
     AppIcons.plane,
     AppIcons.home,

@@ -5,8 +5,8 @@ import 'package:split/feature/widgets/app_text_widget.dart';
 import 'package:split/res/app_colors.dart';
 
 // ignore: must_be_immutable
-class HomeElevatedButtonCustom extends BaseStatelessWidget {
-  HomeElevatedButtonCustom(
+class CreateGroupElevatedButtonCustom extends BaseStatelessWidget {
+  CreateGroupElevatedButtonCustom(
       {required this.text,
       required this.onPressed,
       this.buttonColor,
@@ -17,7 +17,7 @@ class HomeElevatedButtonCustom extends BaseStatelessWidget {
       required this.alignment,
       Key? key})
       : super(key: key);
-  HomeElevatedButtonCustom.withIcon({
+  CreateGroupElevatedButtonCustom.withIcon({
     super.key,
     required this.icon,
     required this.buttonHeight,

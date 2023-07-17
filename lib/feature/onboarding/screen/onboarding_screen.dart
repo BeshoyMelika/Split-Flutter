@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:split/core/widgets/base_stateful_screen_widget.dart';
-import 'package:split/feature/home/screen/home_screen.dart';
-import 'package:split/feature/home/widget/home_elevated_button_custom.dart';
+import 'package:split/feature/create_group/screen/create_group_screen.dart';
+import 'package:split/feature/create_group/widget/create_group_elevated_button_custom.dart';
 import 'package:split/feature/onboarding/bloc/on_boarding_screen_bloc.dart';
+import 'package:split/feature/onboarding/models/onboarding_ui_model.dart';
 import 'package:split/feature/onboarding/widgets/onboarding_item_widget.dart';
 import 'package:split/res/app_asset_paths.dart';
 import 'package:split/res/app_colors.dart';
@@ -33,9 +34,7 @@ class OnBoardingScreenWithBloc extends BaseStatefulScreenWidget {
 class _OnBoardingScreenWithBloc
     extends BaseScreenState<OnBoardingScreenWithBloc> {
   final PageController _pageController = PageController(initialPage: 0);
-  List<String> images = [LocalizationKeys.account];
-  List<String> onBoardingItemsMainTexts = [LocalizationKeys.account];
-  List<String> onBoardingItemsSubTexts = [LocalizationKeys.account];
+  List<OnBoardingUIModel> onBoardingDataList = [];
   bool dataHasBeenLoaded = false;
   @override
   Widget baseScreenBuild(BuildContext context) {
@@ -55,49 +54,28 @@ class _OnBoardingScreenWithBloc
             listener: (context, state) {
               if (state is OnBoardingImagesListLoadedSuccessfullyState) {
                 hideLoading();
-                images = state.imagesURLs;
-                onBoardingItemsMainTexts = state.mainTexts;
-                onBoardingItemsSubTexts = state.subTexts;
+                onBoardingDataList = state.onBoardingDataList;
                 dataHasBeenLoaded = true;
               } else if (state is LoadingDataOnBoardingState) {
                 showLoading();
+              } else if (state is OpenHomeScreenState) {
+                _navigateToHomeScreen();
               }
             },
             builder: (context, state) {
               return Stack(
                 children: [
-                  PageView(
-                    controller: _pageController,
-                    children: [
-                      dataHasBeenLoaded
-                          ? OnBoardingItemWidget(
-                              mainText: translate(onBoardingItemsMainTexts[
-                                  OnBoardingItemWidgetIndex.firstPage.index])!,
-                              subText: translate(onBoardingItemsSubTexts[
-                                  OnBoardingItemWidgetIndex.firstPage.index])!,
-                              imagePath: images[
-                                  OnBoardingItemWidgetIndex.firstPage.index])
-                          : const SizedBox.shrink(),
-                      dataHasBeenLoaded
-                          ? OnBoardingItemWidget(
-                              mainText: translate(onBoardingItemsMainTexts[
-                                  OnBoardingItemWidgetIndex.secondPage.index])!,
-                              subText: translate(onBoardingItemsSubTexts[
-                                  OnBoardingItemWidgetIndex.secondPage.index])!,
-                              imagePath: images[
-                                  OnBoardingItemWidgetIndex.secondPage.index])
-                          : const SizedBox.shrink(),
-                      dataHasBeenLoaded
-                          ? OnBoardingItemWidget(
-                              mainText: translate(onBoardingItemsMainTexts[
-                                  OnBoardingItemWidgetIndex.thirdPage.index])!,
-                              subText: translate(onBoardingItemsSubTexts[
-                                  OnBoardingItemWidgetIndex.thirdPage.index])!,
-                              imagePath: images[
-                                  OnBoardingItemWidgetIndex.thirdPage.index])
-                          : const SizedBox.shrink(),
-                    ],
-                  ),
+                  dataHasBeenLoaded
+                      ? PageView.builder(
+                          controller: _pageController,
+                          itemCount: onBoardingDataList.length,
+                          itemBuilder: (context, index) => OnBoardingItemWidget(
+                              mainText: translate(
+                                  onBoardingDataList[index].mainText)!,
+                              subText:
+                                  translate(onBoardingDataList[index].subText)!,
+                              imagePath: onBoardingDataList[index].imageURL))
+                      : const SizedBox.shrink(),
                   Positioned(
                     left: 0,
                     right: 0,
@@ -105,7 +83,7 @@ class _OnBoardingScreenWithBloc
                     child: Center(
                       child: SmoothPageIndicator(
                         controller: _pageController,
-                        count: 3,
+                        count: onBoardingDataList.length,
                         effect: const ExpandingDotsEffect(
                           activeDotColor:
                               AppColors.onBoardingScreenIndicatorDots,
@@ -120,7 +98,7 @@ class _OnBoardingScreenWithBloc
                     left: 0,
                     right: 0,
                     child: Center(
-                      child: HomeElevatedButtonCustom(
+                      child: CreateGroupElevatedButtonCustom(
                           text: translate(LocalizationKeys.getStarted)!,
                           onPressed: () {
                             _onGetStartedTap();
@@ -142,9 +120,13 @@ class _OnBoardingScreenWithBloc
   /// //////////////////Helper Methods/////////////////////////////
   /// /////////////////////////////////////////////////////////////
   void _onGetStartedTap() {
+    BlocProvider.of<OnBoardingScreenBloc>(context).add(NavigateToHomePage());
+  }
+
+  void _navigateToHomeScreen() {
     Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => const CreateGroupScreen()),
         (route) => false);
   }
 }

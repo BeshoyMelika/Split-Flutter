@@ -5,11 +5,11 @@ import 'package:split/feature/widgets/app_text_widget.dart';
 import 'package:split/res/app_colors.dart';
 
 // ignore: must_be_immutable
-class HomeScreenListItem extends BaseStatelessWidget {
-  HomeScreenListItem(this.icon,
+class CreateGroupScreenListItem extends BaseStatelessWidget {
+  CreateGroupScreenListItem(this.icon,
       {required this.text, required this.selected, Key? key})
       : super(key: key);
-  HomeScreenListItem.withIcon(
+  CreateGroupScreenListItem.withIcon(
       {super.key,
       required this.icon,
       required this.text,

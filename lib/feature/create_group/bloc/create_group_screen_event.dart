@@ -1,9 +1,9 @@
-part of 'home_screen_bloc.dart';
+part of 'create_group_screen_bloc.dart';
 
 @immutable
-abstract class HomeScreenEvent extends Equatable {}
+abstract class CreateGroupScreenEvent extends Equatable {}
 
-class ValidateFormFieldsEvent extends HomeScreenEvent {
+class ValidateFormFieldsEvent extends CreateGroupScreenEvent {
   final GlobalKey<FormState> formKey;
 
   ValidateFormFieldsEvent({required this.formKey});
@@ -11,7 +11,7 @@ class ValidateFormFieldsEvent extends HomeScreenEvent {
   List<Object?> get props => [identityHashCode(this)];
 }
 
-class CreateNewGroupEvent extends HomeScreenEvent {
+class CreateNewGroupEvent extends CreateGroupScreenEvent {
   final GroupSendUIModel newGroup;
 
   CreateNewGroupEvent({required this.newGroup});

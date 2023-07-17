@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
+import 'package:split/utils/widgets/app_cached_network_image.dart';
 
 // ignore: must_be_immutable
 class OnBoardingItemWidget extends BaseStatelessWidget {
@@ -24,9 +25,9 @@ class OnBoardingItemWidget extends BaseStatelessWidget {
           SizedBox(
             height: 300.h,
             width: 300.w,
-            child: Image.network(
-              imagePath,
-              fit: BoxFit.fill,
+            child: AppCachedNetworkImage(
+              imageUrl: imagePath,
+              boxFit: BoxFit.fill,
             ),
           ),
           SizedBox(height: 70.h),
@@ -47,10 +48,4 @@ class OnBoardingItemWidget extends BaseStatelessWidget {
       ),
     );
   }
-}
-
-enum OnBoardingItemWidgetIndex {
-  firstPage,
-  secondPage,
-  thirdPage,
 }

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:split/feature/home/widget/home_screen_list_item.dart';
+import 'package:split/feature/create_group/widget/create_group_screen_list_item.dart';
 
 class NewGroupTypeItem extends Equatable {
   final String value;
@@ -136,12 +136,12 @@ class _NewGoupItemsListWidget extends StatelessWidget {
                 (selectableWidgetItem) => InkWell(
                   onTap: () => changeChoose(selectableWidgetItem),
                   child: selectableWidgetItem.icon == null
-                      ? HomeScreenListItem(
+                      ? CreateGroupScreenListItem(
                           null,
                           text: selectableWidgetItem.value,
                           selected: selectedItem == selectableWidgetItem,
                         )
-                      : HomeScreenListItem(selectableWidgetItem.icon,
+                      : CreateGroupScreenListItem(selectableWidgetItem.icon,
                           text: selectableWidgetItem.value,
                           selected: selectedItem == selectableWidgetItem),
                 ),

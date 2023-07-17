@@ -10,19 +10,21 @@ class OnBoardingWidgetInitial extends OnBoardingScreenState {
 
 class OnBoardingImagesListLoadedSuccessfullyState
     extends OnBoardingScreenState {
-  final List<String> imagesURLs;
-  final List<String> mainTexts;
-  final List<String> subTexts;
+  final List<OnBoardingUIModel> onBoardingDataList;
 
-  OnBoardingImagesListLoadedSuccessfullyState(
-      {required this.imagesURLs,
-      required this.mainTexts,
-      required this.subTexts});
+  OnBoardingImagesListLoadedSuccessfullyState({
+    required this.onBoardingDataList,
+  });
   @override
-  List<Object?> get props => [imagesURLs, mainTexts, subTexts];
+  List<Object?> get props => [onBoardingDataList];
 }
 
 class LoadingDataOnBoardingState extends OnBoardingScreenState {
+  @override
+  List<Object?> get props => [];
+}
+
+class OpenHomeScreenState extends OnBoardingScreenState {
   @override
   List<Object?> get props => [];
 }
