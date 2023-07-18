@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateful_screen_widget.dart';
 import 'package:split/feature/auth/auth_base.dart';
+import 'package:split/feature/auth/forget_password/bloc/forget_password_bloc.dart';
 import 'package:split/feature/auth/reset_password/bloc/reset_password_bloc.dart';
 import 'package:split/feature/auth/success_message/screen/success_message_screen.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
@@ -33,22 +34,23 @@ class ResetPasswordScreenWithBloc extends BaseStatefulScreenWidget {
 }
 
 class _ResetPasswordScreenWithBlocState
-    extends BaseScreenState<ResetPasswordScreenWithBloc> {
+    extends BaseScreenState<ResetPasswordScreenWithBloc> with AuthValidate {
   final GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? newPassword, confirmNewPassword;
+  TextEditingController? newPasswordController, confirmNewPasswordController;
   @override
   Widget baseScreenBuild(BuildContext context) {
-    TextFormValidatorsTranslator validate =
-        TextFormValidatorsTranslator(context);
     return BlocConsumer<ResetPasswordBloc, ResetPasswordState>(
       listener: (context, state) {
         if (state is SubmitPasswordSuccessState) {
           _openSuccessMessageScreen(context);
         } else if (state is ValidateResetPasswordFormState) {
           _submitPassword(context);
+        } else if (state is SubmitPasswordLoadingState) {
+          showLoading();
         } else if (state is NotValidateResetPasswordFormState) {
-          autovalidateMode = AutovalidateMode.always;
+          _autoValidateMode();
         }
       },
       buildWhen: (previous, current) {
@@ -79,53 +81,55 @@ class _ResetPasswordScreenWithBlocState
                     Text(
                       translate(LocalizationKeys.resetPassword)!,
                       style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                        fontSize: 27,
-                        fontWeight: FontWeight.w700,
-                      ),
+                            fontSize: 27,
+                            fontWeight: FontWeight.w700,
+                          ),
                     ),
                     SizedBox(height: 8.h),
                     Text(
                       translate(LocalizationKeys.pleaseEnterYourNewPassword)!,
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                     ),
                     SizedBox(height: 30.h),
                     Text(
                       translate(LocalizationKeys.newPassword)!,
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
                     SizedBox(height: 8.h),
                     AppTextFormField(
                       hint: translate(LocalizationKeys.enterYourNewPassword)!,
                       keyboardType: TextInputType.visiblePassword,
                       secure: true,
+                      controller: newPasswordController,
                       onSaved: (value) {
                         newPassword = value;
                       },
-                      validator: validate.translatedPassword,
+                      validator: passwordValidator,
                     ),
                     SizedBox(height: 24.h),
                     Text(
                       translate(LocalizationKeys.confirmNewPassword)!,
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
                     SizedBox(height: 8.h),
                     AppTextFormField(
                       hint: translate(LocalizationKeys.confirmYourNewPassword)!,
                       keyboardType: TextInputType.visiblePassword,
                       secure: true,
+                      controller: confirmNewPasswordController,
                       onSaved: (value) {
                         confirmNewPassword = value;
                       },
-                      validator: validate.translatedPassword,
+                      //validator: confirmPasswordValidator(confirmNewPasswordController!.text,newPasswordController!.text),
                     ),
                     SizedBox(height: 75.h),
                     Row(
@@ -134,9 +138,7 @@ class _ResetPasswordScreenWithBlocState
                             child: AppElevatedButton(
                           title: translate(LocalizationKeys.submit)!,
                           onPressed: () {
-                            BlocProvider.of<ResetPasswordBloc>(context).add(
-                                ValidateResetPasswordFormEvent(
-                                    formKey: formKey));
+                            _validateResetPasswordFormEvent(context);
                           },
                         )),
                       ],
@@ -147,6 +149,19 @@ class _ResetPasswordScreenWithBlocState
         ));
       },
     );
+  }
+
+  /// /////////////////////////////////////////////////////////////////////////
+  /// ////////////////////// helper methods ///////////////////////////////////
+  /// /////////////////////////////////////////////////////////////////////////
+
+  void _validateResetPasswordFormEvent(BuildContext context) {
+    BlocProvider.of<ResetPasswordBloc>(context)
+        .add(ValidateResetPasswordFormEvent(formKey: formKey));
+  }
+
+  void _autoValidateMode() {
+    autovalidateMode = AutovalidateMode.always;
   }
 
   void _openSuccessMessageScreen(BuildContext context) {

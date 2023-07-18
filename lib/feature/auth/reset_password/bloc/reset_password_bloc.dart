@@ -13,14 +13,15 @@ class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
     on<ValidateResetPasswordFormEvent>(_validateResetPasswordFormEvent);
   }
   FutureOr<void> _submitPasswordEvent(
-      SubmitPasswordEvent event, Emitter<ResetPasswordState> emit) {
+      SubmitPasswordEvent event, Emitter<ResetPasswordState> emit) async {
     emit(SubmitPasswordLoadingState());
+    await Future.delayed(const Duration(seconds: 2));
     try {
       emit(SubmitPasswordSuccessState());
       debugPrint(event.newPassword);
       debugPrint(event.confirmNewPassword);
     } catch (e) {
-      emit(SubmitPasswordFailureState());
+      emit(SubmitPasswordFailureState(errMessage: e.toString()));
     }
   }
 

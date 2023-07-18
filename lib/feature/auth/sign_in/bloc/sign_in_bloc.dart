@@ -17,47 +17,49 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     on<ValidateLoginFormEvent>(_validateLoginFormEvent);
   }
 
-  FutureOr<void> _loginEvent(LoginEvent event, Emitter<SignInState> emit) {
+  FutureOr<void> _loginEvent(
+      LoginEvent event, Emitter<SignInState> emit) async {
     emit(SignInLoadingState());
-    //future delay
+    await Future.delayed(const Duration(seconds: 2));
     try {
       emit(SignInSuccessState());
       debugPrint(event.email);
       debugPrint(event.password);
     } catch (e) {
-      emit(SignInFailureState());
+      emit(SignInFailureState(errMessage: e.toString()));
     }
   }
 
   FutureOr<void> _loginWithGoogleEvent(
-      LoginWithGoogleEvent event, Emitter<SignInState> emit) {
+      LoginWithGoogleEvent event, Emitter<SignInState> emit) async {
     emit(SignInLoadingState());
+    await Future.delayed(const Duration(seconds: 2));
     try {
       emit(SignInSuccessState());
     } catch (e) {
-      emit(SignInFailureState());
+      emit(SignInFailureState(errMessage: e.toString()));
     }
   }
 
   FutureOr<void> _loginWithAppleEvent(
-      LoginWithAppleEvent event, Emitter<SignInState> emit) {
+      LoginWithAppleEvent event, Emitter<SignInState> emit) async {
     emit(SignInLoadingState());
+    await Future.delayed(const Duration(seconds: 2));
     try {
       emit(SignInSuccessState());
     } catch (e) {
-      emit(SignInFailureState());
+      emit(SignInFailureState(errMessage: e.toString()));
     }
   }
 
   FutureOr<void> _forgetPasswordEvent(
       ForgetPasswordEvent event, Emitter<SignInState> emit) {
-    emit(ForgetPasswordState());
-    // open forget Password screen state
+    emit(OpenForgetPasswordScreenState());
   }
 
   FutureOr<void> _signUpEvent(
       SignUpScreenEvent event, Emitter<SignInState> emit) {
-    emit(SignUpScreenState());
+    emit(OpenSignUpScreenState());
   }
 
   FutureOr<void> _validateLoginFormEvent(

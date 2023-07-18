@@ -33,22 +33,22 @@ class ForgetPasswordScreenWithBloc extends BaseStatefulScreenWidget {
 }
 
 class _ForgetPasswordScreenWithBlocState
-    extends BaseScreenState<ForgetPasswordScreenWithBloc> {
+    extends BaseScreenState<ForgetPasswordScreenWithBloc> with AuthValidate {
   final GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? email;
   @override
   Widget baseScreenBuild(BuildContext context) {
-    TextFormValidatorsTranslator validate =
-        TextFormValidatorsTranslator(context);
     return BlocConsumer<ForgetPasswordBloc, ForgetPasswordState>(
       listener: (context, state) {
         if (state is ResetPasswordSuccessState) {
           _openOtpScreen(context);
         } else if (state is ValidateForgetPasswordFormState) {
           _resetPassword(context);
+        } else if (state is ResetPasswordLoadingState) {
+          showLoading();
         } else if (state is NotValidateForgetPasswordFormState) {
-          autovalidateMode = AutovalidateMode.always;
+          _autoValidateMode();
         }
       },
       buildWhen: (previous, current) {
@@ -107,7 +107,7 @@ class _ForgetPasswordScreenWithBlocState
                         onSaved: (value) {
                           email = value;
                         },
-                        validator: validate.translatedEmail,
+                        validator: emailValidator,
                       ),
                       SizedBox(height: 150.h),
                       Row(
@@ -117,9 +117,7 @@ class _ForgetPasswordScreenWithBlocState
                             title:
                                 translate(LocalizationKeys.resetYourPassword)!,
                             onPressed: () {
-                              BlocProvider.of<ForgetPasswordBloc>(context).add(
-                                  ValidateForgetPasswordFormEvent(
-                                      formKey: formKey));
+                              _validateForgetPasswordFormEvent(context);
                             },
                           )),
                         ],
@@ -131,6 +129,19 @@ class _ForgetPasswordScreenWithBlocState
         );
       },
     );
+  }
+
+  /// /////////////////////////////////////////////////////////////////////////
+  /// ////////////////////// helper methods ///////////////////////////////////
+  /// /////////////////////////////////////////////////////////////////////////
+
+  void _validateForgetPasswordFormEvent(BuildContext context) {
+    BlocProvider.of<ForgetPasswordBloc>(context)
+        .add(ValidateForgetPasswordFormEvent(formKey: formKey));
+  }
+
+  void _autoValidateMode() {
+    autovalidateMode = AutovalidateMode.always;
   }
 
   void _resetPassword(BuildContext context) {

@@ -15,9 +15,12 @@ class SubmitPasswordSuccessState extends ResetPasswordState {
 }
 
 class SubmitPasswordFailureState extends ResetPasswordState {
+  final String errMessage;
+
+  SubmitPasswordFailureState({required this.errMessage});
   @override
   // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [errMessage];
 }
 
 class SubmitPasswordLoadingState extends ResetPasswordState {

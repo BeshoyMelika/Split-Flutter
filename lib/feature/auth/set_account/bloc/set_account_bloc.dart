@@ -13,13 +13,14 @@ class SetAccountBloc extends Bloc<SetAccountEvent, SetAccountState> {
     on<ValidateSetAccountFormEvent>(_validateSetAccountFormEvent);
   }
   FutureOr<void> _submitSetAccountEvent(
-      SubmitSetAccountEvent event, Emitter<SetAccountState> emit) {
+      SubmitSetAccountEvent event, Emitter<SetAccountState> emit) async {
     emit(SubmitSetAccountLoadingState());
+    await Future.delayed(const Duration(seconds: 2));
     try {
       emit(SubmitSetAccountSuccessState());
       debugPrint(event.username);
     } catch (e) {
-      emit(SubmitSetAccountFailureState());
+      emit(SubmitSetAccountFailureState(errMessage: e.toString()));
     }
   }
 

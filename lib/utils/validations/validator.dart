@@ -50,6 +50,16 @@ class Validator {
     }
   }
 
+  static ValidationState validateUsername(String? username) {
+    if (username.isNullOrEmpty) {
+      return ValidationState.empty;
+    } else if (!isUserName(username!)) {
+      return ValidationState.formatting;
+    } else {
+      return ValidationState.valid;
+    }
+  }
+
   static ValidationState validateOtpCode(String code) {
     if (code.isNullOrEmpty) {
       return ValidationState.empty;

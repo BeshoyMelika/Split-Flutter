@@ -57,8 +57,21 @@ mixin AuthValidate on Translator {
     ValidationState validationState = Validator.validateText(value);
     switch (validationState) {
       case ValidationState.empty:
+        return translate(LocalizationKeys.required);
       case ValidationState.formatting:
         return translate(LocalizationKeys.required);
+      case ValidationState.valid:
+        return null;
+    }
+  }
+
+  String? usernameValidator(String? value) {
+    ValidationState validationState = Validator.validateUsername(value);
+    switch (validationState) {
+      case ValidationState.empty:
+        return translate(LocalizationKeys.pleaseEnterUsername);
+      case ValidationState.formatting:
+        return translate(LocalizationKeys.pleaseEnterValidUsername);
       case ValidationState.valid:
         return null;
     }

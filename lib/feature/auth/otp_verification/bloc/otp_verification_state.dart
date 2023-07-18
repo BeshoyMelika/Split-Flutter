@@ -21,9 +21,12 @@ class OtpVerifyLoadingState extends OtpVerificationState {
 }
 
 class OtpVerifyFailureState extends OtpVerificationState {
+  final String errMessage;
+
+  OtpVerifyFailureState({required this.errMessage});
   @override
   // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [errMessage];
 }
 
 class ValidateOtpVerificationState extends OtpVerificationState {

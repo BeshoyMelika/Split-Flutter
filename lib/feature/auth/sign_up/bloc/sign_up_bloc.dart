@@ -18,38 +18,41 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   }
 
   FutureOr<void> _registerEvent(
-      RegisterEvent event, Emitter<SignUpState> emit) {
+      RegisterEvent event, Emitter<SignUpState> emit) async {
     emit(SignUpLoadingState());
+    await Future.delayed(const Duration(seconds: 2));
     try {
       emit(SignUpSuccessState());
     } catch (e) {
-      emit(SignUpFailureState());
+      emit(SignUpFailureState(errMessage: e.toString()));
     }
   }
 
   FutureOr<void> _registerWithGoogleEvent(
-      RegisterWithGoogleEvent event, Emitter<SignUpState> emit) {
+      RegisterWithGoogleEvent event, Emitter<SignUpState> emit) async {
     emit(SignUpLoadingState());
+    await Future.delayed(const Duration(seconds: 2));
     try {
       emit(SignUpWithGoogleSuccessState());
     } catch (e) {
-      emit(SignUpWithGoogleFailureState());
+      emit(SignUpWithGoogleFailureState(errMessage: e.toString()));
     }
   }
 
   FutureOr<void> _registerWithAppleEvent(
-      RegisterWithAppleEvent event, Emitter<SignUpState> emit) {
+      RegisterWithAppleEvent event, Emitter<SignUpState> emit) async {
     emit(SignUpLoadingState());
+    await Future.delayed(const Duration(seconds: 2));
     try {
       emit(SignUpWithAppleSuccessState());
     } catch (e) {
-      emit(SignUpWithAppleFailureState());
+      emit(SignUpWithAppleFailureState(errMessage: e.toString()));
     }
   }
 
   FutureOr<void> _signInScreenEvent(
       SignInScreenEvent event, Emitter<SignUpState> emit) {
-    emit(SignInScreenState());
+    emit(OpenSignInScreenState());
   }
 
   FutureOr<void> _validateRegisterFormEvent(

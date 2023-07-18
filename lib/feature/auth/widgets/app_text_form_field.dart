@@ -10,7 +10,7 @@ class AppTextFormField extends StatelessWidget {
       this.onSaved,
       this.secure = false,
       this.validator,
-      this.keyboardType});
+      this.keyboardType, this.controller,});
 
   final String hint;
   final int maxLines;
@@ -18,6 +18,7 @@ class AppTextFormField extends StatelessWidget {
   final bool secure;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -25,6 +26,7 @@ class AppTextFormField extends StatelessWidget {
       onSaved: onSaved,
       validator: validator,
       keyboardType: keyboardType,
+      controller: controller,
       decoration: InputDecoration(
         border: const OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.textFieldBorder),

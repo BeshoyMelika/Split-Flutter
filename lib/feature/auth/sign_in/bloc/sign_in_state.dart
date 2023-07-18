@@ -16,9 +16,12 @@ class SignInSuccessState extends SignInState {
 }
 
 class SignInFailureState extends SignInState {
+  final String errMessage;
+
+  SignInFailureState({required this.errMessage});
   @override
   // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [errMessage];
 }
 
 class SignInLoadingState extends SignInState {
@@ -27,13 +30,13 @@ class SignInLoadingState extends SignInState {
   List<Object?> get props => [];
 }
 
-class ForgetPasswordState extends SignInState {
+class OpenForgetPasswordScreenState extends SignInState {
   @override
   // TODO: implement props
   List<Object?> get props => [];
 }
 
-class SignUpScreenState extends SignInState {
+class OpenSignUpScreenState extends SignInState {
   @override
   // TODO: implement props
   List<Object?> get props => [];

@@ -102,8 +102,9 @@ class MyApp extends StatelessWidget {
                   SetAccountScreen.routeName: (context) =>
                       const SetAccountScreen(),
                   HomeScreen.routeName: (context) => const HomeScreen(),
+                  SplashScreen.routeName: (context) => const SplashScreen(),
                 },
-                home: const SplashScreen(),
+                initialRoute: SplashScreen.routeName,
               ),
             ),
           );

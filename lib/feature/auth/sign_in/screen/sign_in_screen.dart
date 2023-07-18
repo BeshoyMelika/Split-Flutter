@@ -6,7 +6,7 @@ import 'package:split/feature/auth/auth_base.dart';
 import 'package:split/feature/auth/forget_password/screen/forget_password_screen.dart';
 import 'package:split/feature/auth/sign_up/screen/sign_up_screen.dart';
 import 'package:split/feature/auth/sign_in/bloc/sign_in_bloc.dart';
-import 'package:split/feature/auth/success_message/screen/success_message_screen.dart';
+import 'package:split/feature/auth/success_message/widgets/success_message_body_widget.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
 import 'package:split/feature/auth/widgets/app_text_form_field.dart';
 import 'package:split/feature/auth/widgets/social_button.dart';
@@ -14,6 +14,7 @@ import 'package:split/feature/home/screen/home_screen.dart';
 import 'package:split/res/app_asset_paths.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
+import 'package:split/utils/validations/auth_validate.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -35,30 +36,30 @@ class SignInScreenWithBloc extends BaseStatefulScreenWidget {
       _SignInScreenWithBlocState();
 }
 
-class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
+class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc>
+    with AuthValidate {
   final GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? email, password;
 
   @override
   Widget baseScreenBuild(BuildContext context) {
-    TextFormValidatorsTranslator validate =
-        TextFormValidatorsTranslator(context);
-
     return BlocConsumer<SignInBloc, SignInState>(
       listener: (context, state) {
         if (state is SignInSuccessState) {
           _openHomeScreen(context);
-        } else if (state is ForgetPasswordState) {
+        } else if (state is OpenForgetPasswordScreenState) {
           source = true;
           _openForgetScreen(context);
-        } else if (state is SignUpScreenState) {
+        } else if (state is OpenSignUpScreenState) {
           source = false;
           _openSignUpScreen(context);
         } else if (state is ValidateLoginState) {
           _login(context);
-        } else if (state is NotValidateLoginState) {
-          autovalidateMode = AutovalidateMode.always;
+        } else if (state is SignInLoadingState) {
+          showLoading();
+        }else if (state is NotValidateLoginState) {
+          _autoValidateMode();
         }
       },
       buildWhen: (previous, current) {
@@ -97,9 +98,9 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                     Text(
                       translate(LocalizationKeys.plzEnterYourDetails)!,
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                     ),
                     SizedBox(height: 30.h),
                     Text(
@@ -116,7 +117,7 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                       onSaved: (value) {
                         email = value;
                       },
-                      validator: validate.translatedEmail,
+                      validator: emailValidator,
                     ),
                     SizedBox(height: 24.h),
                     Text(
@@ -134,15 +135,14 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                       onSaved: (value) {
                         password = value;
                       },
-                      validator: validate.translatedPassword,
+                      validator: passwordValidator,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         TextButton(
                           onPressed: () {
-                            BlocProvider.of<SignInBloc>(context)
-                                .add(ForgetPasswordEvent());
+                            _forgetPasswordEvent(context);
                           },
                           child: Text(
                             translate(LocalizationKeys.forgetPassword)!,
@@ -161,8 +161,7 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                             child: AppElevatedButton(
                           title: translate(LocalizationKeys.signIn)!,
                           onPressed: () {
-                            BlocProvider.of<SignInBloc>(context)
-                                .add(ValidateLoginFormEvent(formKey: formKey));
+                            _validateLoginFormEvent(context);
                           },
                         )),
                       ],
@@ -198,8 +197,7 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                         Expanded(
                           child: SocialButton(
                             onPressed: () {
-                              BlocProvider.of<SignInBloc>(context)
-                                  .add(LoginWithGoogleEvent());
+                              _loginWithGoogleEvent(context);
                             },
                             title: translate(LocalizationKeys.google)!,
                             image: AppAssetPaths.googleLogo,
@@ -209,8 +207,7 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                         Expanded(
                           child: SocialButton(
                             onPressed: () {
-                              BlocProvider.of<SignInBloc>(context)
-                                  .add(LoginWithAppleEvent());
+                              _loginWithAppleEvent(context);
                             },
                             title: translate(LocalizationKeys.apple)!,
                             image: AppAssetPaths.appleLogo,
@@ -232,8 +229,7 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
                         ),
                         TextButton(
                           onPressed: () {
-                            BlocProvider.of<SignInBloc>(context)
-                                .add(SignUpScreenEvent());
+                            _signUpScreenEvent(context);
                           },
                           child: Text(
                             translate(LocalizationKeys.signUp)!,
@@ -256,6 +252,35 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc> {
         );
       },
     );
+  }
+
+  /// /////////////////////////////////////////////////////////////////////////
+  /// ////////////////////// helper methods ///////////////////////////////////
+  /// /////////////////////////////////////////////////////////////////////////
+
+  void _autoValidateMode() {
+    autovalidateMode = AutovalidateMode.always;
+  }
+
+  void _forgetPasswordEvent(BuildContext context) {
+    BlocProvider.of<SignInBloc>(context).add(ForgetPasswordEvent());
+  }
+
+  void _validateLoginFormEvent(BuildContext context) {
+    BlocProvider.of<SignInBloc>(context)
+        .add(ValidateLoginFormEvent(formKey: formKey));
+  }
+
+  void _loginWithGoogleEvent(BuildContext context) {
+    BlocProvider.of<SignInBloc>(context).add(LoginWithGoogleEvent());
+  }
+
+  void _loginWithAppleEvent(BuildContext context) {
+    BlocProvider.of<SignInBloc>(context).add(LoginWithAppleEvent());
+  }
+
+  void _signUpScreenEvent(BuildContext context) {
+    BlocProvider.of<SignInBloc>(context).add(SignUpScreenEvent());
   }
 
   void _openHomeScreen(BuildContext context) {

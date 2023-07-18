@@ -44,7 +44,7 @@ class AuthBase extends BaseStatelessWidget {
                   start: 8.w,
                   child: IconButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      _popClick(context);
                     },
                     icon: const Icon(
                       Icons.arrow_back,
@@ -57,5 +57,13 @@ class AuthBase extends BaseStatelessWidget {
         ),
       ),
     );
+  }
+
+  /// /////////////////////////////////////////////////////////////////////////
+  /// ////////////////////// helper methods ///////////////////////////////////
+  /// /////////////////////////////////////////////////////////////////////////
+
+  void _popClick(BuildContext context) {
+    Navigator.of(context).pop();
   }
 }

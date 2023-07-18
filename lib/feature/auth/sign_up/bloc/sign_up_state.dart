@@ -27,21 +27,30 @@ class SignUpWithAppleSuccessState extends SignUpState {
 }
 
 class SignUpFailureState extends SignUpState {
+  final String errMessage;
+
+  SignUpFailureState({required this.errMessage});
   @override
   // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [errMessage];
 }
 
 class SignUpWithGoogleFailureState extends SignUpState {
+  final String errMessage;
+
+  SignUpWithGoogleFailureState({required this.errMessage});
   @override
   // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [errMessage];
 }
 
 class SignUpWithAppleFailureState extends SignUpState {
+  final String errMessage;
+
+  SignUpWithAppleFailureState({required this.errMessage});
   @override
   // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [errMessage];
 }
 
 class SignUpLoadingState extends SignUpState {
@@ -50,7 +59,7 @@ class SignUpLoadingState extends SignUpState {
   List<Object?> get props => [];
 }
 
-class SignInScreenState extends SignUpState {
+class OpenSignInScreenState extends SignUpState {
   @override
   // TODO: implement props
   List<Object?> get props => [];

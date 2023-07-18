@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,12 +12,13 @@ class SuccessMessageBloc
     on<DoneEvent>(_doneEvent);
   }
   FutureOr<void> _doneEvent(
-      DoneEvent event, Emitter<SuccessMessageState> emit) {
-    emit(DoneLoadingState());
+      DoneEvent event, Emitter<SuccessMessageState> emit) async {
+    emit(OpenLoginScreenLoadingState());
+    await Future.delayed(const Duration(seconds: 2));
     try {
-      emit(DoneSuccessState());
+      emit(OpenLoginScreenSuccessState());
     } catch (e) {
-      emit(DoneFailureState());
+      emit(OpenLoginScreenFailureState(errMessage: e.toString()));
     }
   }
 }

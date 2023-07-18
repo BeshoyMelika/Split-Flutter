@@ -16,13 +16,14 @@ class OtpVerificationBloc
   }
 
   FutureOr<void> _otpVerifyEvent(
-      OtpVerifyEvent event, Emitter<OtpVerificationState> emit) {
+      OtpVerifyEvent event, Emitter<OtpVerificationState> emit) async {
     emit(OtpVerifyLoadingState());
+    await Future.delayed(const Duration(seconds: 2));
     try {
       emit(OtpVerifySuccessState());
-       debugPrint(event.pinCode);
+      debugPrint(event.pinCode);
     } catch (e) {
-      emit(OtpVerifyFailureState());
+      emit(OtpVerifyFailureState(errMessage: e.toString()));
     }
   }
 

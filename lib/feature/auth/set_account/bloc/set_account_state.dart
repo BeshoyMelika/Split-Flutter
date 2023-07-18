@@ -21,9 +21,12 @@ class SubmitSetAccountLoadingState extends SetAccountState {
 }
 
 class SubmitSetAccountFailureState extends SetAccountState {
+  final String errMessage;
+
+  SubmitSetAccountFailureState({required this.errMessage});
   @override
   // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [errMessage];
 }
 
 class ValidateSetAccountState extends SetAccountState {

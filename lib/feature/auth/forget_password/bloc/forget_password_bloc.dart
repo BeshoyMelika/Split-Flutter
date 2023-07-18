@@ -14,13 +14,14 @@ class ForgetPasswordBloc
     on<ValidateForgetPasswordFormEvent>(_validateForgetPasswordFormEvent);
   }
   FutureOr<void> _resetPasswordEvent(
-      ResetPasswordEvent event, Emitter<ForgetPasswordState> emit) {
+      ResetPasswordEvent event, Emitter<ForgetPasswordState> emit) async {
     emit(ResetPasswordLoadingState());
+    await Future.delayed(const Duration(seconds: 2));
     try {
       emit(ResetPasswordSuccessState());
       debugPrint(event.email);
     } catch (e) {
-      emit(ResetPasswordFailureState());
+      emit(ResetPasswordFailureState(errMessage: e.toString()));
     }
   }
 

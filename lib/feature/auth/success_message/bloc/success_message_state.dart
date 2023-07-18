@@ -8,19 +8,22 @@ class SuccessMessageInitial extends SuccessMessageState {
   List<Object?> get props => [];
 }
 
-class DoneSuccessState extends SuccessMessageState {
+class OpenLoginScreenSuccessState extends SuccessMessageState {
   @override
   // TODO: implement props
   List<Object?> get props => [];
 }
 
-class DoneFailureState extends SuccessMessageState {
+class OpenLoginScreenFailureState extends SuccessMessageState {
+  final String errMessage;
+
+  OpenLoginScreenFailureState({required this.errMessage});
   @override
   // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [errMessage];
 }
 
-class DoneLoadingState extends SuccessMessageState {
+class OpenLoginScreenLoadingState extends SuccessMessageState {
   @override
   // TODO: implement props
   List<Object?> get props => [];

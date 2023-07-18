@@ -7,10 +7,13 @@ import 'package:split/feature/auth/otp_verification/screen/otp_screen.dart';
 import 'package:split/feature/auth/set_account/screen/set_account_screen.dart';
 import 'package:split/feature/auth/sign_in/screen/sign_in_screen.dart';
 import 'package:split/feature/auth/sign_up/bloc/sign_up_bloc.dart';
+import 'package:split/feature/auth/sign_up/widgets/check_agree_row_widget.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
 import 'package:split/feature/auth/widgets/app_text_form_field.dart';
-import 'package:split/feature/auth/widgets/social_button.dart';
-import 'package:split/res/app_asset_paths.dart';
+import 'package:split/feature/auth/widgets/screen_description_widget.dart';
+import 'package:split/feature/auth/widgets/screen_title_widget.dart';
+import 'package:split/feature/auth/widgets/social_media_login_signup.dart';
+import 'package:split/feature/auth/widgets/text_field_label.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 import 'package:split/utils/validations/auth_validate.dart';
@@ -47,15 +50,19 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
       listener: (context, state) {
         if (state is SignUpSuccessState) {
           _openOtpScreen(context);
+        } else if (state is SignUpLoadingState) {
+          showLoading();
         } else if (state is SignUpWithGoogleSuccessState ||
             state is SignUpWithAppleSuccessState) {
           _openSetAccountScreen(context);
-        } else if (state is SignInScreenState) {
+        } else if (state is OpenSignInScreenState) {
           _openSignInScreen(context);
         } else if (state is ValidateRegisterState) {
-          _register(context);
+          if (BlocProvider.of<SignUpBloc>(context).isAgree) {
+            _register(context);
+          }
         } else if (state is NotValidateRegisterState) {
-          autovalidateMode = AutovalidateMode.always;
+          _autoValidateMode();
         }
       },
       buildWhen: (previous, current) {
@@ -85,29 +92,15 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      translate(LocalizationKeys.signUp)!,
-                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                            fontSize: 27,
-                            fontWeight: FontWeight.w700,
-                          ),
-                    ),
+                    ScreenTitleWidget(
+                        titleLocalizationKey: LocalizationKeys.signUp),
                     SizedBox(height: 8.h),
-                    Text(
-                      translate(LocalizationKeys.createYourOwnAccountNow)!,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
+                    ScreenDescriptionWidget(
+                        descriptionLocalizationKey:
+                            LocalizationKeys.createYourOwnAccountNow),
                     SizedBox(height: 30.h),
-                    Text(
-                      translate(LocalizationKeys.name)!,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
+                    TextFieldLabelWidget(
+                        labelLocalizationKey: LocalizationKeys.name),
                     SizedBox(height: 8.h),
                     AppTextFormField(
                       hint: translate(LocalizationKeys.enterYourName)!,
@@ -118,13 +111,8 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
                       validator: textValidator,
                     ),
                     SizedBox(height: 24.h),
-                    Text(
-                      translate(LocalizationKeys.emailAddress)!,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
+                    TextFieldLabelWidget(
+                        labelLocalizationKey: LocalizationKeys.emailAddress),
                     SizedBox(height: 8.h),
                     AppTextFormField(
                       hint: translate(LocalizationKeys.enterYourEmailAddress)!,
@@ -135,13 +123,8 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
                       validator: emailValidator,
                     ),
                     SizedBox(height: 24.h),
-                    Text(
-                      translate(LocalizationKeys.phoneNumber)!,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
+                    TextFieldLabelWidget(
+                        labelLocalizationKey: LocalizationKeys.phoneNumber),
                     SizedBox(height: 8.h),
                     AppTextFormField(
                       hint: translate(LocalizationKeys.enterYourPhone)!,
@@ -152,13 +135,8 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
                       validator: phoneNumberValidator,
                     ),
                     SizedBox(height: 24.h),
-                    Text(
-                      translate(LocalizationKeys.password)!,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
+                    TextFieldLabelWidget(
+                        labelLocalizationKey: LocalizationKeys.password),
                     SizedBox(height: 8.h),
                     AppTextFormField(
                       hint: translate(LocalizationKeys.enterYourPassword)!,
@@ -170,12 +148,12 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
                       validator: passwordValidator,
                     ),
                     SizedBox(height: 18.h),
-                    Row(
+                    CheckAgreeRowWidget(state: state),
+                    /*Row(
                       children: [
                         GestureDetector(
                           onTap: () {
-                            BlocProvider.of<SignUpBloc>(context)
-                                .add(ChangeCheckIconEvent());
+                            _changeCheckIconEvent(context);
                           },
                           child: state is CheckAgreeState
                               ? const Icon(
@@ -207,7 +185,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
                           ),
                         ),
                       ],
-                    ),
+                    ),*/
                     SizedBox(height: 25.h),
                     Row(
                       children: [
@@ -215,14 +193,22 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
                             child: AppElevatedButton(
                           title: translate(LocalizationKeys.signUp)!,
                           onPressed: () {
-                            BlocProvider.of<SignUpBloc>(context).add(
-                                ValidateRegisterFormEvent(formKey: formKey));
+                            _validateRegisterFormEvent(context);
                           },
                         )),
                       ],
                     ),
                     SizedBox(height: 20.h),
-                    Row(
+                    SocialMediaLoginAndSignUp(
+                      textORLocalizationKey: LocalizationKeys.orRegisterWith,
+                      googleOnPressed: () {
+                        _registerWithGoogleEvent(context);
+                      },
+                      appleOnPressed: () {
+                        _registerWithAppleEvent(context);
+                      },
+                    ),
+                    /* Row(
                       children: [
                         Expanded(
                             child: Container(
@@ -246,14 +232,13 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
                         )),
                       ],
                     ),
-                    SizedBox(height: 16.h),
-                    Row(
+                    SizedBox(height: 16.h),*/
+                    /*Row(
                       children: [
                         Expanded(
                           child: SocialButton(
                             onPressed: () {
-                              BlocProvider.of<SignUpBloc>(context)
-                                  .add(RegisterWithGoogleEvent());
+                              _registerWithGoogleEvent(context);
                             },
                             title: translate(LocalizationKeys.google)!,
                             image: AppAssetPaths.googleLogo,
@@ -263,15 +248,14 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
                         Expanded(
                           child: SocialButton(
                             onPressed: () {
-                              BlocProvider.of<SignUpBloc>(context)
-                                  .add(RegisterWithAppleEvent());
+                              _registerWithAppleEvent(context);
                             },
                             title: translate(LocalizationKeys.apple)!,
                             image: AppAssetPaths.appleLogo,
                           ),
                         ),
                       ],
-                    ),
+                    ),*/
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -285,8 +269,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
                         ),
                         TextButton(
                           onPressed: () {
-                            BlocProvider.of<SignUpBloc>(context)
-                                .add(SignInScreenEvent());
+                            _signInScreenEvent(context);
                           },
                           child: Text(
                             translate(LocalizationKeys.login)!,
@@ -308,8 +291,13 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
     );
   }
 
+  /// /////////////////////////////////////////////////////////////////////////
+  /// ////////////////////// helper methods ///////////////////////////////////
+  /// /////////////////////////////////////////////////////////////////////////
+
   void _openOtpScreen(BuildContext context) {
-    Navigator.of(context).pushNamed(OtpVerificationScreen.routName);
+    Navigator.of(context)
+        .pushNamed(OtpVerificationScreen.routName, arguments: phone);
   }
 
   void _openSignInScreen(BuildContext context) {
@@ -327,5 +315,26 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
 
   void _openSetAccountScreen(BuildContext context) {
     Navigator.of(context).pushNamed(SetAccountScreen.routeName);
+  }
+
+  void _validateRegisterFormEvent(BuildContext context) {
+    BlocProvider.of<SignUpBloc>(context)
+        .add(ValidateRegisterFormEvent(formKey: formKey));
+  }
+
+  void _registerWithGoogleEvent(BuildContext context) {
+    BlocProvider.of<SignUpBloc>(context).add(RegisterWithGoogleEvent());
+  }
+
+  void _registerWithAppleEvent(BuildContext context) {
+    BlocProvider.of<SignUpBloc>(context).add(RegisterWithAppleEvent());
+  }
+
+  void _signInScreenEvent(BuildContext context) {
+    BlocProvider.of<SignUpBloc>(context).add(SignInScreenEvent());
+  }
+
+  void _autoValidateMode() {
+    autovalidateMode = AutovalidateMode.always;
   }
 }
