@@ -44,9 +44,6 @@ class GroupsAppBar extends BaseStatelessWidget implements PreferredSizeWidget {
     return const [
       IconButton(
           onPressed: null,
-          //this will move to search but I don't know the design
-          //so I disable it
-          // showSearch(context: context, delegate: CustomSearchDelegate()),
           icon: Icon(
             Icons.search_sharp,
             weight: 900,

@@ -65,19 +65,18 @@ class GroupItemView extends BaseStatelessWidget {
         builder: (context, state) {
           if (state is NetworkImageLoadedState) {
             return _imageHolder(
-                child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        // image: DecorationImage(
-                        //     image: NetworkImage(groupItemDate.imagePath),
-                        //     fit: BoxFit.cover)),
-                        color: Colors.green)));
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.r),
+                      image: DecorationImage(
+                          image: NetworkImage(groupItemDate.imagePath),
+                          fit: BoxFit.cover))),
+            );
+
             //
           } else if (state is NetworkImageLoadingState) {
             _imageHolder(
-              child: Center(
-                  child: CircularProgressIndicator(
-                      color: AppColors.appBarBackground, value: .5.r)),
+              child: Center(child: CircularProgressIndicator(value: .5.r)),
             );
           } else if (state is NetworkImageNotFoundState) {
             return _imageHolder(

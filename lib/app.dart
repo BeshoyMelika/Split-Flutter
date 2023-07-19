@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
                   GlobalCupertinoLocalizations.delegate,
                   DefaultCupertinoLocalizations.delegate,
                 ],
-                locale: Locale('en'),
+                locale: state,
 
                 home: AppNavigatorScreen(),
               ),

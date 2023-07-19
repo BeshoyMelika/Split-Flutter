@@ -71,13 +71,11 @@ class CustomNavigationBarIcon extends BaseStatelessWidget {
             return Container(
                 width: 25,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(50.r)),
-                  border: Border.all(color: _getCurrentIconColor()),
-                  // image: const DecorationImage(
-                  //     image: NetworkImage(
-                  //         'https://image.lexica.art/full_jpg/7515495b-982d-44d2-9931-5a8bbbf27532'))));
-                  color: Colors.green,
-                ));
+                    borderRadius: BorderRadius.all(Radius.circular(50.r)),
+                    border: Border.all(color: _getCurrentIconColor()),
+                    image: const DecorationImage(
+                        image: NetworkImage(
+                            'https://image.lexica.art/full_jpg/7515495b-982d-44d2-9931-5a8bbbf27532'))));
           } else if (state is NetworkImageLoadingState) {
             return CircleAvatar(
               radius: 15.r,
