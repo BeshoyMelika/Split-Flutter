@@ -19,12 +19,12 @@ class SpentReceivableWidget extends BaseStatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _column(
+          _itemWidget(
               translate(LocalizationKeys.spent)!,
               500,
               textTheme.bodyMedium!
                   .copyWith(fontSize: 20.spMax, fontWeight: FontWeight.w600)),
-          _column(
+          _itemWidget(
             translate(LocalizationKeys.receivable)!,
             500,
             TextStyle(
@@ -41,7 +41,8 @@ class SpentReceivableWidget extends BaseStatelessWidget {
   /// ///////////////////////Helper Widgets////////////////////////
   /// /////////////////////////////////////////////////////////////
 
-  Widget _column(String text, double amountOfMoney, TextStyle style) => Column(
+  Widget _itemWidget(String text, double amountOfMoney, TextStyle style) =>
+      Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
