@@ -125,6 +125,6 @@ class _ReceiptPhotoSSendReminderWidgetState
   }
 
   void _onSendReminder() {
-    currentContext.add(SendReminderToAllUsersExpenseDetailsEvent());
+    currentContext.add(SendReminderAPIEvent());
   }
 }

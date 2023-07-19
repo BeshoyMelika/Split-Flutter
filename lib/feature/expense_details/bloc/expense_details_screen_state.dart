@@ -16,28 +16,24 @@ class LoadedExpenseDetailsSuccessfullyState extends ExpenseDetailsScreenState {
   List<Object?> get props => [expenseDetails];
 }
 
-class ErrorHappenedWhileLoadingExpenseDetailsState
-    extends ExpenseDetailsScreenState {
+class ErrorState extends ExpenseDetailsScreenState {
   final String errorMessage;
-
-  ErrorHappenedWhileLoadingExpenseDetailsState({required this.errorMessage});
+  ErrorState({required this.errorMessage});
   @override
   List<Object?> get props => [errorMessage];
 }
 
-class WaitingExpenseDetailsScreenState extends ExpenseDetailsScreenState {
+class LoadingState extends ExpenseDetailsScreenState {
   @override
   List<Object?> get props => [];
 }
 
-class ReminderSentSuccessfullyExpenseDetailsState
-    extends ExpenseDetailsScreenState {
+class ReminderSentSuccessfullyState extends ExpenseDetailsScreenState {
   @override
   List<Object?> get props => [];
 }
 
-class ReceiptORPhotoAddedSuccessfullyExpenseDetailsState
-    extends ExpenseDetailsScreenState {
+class PhotoUploadedSuccessfullyState extends ExpenseDetailsScreenState {
   @override
   List<Object?> get props => [];
 }

@@ -120,8 +120,7 @@ class _AddPhotoReceiptState extends BaseState<AddPhotoReceipt> {
     setState(() {
       selectedItem = hold;
     });
-    currentContext
-        .add(AddPhotoOrReceiptForExpenseDetailsEvent(imagePath: selectedItem));
+    currentContext.add(UploadPhotoAPIEvent(imagePath: selectedItem));
   }
 
   void _deletePressed() {

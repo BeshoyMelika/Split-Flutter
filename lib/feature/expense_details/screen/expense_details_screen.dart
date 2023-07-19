@@ -21,8 +21,7 @@ class ExpenseDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          ExpenseDetailsScreenBloc()..add(LoadExpenseDetailsEvent()),
+      create: (context) => ExpenseDetailsScreenBloc(),
       child: const ExpenseDetailsScreenWithBloc(),
     );
   }
@@ -43,14 +42,6 @@ class _ExpenseDetailsScreenWithBlocState
   double onShrinkHeight = 222.h;
   late ExpenseDetailsUIModel expenseDetails;
   bool initialized = false;
-  void _scrollListener() {
-    if (_isShrink != lastStatus) {
-      setState(() {
-        lastStatus = _isShrink;
-      });
-    }
-  }
-
   bool get _isShrink {
     return _scrollController != null &&
         _scrollController!.hasClients &&
@@ -60,6 +51,7 @@ class _ExpenseDetailsScreenWithBlocState
   @override
   void initState() {
     super.initState();
+    Future.microtask(() => _loadExpenseDetailsAPIEvent());
     _scrollController = ScrollController()..addListener(_scrollListener);
   }
 
@@ -76,7 +68,7 @@ class _ExpenseDetailsScreenWithBlocState
       backgroundColor: AppColors.expenseDetailsScreenBackground,
       body: BlocConsumer<ExpenseDetailsScreenBloc, ExpenseDetailsScreenState>(
         listener: (context, state) {
-          if (state is WaitingExpenseDetailsScreenState) {
+          if (state is LoadingState) {
             showLoading();
           } else {
             hideLoading();
@@ -195,8 +187,21 @@ class _ExpenseDetailsScreenWithBlocState
   /// /////////////////////////////////////////////////////////////
   /// ///////////////////////Helper Methods////////////////////////
   /// /////////////////////////////////////////////////////////////
-  ExpenseDetailsScreenBloc get currentContext => context.read();
+  ExpenseDetailsScreenBloc get currentBloc =>
+      context.read<ExpenseDetailsScreenBloc>();
   Future<void> _onRefresh() async {
-    currentContext.add(LoadExpenseDetailsEvent());
+    _loadExpenseDetailsAPIEvent();
+  }
+
+  void _scrollListener() {
+    if (_isShrink != lastStatus) {
+      setState(() {
+        lastStatus = _isShrink;
+      });
+    }
+  }
+
+  void _loadExpenseDetailsAPIEvent() {
+    currentBloc.add(GetExpenseDetailsAPIEvent());
   }
 }

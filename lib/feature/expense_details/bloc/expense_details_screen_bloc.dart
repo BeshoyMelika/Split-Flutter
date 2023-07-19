@@ -10,16 +10,14 @@ part 'expense_details_screen_state.dart';
 class ExpenseDetailsScreenBloc
     extends Bloc<ExpenseDetailsScreenEvent, ExpenseDetailsScreenState> {
   ExpenseDetailsScreenBloc() : super(ExpenseDetailsScreenInitial()) {
-    on<LoadExpenseDetailsEvent>(_loadExpenseDetailsEvent);
-    on<SendReminderToAllUsersExpenseDetailsEvent>(
-        _sendReminderToAllUsersExpenseDetailsEvent);
-    on<AddPhotoOrReceiptForExpenseDetailsEvent>(
-        _addPhotoOrReceiptForExpenseDetailsEvent);
+    on<GetExpenseDetailsAPIEvent>(_loadExpenseDetailsEvent);
+    on<SendReminderAPIEvent>(_sendReminderToAllUsersExpenseDetailsEvent);
+    on<UploadPhotoAPIEvent>(_addPhotoOrReceiptForExpenseDetailsEvent);
   }
 
-  FutureOr<void> _loadExpenseDetailsEvent(LoadExpenseDetailsEvent event,
+  FutureOr<void> _loadExpenseDetailsEvent(GetExpenseDetailsAPIEvent event,
       Emitter<ExpenseDetailsScreenState> emit) async {
-    emit(WaitingExpenseDetailsScreenState());
+    emit(LoadingState());
     await Future.delayed(const Duration(seconds: 1));
 
     emit(LoadedExpenseDetailsSuccessfullyState(
@@ -27,18 +25,18 @@ class ExpenseDetailsScreenBloc
   }
 
   FutureOr<void> _sendReminderToAllUsersExpenseDetailsEvent(
-      SendReminderToAllUsersExpenseDetailsEvent event,
+      SendReminderAPIEvent event,
       Emitter<ExpenseDetailsScreenState> emit) async {
-    emit(WaitingExpenseDetailsScreenState());
+    emit(LoadingState());
     await Future.delayed(const Duration(seconds: 1));
-    emit(ReminderSentSuccessfullyExpenseDetailsState());
+    emit(ReminderSentSuccessfullyState());
   }
 
   FutureOr<void> _addPhotoOrReceiptForExpenseDetailsEvent(
-      AddPhotoOrReceiptForExpenseDetailsEvent event,
+      UploadPhotoAPIEvent event,
       Emitter<ExpenseDetailsScreenState> emit) async {
-    emit(WaitingExpenseDetailsScreenState());
+    emit(LoadingState());
     await Future.delayed(const Duration(seconds: 1));
-    emit(ReceiptORPhotoAddedSuccessfullyExpenseDetailsState());
+    emit(PhotoUploadedSuccessfullyState());
   }
 }
