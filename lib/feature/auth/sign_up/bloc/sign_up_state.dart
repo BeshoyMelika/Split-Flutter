@@ -26,34 +26,25 @@ class SignUpWithAppleSuccessState extends SignUpState {
   List<Object?> get props => [];
 }
 
-class SignUpFailureState extends SignUpState {
+class ErrorState extends SignUpState {
   final String errMessage;
 
-  SignUpFailureState({required this.errMessage});
+  ErrorState({required this.errMessage});
   @override
   // TODO: implement props
   List<Object?> get props => [errMessage];
 }
 
-class SignUpWithGoogleFailureState extends SignUpState {
+class SocialFailureState extends SignUpState {
   final String errMessage;
 
-  SignUpWithGoogleFailureState({required this.errMessage});
+  SocialFailureState({required this.errMessage});
   @override
   // TODO: implement props
   List<Object?> get props => [errMessage];
 }
 
-class SignUpWithAppleFailureState extends SignUpState {
-  final String errMessage;
-
-  SignUpWithAppleFailureState({required this.errMessage});
-  @override
-  // TODO: implement props
-  List<Object?> get props => [errMessage];
-}
-
-class SignUpLoadingState extends SignUpState {
+class LoadingState extends SignUpState {
   @override
   // TODO: implement props
   List<Object?> get props => [];

@@ -19,36 +19,36 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   FutureOr<void> _loginEvent(
       LoginEvent event, Emitter<SignInState> emit) async {
-    emit(SignInLoadingState());
+    emit(LoadingState());
     await Future.delayed(const Duration(seconds: 2));
     try {
       emit(SignInSuccessState());
       debugPrint(event.email);
       debugPrint(event.password);
     } catch (e) {
-      emit(SignInFailureState(errMessage: e.toString()));
+      emit(ErrorState(errMessage: e.toString()));
     }
   }
 
   FutureOr<void> _loginWithGoogleEvent(
       LoginWithGoogleEvent event, Emitter<SignInState> emit) async {
-    emit(SignInLoadingState());
+    emit(LoadingState());
     await Future.delayed(const Duration(seconds: 2));
     try {
       emit(SignInSuccessState());
     } catch (e) {
-      emit(SignInFailureState(errMessage: e.toString()));
+      emit(ErrorState(errMessage: e.toString()));
     }
   }
 
   FutureOr<void> _loginWithAppleEvent(
       LoginWithAppleEvent event, Emitter<SignInState> emit) async {
-    emit(SignInLoadingState());
+    emit(LoadingState());
     await Future.delayed(const Duration(seconds: 2));
     try {
       emit(SignInSuccessState());
     } catch (e) {
-      emit(SignInFailureState(errMessage: e.toString()));
+      emit(ErrorState(errMessage: e.toString()));
     }
   }
 

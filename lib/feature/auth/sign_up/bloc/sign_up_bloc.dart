@@ -19,34 +19,34 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
   FutureOr<void> _registerEvent(
       RegisterEvent event, Emitter<SignUpState> emit) async {
-    emit(SignUpLoadingState());
+    emit(LoadingState());
     await Future.delayed(const Duration(seconds: 2));
     try {
       emit(SignUpSuccessState());
     } catch (e) {
-      emit(SignUpFailureState(errMessage: e.toString()));
+      emit(ErrorState(errMessage: e.toString()));
     }
   }
 
   FutureOr<void> _registerWithGoogleEvent(
       RegisterWithGoogleEvent event, Emitter<SignUpState> emit) async {
-    emit(SignUpLoadingState());
+    emit(LoadingState());
     await Future.delayed(const Duration(seconds: 2));
     try {
       emit(SignUpWithGoogleSuccessState());
     } catch (e) {
-      emit(SignUpWithGoogleFailureState(errMessage: e.toString()));
+      emit(SocialFailureState(errMessage: e.toString()));
     }
   }
 
   FutureOr<void> _registerWithAppleEvent(
       RegisterWithAppleEvent event, Emitter<SignUpState> emit) async {
-    emit(SignUpLoadingState());
+    emit(LoadingState());
     await Future.delayed(const Duration(seconds: 2));
     try {
       emit(SignUpWithAppleSuccessState());
     } catch (e) {
-      emit(SignUpWithAppleFailureState(errMessage: e.toString()));
+      emit(SocialFailureState(errMessage: e.toString()));
     }
   }
 

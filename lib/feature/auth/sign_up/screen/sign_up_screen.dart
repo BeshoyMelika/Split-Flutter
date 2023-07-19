@@ -50,7 +50,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
       listener: (context, state) {
         if (state is SignUpSuccessState) {
           _openOtpScreen(context);
-        } else if (state is SignUpLoadingState) {
+        } else if (state is LoadingState) {
           showLoading();
         } else if (state is SignUpWithGoogleSuccessState ||
             state is SignUpWithAppleSuccessState) {

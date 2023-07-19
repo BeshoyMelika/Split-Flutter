@@ -60,7 +60,7 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc>
           _openSignUpScreen(context);
         } else if (state is ValidateLoginState) {
           _login(context);
-        } else if (state is SignInLoadingState) {
+        } else if (state is LoadingState) {
           showLoading();
         } else if (state is NotValidateLoginState) {
           _autoValidateMode();
