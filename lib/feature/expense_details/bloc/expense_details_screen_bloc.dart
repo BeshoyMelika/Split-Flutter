@@ -28,9 +28,17 @@ class ExpenseDetailsScreenBloc
 
   FutureOr<void> _sendReminderToAllUsersExpenseDetailsEvent(
       SendReminderToAllUsersExpenseDetailsEvent event,
-      Emitter<ExpenseDetailsScreenState> emit) {}
+      Emitter<ExpenseDetailsScreenState> emit) async {
+    emit(WaitingExpenseDetailsScreenState());
+    await Future.delayed(const Duration(seconds: 1));
+    emit(ReminderSentSuccessfullyExpenseDetailsState());
+  }
 
   FutureOr<void> _addPhotoOrReceiptForExpenseDetailsEvent(
       AddPhotoOrReceiptForExpenseDetailsEvent event,
-      Emitter<ExpenseDetailsScreenState> emit) {}
+      Emitter<ExpenseDetailsScreenState> emit) async {
+    emit(WaitingExpenseDetailsScreenState());
+    await Future.delayed(const Duration(seconds: 1));
+    emit(ReceiptORPhotoAddedSuccessfullyExpenseDetailsState());
+  }
 }

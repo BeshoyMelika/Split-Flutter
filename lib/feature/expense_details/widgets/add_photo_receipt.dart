@@ -1,8 +1,10 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:split/core/widgets/base_stateful_widget.dart';
+import 'package:split/feature/expense_details/bloc/expense_details_screen_bloc.dart';
 import 'package:split/feature/widgets/app_text_widget.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/res/app_icons.dart';
@@ -100,6 +102,8 @@ class _AddPhotoReceiptState extends BaseState<AddPhotoReceipt> {
   /// /////////////////////////////////////////////////////////
   /// /////////////////////Helper Methods//////////////////////
   /// /////////////////////////////////////////////////////////
+  ExpenseDetailsScreenBloc get currentContext => context.read();
+
   Future<String?> _pickImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? pickedImage =
@@ -116,6 +120,8 @@ class _AddPhotoReceiptState extends BaseState<AddPhotoReceipt> {
     setState(() {
       selectedItem = hold;
     });
+    currentContext
+        .add(AddPhotoOrReceiptForExpenseDetailsEvent(imagePath: selectedItem));
   }
 
   void _deletePressed() {
