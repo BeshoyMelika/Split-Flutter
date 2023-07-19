@@ -9,7 +9,7 @@ class ScreenDescriptionWidget extends BaseStatelessWidget {
   Widget baseBuild(BuildContext context) {
     return Text(
       translate(descriptionLocalizationKey)!,
-      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+      style: Theme.of(context).textTheme.titleSmall!.copyWith(
             fontSize: 16,
             fontWeight: FontWeight.w500,
           ),

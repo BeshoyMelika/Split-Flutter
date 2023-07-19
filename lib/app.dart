@@ -18,7 +18,6 @@ import 'package:split/feature/auth/sign_up/screen/sign_up_screen.dart';
 import 'package:split/feature/auth/success_message/screen/success_message_screen.dart';
 import 'package:split/feature/home/screen/home_screen.dart';
 import 'package:split/feature/splash/screen/splash_screen.dart';
-
 import 'package:split/preferences/preferences_manager.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization.dart';

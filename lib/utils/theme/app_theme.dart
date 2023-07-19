@@ -8,6 +8,7 @@ class AppTheme {
   AppTheme(this.locale) {
     arabicTextTheme = const TextTheme(
       headlineMedium: TextStyle(color: AppColors.headlineMedium, fontSize: 22),
+
       bodyMedium: TextStyle(
         color: AppColors.bodyMedium,
         fontSize: 16,
@@ -71,20 +72,27 @@ class AppTheme {
           fontSize: 22,
         ),
 
-        // white
-        titleLarge: _textTheme.titleLarge!.copyWith(
-          color: AppColors.titleLarge,
-        ),
-        // for desc of widget and title of text form field
-        bodyLarge: _textTheme.bodyLarge!.copyWith(
-          color: AppColors.bodyLarge,
-        ),
         // black
         bodyMedium: _textTheme.bodyMedium?.copyWith(
           color: AppColors.bodyMedium,
         ),
-        //grey
-        bodySmall: _textTheme.bodySmall!.copyWith(
+
+        // white
+        titleLarge: const TextStyle(
+          color: AppColors.titleLarge,
+        ),
+
+        // for desc of widget and title of text form field
+        titleSmall: _textTheme.titleLarge?.copyWith(
+          color: AppColors.titleSmall,
+        ),
+
+        //for title of widget
+        bodyLarge: _textTheme.bodyMedium?.copyWith(
+          color: AppColors.bodyLarge,
+        ),
+
+        bodySmall: _textTheme.bodyMedium?.copyWith(
           color: AppColors.bodySmall,
         ),
         titleMedium: _textTheme.titleMedium?.copyWith(
@@ -97,6 +105,10 @@ class AppTheme {
         labelMedium: const TextStyle(
           fontSize: 14,
           color: AppColors.labelMedium,
+        ),
+        // for hint text of text field
+        labelSmall: _textTheme.labelSmall?.copyWith(
+          color: AppColors.labelSmall,
         ),
       );
 

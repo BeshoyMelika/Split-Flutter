@@ -9,7 +9,7 @@ class ScreenTitleWidget extends BaseStatelessWidget {
   Widget baseBuild(BuildContext context) {
     return Text(
       translate(titleLocalizationKey)!,
-      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
             fontSize: 27,
             fontWeight: FontWeight.w700,
           ),

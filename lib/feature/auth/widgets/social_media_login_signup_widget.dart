@@ -7,8 +7,8 @@ import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 
 // ignore: must_be_immutable
-class SocialMediaLoginAndSignUp extends BaseStatelessWidget {
-  SocialMediaLoginAndSignUp(
+class SocialMediaLoginAndSignUpWidget extends BaseStatelessWidget {
+  SocialMediaLoginAndSignUpWidget(
       {super.key,
       required this.textORLocalizationKey,
       required this.googleOnPressed,
@@ -28,14 +28,11 @@ class SocialMediaLoginAndSignUp extends BaseStatelessWidget {
               height: 1,
             )),
             SizedBox(width: 5.w),
-            Text(
-              translate(textORLocalizationKey)!,
-              style: const TextStyle(
-                color: AppColors.textBetweenDivider,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            Text(translate(textORLocalizationKey)!,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    )),
             SizedBox(width: 5.w),
             Expanded(
                 child: Container(

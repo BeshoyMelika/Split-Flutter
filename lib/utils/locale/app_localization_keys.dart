@@ -51,7 +51,7 @@ class LocalizationKeys {
   static const noInternetConnection = "no_internet_connection";
   static const connectionRestored = "connection_restored";
   static const signIn = "sign_in";
-  static const plzEnterYourDetails = "please_enter_your_details";
+  static const pleaseEnterYourDetails = "please_enter_your_details";
   static const email = "email";
   static const enterYourEmail = "enter_your_email";
   static const password = "password";
@@ -108,4 +108,28 @@ class LocalizationKeys {
   static const pleaseEnterPassword = "please_enter_password";
   static const checkOtpCode = "please_enter_password";
   static const passMatch = "please_enter_password";
+  static const calculateAllOfYourExpensesInOnePlace =
+      "calculate_all_of_your_expenses_in_one_place";
+  static const aPlatFormToManageYourFinancesWithAnyoneEasily =
+      "a_platform_to_manage_your_finances_with_anyone_easily";
+  static const createNewGroup = "create_new_group";
+  static const groupName = "group_name";
+  static const enterGroupName = "enter_group_name";
+  static const type = "type";
+  static const typeOfSplit = "type_of_split";
+  static const trip = "trip";
+  static const tower = "tower";
+  static const addParticipants = "add_participants";
+  static const equal = "equal";
+  static const specified = "specified";
+  static const percentage = "percentage";
+  static const currency = "currency";
+  static const dollar = "dollar";
+  static const pound = "pound";
+  static const description = "description";
+  static const getStarted = "get_started";
+  static const create = "create";
+  static const cancel = "cancel";
+  static const writeDescription = "write_description";
+  static const addPhoto = "add_photo";
 }

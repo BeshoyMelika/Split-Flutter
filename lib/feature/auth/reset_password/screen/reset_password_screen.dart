@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateful_screen_widget.dart';
 import 'package:split/feature/auth/auth_base.dart';
-import 'package:split/feature/auth/forget_password/bloc/forget_password_bloc.dart';
 import 'package:split/feature/auth/reset_password/bloc/reset_password_bloc.dart';
 import 'package:split/feature/auth/success_message/screen/success_message_screen.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
 import 'package:split/feature/auth/widgets/app_text_form_field.dart';
+import 'package:split/feature/auth/widgets/screen_description_widget.dart';
+import 'package:split/feature/auth/widgets/screen_title_widget.dart';
+import 'package:split/feature/auth/widgets/text_field_label_widget.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 import 'package:split/utils/validations/auth_validate.dart';
@@ -62,91 +64,67 @@ class _ResetPasswordScreenWithBlocState
       },
       builder: (context, state) {
         return AuthBase(
-            body: Container(
-          decoration: const BoxDecoration(
-            color: AppColors.backgroundOfWidget,
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(10),
-              topLeft: Radius.circular(10),
-            ),
-          ),
-          child: Padding(
+          body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
             child: Form(
               key: formKey,
               autovalidateMode: autovalidateMode,
               child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      translate(LocalizationKeys.resetPassword)!,
-                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                            fontSize: 27,
-                            fontWeight: FontWeight.w700,
-                          ),
-                    ),
-                    SizedBox(height: 8.h),
-                    Text(
-                      translate(LocalizationKeys.pleaseEnterYourNewPassword)!,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                    SizedBox(height: 30.h),
-                    Text(
-                      translate(LocalizationKeys.newPassword)!,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
-                    SizedBox(height: 8.h),
-                    AppTextFormField(
-                      hint: translate(LocalizationKeys.enterYourNewPassword)!,
-                      keyboardType: TextInputType.visiblePassword,
-                      secure: true,
-                      controller: newPasswordController,
-                      onSaved: (value) {
-                        newPassword = value;
-                      },
-                      validator: passwordValidator,
-                    ),
-                    SizedBox(height: 24.h),
-                    Text(
-                      translate(LocalizationKeys.confirmNewPassword)!,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
-                    SizedBox(height: 8.h),
-                    AppTextFormField(
-                      hint: translate(LocalizationKeys.confirmYourNewPassword)!,
-                      keyboardType: TextInputType.visiblePassword,
-                      secure: true,
-                      controller: confirmNewPasswordController,
-                      onSaved: (value) {
-                        confirmNewPassword = value;
-                      },
-                      //validator: confirmPasswordValidator(confirmNewPasswordController!.text,newPasswordController!.text),
-                    ),
-                    SizedBox(height: 75.h),
-                    Row(
-                      children: [
-                        Expanded(
-                            child: AppElevatedButton(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ScreenTitleWidget(
+                      titleLocalizationKey: LocalizationKeys.resetPassword),
+                  SizedBox(height: 8.h),
+                  ScreenDescriptionWidget(
+                      descriptionLocalizationKey:
+                          LocalizationKeys.pleaseEnterYourNewPassword),
+                  SizedBox(height: 30.h),
+                  TextFieldLabelWidget(
+                      labelLocalizationKey: LocalizationKeys.newPassword),
+                  SizedBox(height: 8.h),
+                  AppTextFormField(
+                    hint: translate(LocalizationKeys.enterYourNewPassword)!,
+                    keyboardType: TextInputType.visiblePassword,
+                    secure: true,
+                    controller: newPasswordController,
+                    onSaved: (value) {
+                      _saveNewPassword(value);
+                    },
+                    validator: passwordValidator,
+                  ),
+                  SizedBox(height: 24.h),
+                  TextFieldLabelWidget(
+                      labelLocalizationKey:
+                          LocalizationKeys.confirmNewPassword),
+                  SizedBox(height: 8.h),
+                  AppTextFormField(
+                    hint: translate(LocalizationKeys.confirmYourNewPassword)!,
+                    keyboardType: TextInputType.visiblePassword,
+                    secure: true,
+                    controller: confirmNewPasswordController,
+                    onSaved: (value) {
+                      _saveConfirmNewPassword(value);
+                    },
+                    //validator: confirmPasswordValidator(confirmNewPasswordController!.text,newPasswordController!.text),
+                  ),
+                  SizedBox(height: 75.h),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: AppElevatedButton(
                           title: translate(LocalizationKeys.submit)!,
                           onPressed: () {
                             _validateResetPasswordFormEvent(context);
                           },
-                        )),
-                      ],
-                    ),
-                  ]),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ));
+        );
       },
     );
   }
@@ -171,5 +149,13 @@ class _ResetPasswordScreenWithBlocState
   void _submitPassword(BuildContext context) {
     BlocProvider.of<ResetPasswordBloc>(context).add(SubmitPasswordEvent(
         newPassword: newPassword!, confirmNewPassword: confirmNewPassword!));
+  }
+
+  void _saveConfirmNewPassword(String? value) {
+    confirmNewPassword = value;
+  }
+
+  void _saveNewPassword(String? value) {
+    newPassword = value;
   }
 }

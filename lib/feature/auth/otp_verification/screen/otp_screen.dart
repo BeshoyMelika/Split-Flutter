@@ -5,10 +5,13 @@ import 'package:pinput/pinput.dart';
 import 'package:split/core/widgets/base_stateful_screen_widget.dart';
 import 'package:split/feature/auth/auth_base.dart';
 import 'package:split/feature/auth/otp_verification/bloc/otp_verification_bloc.dart';
+import 'package:split/feature/auth/otp_verification/widgets/dont_receive_code_text_widget.dart';
 import 'package:split/feature/auth/reset_password/screen/reset_password_screen.dart';
+import 'package:split/feature/auth/sign_in/screen/sign_in_screen.dart';
 import 'package:split/feature/auth/success_message/screen/success_message_screen.dart';
-import 'package:split/feature/auth/success_message/widgets/success_message_body_widget.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
+import 'package:split/feature/auth/widgets/screen_description_widget.dart';
+import 'package:split/feature/auth/widgets/screen_title_widget.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 import 'package:split/utils/validations/auth_validate.dart';
@@ -66,104 +69,60 @@ class _OtpVerificationScreenWithBlocState
       },
       builder: (context, state) {
         return AuthBase(
-          body: Container(
-            decoration: BoxDecoration(
-              color: AppColors.backgroundOfWidget,
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(10.r),
-                topLeft: Radius.circular(10.r),
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
-              child: Form(
-                key: formKey,
-                autovalidateMode: autovalidateMode,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      translate(LocalizationKeys.otpVerification)!,
-                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                            fontSize: 27,
-                            fontWeight: FontWeight.w700,
-                          ),
-                    ),
-                    SizedBox(height: 8.h),
-                    Text(
-                      translate(LocalizationKeys
-                          .an4DigitsCodeHasBeenSentToYourNumberEndingWith)!,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                    SizedBox(height: 20.h),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: Pinput(
-                        length: 4,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        defaultPinTheme: PinTheme(
-                          height: 70.h,
-                          width: 70.w,
-                          decoration: BoxDecoration(
-                            color: AppColors.backgroundOfOtp,
-                            borderRadius: BorderRadius.circular(10.r),
-                            border: Border.all(
-                              color: AppColors.textFieldBorder,
-                            ),
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+            child: Form(
+              key: formKey,
+              autovalidateMode: autovalidateMode,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ScreenTitleWidget(
+                      titleLocalizationKey: LocalizationKeys.otpVerification),
+                  SizedBox(height: 8.h),
+                  ScreenDescriptionWidget(
+                      descriptionLocalizationKey: LocalizationKeys
+                          .an4DigitsCodeHasBeenSentToYourNumberEndingWith),
+                  SizedBox(height: 20.h),
+                  SizedBox(
+                    width: width.w,
+                    child: Pinput(
+                      length: 4,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      defaultPinTheme: PinTheme(
+                        height: 70.h,
+                        width: 70.w,
+                        decoration: BoxDecoration(
+                          color: AppColors.backgroundOfOtp,
+                          borderRadius: BorderRadius.circular(10.r),
+                          border: Border.all(
+                            color: AppColors.textFieldBorder,
                           ),
                         ),
-                        validator: otpValidator,
-                        pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-                        onCompleted: (pin) {
-                          pinCode = pin;
-                        },
                       ),
+                      validator: otpValidator,
+                      pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                      onCompleted: (pin) {
+                        _onCompletedOtp(pin);
+                      },
                     ),
-                    SizedBox(height: 40.h),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: AppElevatedButton(
-                            title: translate(LocalizationKeys.verify)!,
-                            onPressed: () {
-                              _validateOtpVerificationFormEvent(context);
-                            },
-                          ),
+                  ),
+                  SizedBox(height: 40.h),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: AppElevatedButton(
+                          title: translate(LocalizationKeys.verify)!,
+                          onPressed: () {
+                            _validateOtpVerificationFormEvent(context);
+                          },
                         ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          translate(LocalizationKeys.didNotReceiveACode)!,
-                          style:
-                              Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            translate(LocalizationKeys.requestAgain)!,
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelLarge!
-                                .copyWith(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  DontReceiveCodeTextWidget(),
+                ],
               ),
             ),
           ),
@@ -196,6 +155,10 @@ class _OtpVerificationScreenWithBlocState
   void _otpVerify(BuildContext context) {
     BlocProvider.of<OtpVerificationBloc>(context)
         .add(OtpVerifyEvent(pinCode: pinCode!));
+  }
+
+  void _onCompletedOtp(String pin) {
+    pinCode = pin;
   }
 
   String replaceCharAt(String oldString, int index, String char) {

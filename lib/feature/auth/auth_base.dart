@@ -34,7 +34,18 @@ class AuthBase extends BaseStatelessWidget {
                     constraints: BoxConstraints(
                       maxHeight: height.h * 2.2 / 3,
                     ),
-                    child: SingleChildScrollView(child: body),
+                    child: SingleChildScrollView(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.backgroundOfWidget,
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10.r),
+                            topLeft: Radius.circular(10.r),
+                          ),
+                        ),
+                        child: body,
+                      ),
+                    ),
                   ),
                 ],
               ),

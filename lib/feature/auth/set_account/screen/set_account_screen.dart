@@ -6,8 +6,10 @@ import 'package:split/feature/auth/auth_base.dart';
 import 'package:split/feature/auth/set_account/bloc/set_account_bloc.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
 import 'package:split/feature/auth/widgets/app_text_form_field.dart';
+import 'package:split/feature/auth/widgets/screen_description_widget.dart';
+import 'package:split/feature/auth/widgets/screen_title_widget.dart';
+import 'package:split/feature/auth/widgets/text_field_label_widget.dart';
 import 'package:split/feature/home/screen/home_screen.dart';
-import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 import 'package:split/utils/validations/auth_validate.dart';
 
@@ -60,70 +62,49 @@ class _SetAccountScreenWithBlocState
       },
       builder: (context, state) {
         return AuthBase(
-            body: Container(
-          decoration: const BoxDecoration(
-            color: AppColors.backgroundOfWidget,
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(10),
-              topLeft: Radius.circular(10),
-            ),
-          ),
-          child: Padding(
+          body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
             child: Form(
               key: formKey,
               autovalidateMode: autovalidateMode,
               child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      translate(LocalizationKeys.setYourAccount)!,
-                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                            fontSize: 27,
-                            fontWeight: FontWeight.w700,
-                          ),
-                    ),
-                    SizedBox(height: 8.h),
-                    Text(
-                      translate(LocalizationKeys.pleaseSetUsernameAndPassword)!,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                    SizedBox(height: 30.h),
-                    Text(
-                      translate(LocalizationKeys.username)!,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
-                    SizedBox(height: 8.h),
-                    AppTextFormField(
-                      hint: translate(LocalizationKeys.setUsername)!,
-                      keyboardType: TextInputType.text,
-                      onSaved: (value) {
-                        userName = value;
-                      },
-                      validator: usernameValidator,
-                    ),
-                    SizedBox(height: 30.h),
-                    Row(
-                      children: [
-                        Expanded(
-                            child: AppElevatedButton(
-                          title: translate(LocalizationKeys.submit)!,
-                          onPressed: () {
-                            _validateSetAccountFormEvent(context);
-                          },
-                        )),
-                      ],
-                    ),
-                  ]),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ScreenTitleWidget(
+                      titleLocalizationKey: LocalizationKeys.setYourAccount),
+                  SizedBox(height: 8.h),
+                  ScreenDescriptionWidget(
+                      descriptionLocalizationKey:
+                          LocalizationKeys.pleaseSetUsernameAndPassword),
+                  SizedBox(height: 30.h),
+                  TextFieldLabelWidget(
+                      labelLocalizationKey: LocalizationKeys.username),
+                  SizedBox(height: 8.h),
+                  AppTextFormField(
+                    hint: translate(LocalizationKeys.setUsername)!,
+                    keyboardType: TextInputType.text,
+                    onSaved: (value) {
+                      _saveUsername(value);
+                    },
+                    validator: usernameValidator,
+                  ),
+                  SizedBox(height: 30.h),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: AppElevatedButton(
+                        title: translate(LocalizationKeys.submit)!,
+                        onPressed: () {
+                          _validateSetAccountFormEvent(context);
+                        },
+                      )),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ));
+        );
       },
     );
   }
@@ -149,5 +130,9 @@ class _SetAccountScreenWithBlocState
   void _submitSetAccount(BuildContext context) {
     BlocProvider.of<SetAccountBloc>(context)
         .add(SubmitSetAccountEvent(username: userName!));
+  }
+
+  void _saveUsername(String? value) {
+    userName = value;
   }
 }

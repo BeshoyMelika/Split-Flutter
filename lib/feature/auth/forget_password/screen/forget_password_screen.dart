@@ -7,7 +7,9 @@ import 'package:split/feature/auth/forget_password/bloc/forget_password_bloc.dar
 import 'package:split/feature/auth/otp_verification/screen/otp_screen.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
 import 'package:split/feature/auth/widgets/app_text_form_field.dart';
-import 'package:split/res/app_colors.dart';
+import 'package:split/feature/auth/widgets/screen_description_widget.dart';
+import 'package:split/feature/auth/widgets/screen_title_widget.dart';
+import 'package:split/feature/auth/widgets/text_field_label_widget.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 import 'package:split/utils/validations/auth_validate.dart';
 
@@ -60,69 +62,47 @@ class _ForgetPasswordScreenWithBlocState
       },
       builder: (context, state) {
         return AuthBase(
-          body: Container(
-            decoration: BoxDecoration(
-              color: AppColors.backgroundOfWidget,
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(10.r),
-                topLeft: Radius.circular(10.r),
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
-              child: Form(
-                key: formKey,
-                autovalidateMode: autovalidateMode,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+            child: Form(
+              key: formKey,
+              autovalidateMode: autovalidateMode,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ScreenTitleWidget(
+                      titleLocalizationKey:
+                          LocalizationKeys.forgetYourPassword),
+                  SizedBox(height: 8.h),
+                  ScreenDescriptionWidget(
+                      descriptionLocalizationKey:
+                          LocalizationKeys.pleaseEnterYourEmailAddress),
+                  SizedBox(height: 30.h),
+                  TextFieldLabelWidget(
+                      labelLocalizationKey: LocalizationKeys.email),
+                  SizedBox(height: 8.h),
+                  AppTextFormField(
+                    hint: translate(LocalizationKeys.enterYourEmail)!,
+                    keyboardType: TextInputType.emailAddress,
+                    onSaved: (value) {
+                      _saveEmailAddress(value);
+                    },
+                    validator: emailValidator,
+                  ),
+                  SizedBox(height: 150.h),
+                  Row(
                     children: [
-                      Text(
-                        translate(LocalizationKeys.forgetYourPassword)!,
-                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                              fontSize: 27,
-                              fontWeight: FontWeight.w700,
-                            ),
+                      Expanded(
+                        child: AppElevatedButton(
+                          title: translate(LocalizationKeys.resetYourPassword)!,
+                          onPressed: () {
+                            _validateForgetPasswordFormEvent(context);
+                          },
+                        ),
                       ),
-                      SizedBox(height: 8.h),
-                      Text(
-                        translate(
-                            LocalizationKeys.pleaseEnterYourEmailAddress)!,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                      ),
-                      SizedBox(height: 30.h),
-                      Text(
-                        translate(LocalizationKeys.email)!,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                            ),
-                      ),
-                      SizedBox(height: 8.h),
-                      AppTextFormField(
-                        hint: translate(LocalizationKeys.enterYourEmail)!,
-                        keyboardType: TextInputType.emailAddress,
-                        onSaved: (value) {
-                          email = value;
-                        },
-                        validator: emailValidator,
-                      ),
-                      SizedBox(height: 150.h),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: AppElevatedButton(
-                            title:
-                                translate(LocalizationKeys.resetYourPassword)!,
-                            onPressed: () {
-                              _validateForgetPasswordFormEvent(context);
-                            },
-                          )),
-                        ],
-                      ),
-                    ]),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
@@ -151,5 +131,9 @@ class _ForgetPasswordScreenWithBlocState
 
   void _openOtpScreen(BuildContext context) {
     Navigator.of(context).pushNamed(OtpVerificationScreen.routName);
+  }
+
+  void _saveEmailAddress(String? value) {
+    email = value;
   }
 }

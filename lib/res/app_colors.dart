@@ -15,11 +15,16 @@ class AppColors {
   static const _chestnutRose = Color(0xffD15957);
   static const _blueRibbon = Color(0xff0437F2);
   static const _silver = Color(0xffc8c8c8);
+  static const _silverSplit = Color(0xffBDBDBD);
+  static const _cloudBurst = Color(0xFF253659);
+  static const _alto = Color(0xffD9D9D9);
 
   static const _whisper = Color(0xffF5F5FA);
+  static const _alabaster = Color(0xffF9F9F9);
 
   static const _thunder = Color(0xff231F20);
   static const _mineShaft = Color(0xff3B3B3B);
+  static const _gallery = Color(0xffECECEC);
 
   static const _guardsmanRed = Color(0xffBC0000);
   static const _ecstasy = Color(0xffF58220);
@@ -30,18 +35,14 @@ class AppColors {
   static const _goblink = Color(0xff378A3A);
   static const _madang = Color(0xffC0F1C2);
   static const _apple = Color(0xff54B435);
-  static const _alabaster = Color(0xFFF9F9F9);
-  static const _cloudBurst = Color(0xFF253659);
   static const _mineShaft2 = Color(0xFF333333);
-  static const _gallery = Color(0xFFECECEC);
   static const _silver2 = Color(0xFFBDBDBD);
-  static const _alto = Color(0xffD9D9D9);
   static const _robinsEggBlue = Color(0xFF00DCB4);
 
   /// app main theme ...
 
-  static const colorSchemeSeed = _blueRibbon;
-  static const colorPrimary = _blueRibbon;
+  static const colorSchemeSeed = _cloudBurst;
+  static const colorPrimary = _cloudBurst;
   static const focus = _blueRibbon;
   static const scaffoldBackground = _whisper;
   static const appBarBackground = _white;
@@ -52,24 +53,29 @@ class AppColors {
   static const floatActionBtnBackground = _ecstasy;
   static const buttonTextLight = _white;
   static const iconTheme = _blueZodiac;
-  static const appBarIcon = _blueZodiac;
+  static const appBarIcon = _white;
   static const titleMedium = _blueRibbon;
   static const headlineMedium = _blueZodiac;
   static const bodyMedium = _black;
-  static const bodySmall = _grey;
-  static const bodyLarge = _mineShaft2;
-  static const labelLarge = _cloudBurst;
+  static const titleSmall = _mineShaft2;
+  static const bodyLarge = _cloudBurst;
+  static const bodySmall = _silverSplit;
+  static const titleLarge = _white;
+  static const labelLarge = _thunder;
   static const labelMedium = _mineShaft;
-  static const labelSmall = _grey;
+  static const labelSmall = _alto;
   static const backLoginIconBackground = _white;
   static const removeHighlight = _transparent;
   static const backGroundCard = _white;
   static const backGroundContainer = _white;
-  static const titleLarge = _white;
   static const removeTxt = _chestnutRose;
 
   /// base widget
   static const baseWidgetBackground = _transparent;
+  static const selectableFormFieldText = _black;
+  static const selectableFormFieldBackground = _black;
+  static const unSelectableFormFieldText = _red;
+  static const unSelectableFormFieldBackground = _red;
 
   /// toast ..
   static const toastBackground = _black;
@@ -92,6 +98,9 @@ class AppColors {
 
   /// paging
   static const paginationLoadingBackground = _white;
+
+  /// general app bar
+  static const generalAppBarBackground = _cloudBurst;
 
   /// home
 
@@ -133,4 +142,24 @@ class AppColors {
   static const hintText = _alto;
   static const textOfTermsCondition = _robinsEggBlue;
   static const checkAgreeIcon = _cloudBurst;
+
+  /// home screen
+  static const homeScreenBackground = _alabaster;
+  static const homeScreenTextFormFieldFilled = _white;
+  static const homeScreenTextFormFieldFocusBorder = _cloudBurst;
+  static const homeScreenTextFormFieldErrorBorder = _red;
+  static const homeScreenTextFormFieldHintText = _gallery;
+  static const homeScreenTypeListIconsUnSelected = _silverSplit;
+  static const homeScreenTypeListIconsSelected = _white;
+  static const homeScreenTypeListCardSelected = _cloudBurst;
+  static const homeScreenAddPhotoBorder = _alto;
+  static const homeScreenButton = _cloudBurst;
+  static const homeScreenTypeListCardUnSelected = _white;
+  static const homeScreenGenderPickerDropDownMenu = _white;
+  static const homeScreenCancelButton = _alto;
+
+  /// onboarding screen
+
+  static const onBoardingScreenScaffoldBackground = _white;
+  static const onBoardingScreenIndicatorDots = _cloudBurst;
 }

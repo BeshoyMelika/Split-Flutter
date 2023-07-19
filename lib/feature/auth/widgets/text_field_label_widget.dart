@@ -9,7 +9,7 @@ class TextFieldLabelWidget extends BaseStatelessWidget {
   Widget baseBuild(BuildContext context) {
     return Text(
       translate(labelLocalizationKey)!,
-      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+      style: Theme.of(context).textTheme.titleSmall!.copyWith(
             fontSize: 12,
             fontWeight: FontWeight.w600,
           ),
