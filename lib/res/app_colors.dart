@@ -135,16 +135,16 @@ class AppColors {
   static const emptyGroupIconButton = _white;
   static const scaffoldBackground = _alabaster;
   static const unSelectedNavBarIcon = _silver;
-  static const selectedNavBarIcon = _alto;
+  static const selectedNavBarIcon = _cloudBurst;
   static const floatingactionButtonLightMode = _robinsEggBlue;
-  static const appBarBackground = _alto;
+  static const appBarBackground = _cloudBurst;
   static const mediumText = _mineShaft;
   static const bodyLargeText = _silver;
 
   static const groupItemBorder = _silver;
   static const groupItemIcon = _silver;
   static const groupItemText = _silver;
-  static const groupItemPinedIcon = _alto;
+  static const groupItemPinedIcon = _cloudBurst;
   static const groupItemColor = _white;
   static const groupMainText = _silver;
 
