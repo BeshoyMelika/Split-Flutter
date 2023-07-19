@@ -88,51 +88,54 @@ class _ExpenseDetailsScreenWithBlocState
         },
         builder: (context, state) {
           return initialized
-              ? CustomScrollView(
-                  controller: _scrollController,
-                  slivers: [
-                    _appBar(),
-                    SliverToBoxAdapter(
-                        child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: SpentReceivableWidget(
-                        spentAmount: expenseDetails.amountSpent,
-                        receivableAmount: expenseDetails.amountReceivable,
+              ? RefreshIndicator(
+                  onRefresh: _onRefresh,
+                  child: CustomScrollView(
+                    controller: _scrollController,
+                    slivers: [
+                      _appBar(),
+                      SliverToBoxAdapter(
+                          child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        child: SpentReceivableWidget(
+                          spentAmount: expenseDetails.amountSpent,
+                          receivableAmount: expenseDetails.amountReceivable,
+                        ),
+                      )),
+                      _space(height: 30.h),
+                      SliverToBoxAdapter(
+                          child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        child: PaidByWhomWidget(
+                            imageURL: expenseDetails.paidByImageURL,
+                            name: expenseDetails.paidBy),
+                      )),
+                      _space(height: 20.h),
+                      _textSplitEquallyFor(),
+                      _space(height: 10.h),
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          childCount: expenseDetails.splitUpon.length,
+                          (BuildContext context, int index) {
+                            return Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16.w, vertical: 10.h),
+                                child: PaymentDetailsWidget(
+                                    paymentDetails:
+                                        expenseDetails.splitUpon[index]));
+                          },
+                        ),
                       ),
-                    )),
-                    _space(height: 30.h),
-                    SliverToBoxAdapter(
-                        child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: PaidByWhomWidget(
-                          imageURL: expenseDetails.paidByImageURL,
-                          name: expenseDetails.paidBy),
-                    )),
-                    _space(height: 20.h),
-                    _textSplitEquallyFor(),
-                    _space(height: 10.h),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        childCount: expenseDetails.splitUpon.length,
-                        (BuildContext context, int index) {
-                          return Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 16.w, vertical: 10.h),
-                              child: PaymentDetailsWidget(
-                                  paymentDetails:
-                                      expenseDetails.splitUpon[index]));
-                        },
-                      ),
-                    ),
-                    SliverToBoxAdapter(
-                        child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 16.w, vertical: 20.h),
-                      child: ReceiptPhotoSSendReminderWidget(
-                          dueDateForPay: expenseDetails.dueDateForPay),
-                    )),
-                  ],
-                  //  )
+                      SliverToBoxAdapter(
+                          child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 16.w, vertical: 20.h),
+                        child: ReceiptPhotoSSendReminderWidget(
+                            dueDateForPay: expenseDetails.dueDateForPay),
+                      )),
+                    ],
+                    //  )
+                  ),
                 )
               : const SizedBox.shrink();
         },
@@ -184,4 +187,12 @@ class _ExpenseDetailsScreenWithBlocState
           ),
         ),
       ));
+
+  /// /////////////////////////////////////////////////////////////
+  /// ///////////////////////Helper Methods////////////////////////
+  /// /////////////////////////////////////////////////////////////
+  ExpenseDetailsScreenBloc get currentContext => context.read();
+  Future<void> _onRefresh() async {
+    currentContext.add(LoadExpenseDetailsEvent());
+  }
 }

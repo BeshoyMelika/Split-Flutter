@@ -115,6 +115,8 @@ class _ReceiptPhotoSSendReminderWidgetState
   /// /////////////////////////////////////////////////////////////
   /// ///////////////////////Helper Methods////////////////////////
   /// /////////////////////////////////////////////////////////////
+  ExpenseDetailsScreenBloc get currentContext => context.read();
+
   String _getFormattedDate(DateTime expenseDateTime) {
     String currentLocale = Localizations.localeOf(context).languageCode;
     String lastDate =
@@ -125,6 +127,4 @@ class _ReceiptPhotoSSendReminderWidgetState
   void _onSendReminder() {
     currentContext.add(SendReminderToAllUsersExpenseDetailsEvent());
   }
-
-  ExpenseDetailsScreenBloc get currentContext => context.read();
 }
