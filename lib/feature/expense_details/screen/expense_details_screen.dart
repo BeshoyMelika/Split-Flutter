@@ -86,6 +86,10 @@ class _ExpenseDetailsScreenWithBlocState
             initialized = true;
           }
         },
+        buildWhen: (previous, current) {
+          if (current is LoadedExpenseDetailsSuccessfullyState) return true;
+          return false;
+        },
         builder: (context, state) {
           return initialized
               ? RefreshIndicator(

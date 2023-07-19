@@ -40,6 +40,11 @@ class ExpenseDetailsScreenBloc
           paymentStatus: paidStatus[PaymentStatus.paid.name] ?? false),
       PaymentDetailsUIModel(
           imageURL: networkImageHold,
+          name: "Mina Samir",
+          amountOfMoney: 220,
+          paymentStatus: paidStatus[PaymentStatus.paid.name] ?? false),
+      PaymentDetailsUIModel(
+          imageURL: networkImageHold,
           name: "Amgad Nady",
           amountOfMoney: 220,
           paymentStatus: paidStatus[PaymentStatus.notYet.name] ?? false),
@@ -59,11 +64,19 @@ class ExpenseDetailsScreenBloc
 
   FutureOr<void> _sendReminderToAllUsersExpenseDetailsEvent(
       SendReminderToAllUsersExpenseDetailsEvent event,
-      Emitter<ExpenseDetailsScreenState> emit) {}
+      Emitter<ExpenseDetailsScreenState> emit) async {
+    emit(WaitingExpenseDetailsScreenState());
+    await Future.delayed(const Duration(seconds: 1));
+    emit(ReminderSentSuccessfullyExpenseDetailsState());
+  }
 
   FutureOr<void> _addPhotoOrReceiptForExpenseDetailsEvent(
       AddPhotoOrReceiptForExpenseDetailsEvent event,
-      Emitter<ExpenseDetailsScreenState> emit) {}
+      Emitter<ExpenseDetailsScreenState> emit) async {
+    emit(WaitingExpenseDetailsScreenState());
+    await Future.delayed(const Duration(seconds: 1));
+    emit(ReceiptORPhotoAddedSuccessfullyExpenseDetailsState());
+  }
 }
 
 const paidStatus = {"paid": true, "notYet": false};
