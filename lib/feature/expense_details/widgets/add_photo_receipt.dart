@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,14 +13,16 @@ import 'package:split/res/app_icons.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 
 class AddPhotoReceipt extends BaseStatefulWidget {
-  const AddPhotoReceipt({Key? key}) : super(key: key);
+  const AddPhotoReceipt({required this.onUploadImage, Key? key})
+      : super(key: key);
+  final void Function(File?) onUploadImage;
 
   @override
   BaseState<AddPhotoReceipt> baseCreateState() => _AddPhotoReceiptState();
 }
 
 class _AddPhotoReceiptState extends BaseState<AddPhotoReceipt> {
-  String? selectedItem;
+  File? selectedImage;
   @override
   Widget baseBuild(BuildContext context) {
     return InkWell(
@@ -27,7 +31,7 @@ class _AddPhotoReceiptState extends BaseState<AddPhotoReceipt> {
       },
       child: Align(
         alignment: AlignmentDirectional.centerStart,
-        child: selectedItem == null
+        child: selectedImage == null
             ? DottedBorder(
                 color: AppColors.createGroupScreenAddPhotoBorder,
                 strokeWidth: 2,
@@ -63,8 +67,8 @@ class _AddPhotoReceiptState extends BaseState<AddPhotoReceipt> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(5.r),
-                      child: Image.asset(
-                        selectedItem!,
+                      child: Image.file(
+                        selectedImage!,
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -104,28 +108,31 @@ class _AddPhotoReceiptState extends BaseState<AddPhotoReceipt> {
   /// /////////////////////////////////////////////////////////
   ExpenseDetailsScreenBloc get currentContext => context.read();
 
-  Future<String?> _pickImage() async {
+  Future<XFile?> _pickImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? pickedImage =
         await picker.pickImage(source: ImageSource.gallery);
     if (pickedImage != null) {
-      return pickedImage.path;
+      return pickedImage;
     } else {
       return null;
     }
   }
 
   Future<void> _onDefaultImageTapped() async {
-    String? hold = await _pickImage();
-    setState(() {
-      selectedItem = hold;
-    });
-    currentContext.add(UploadPhotoAPIEvent(imagePath: selectedItem));
+    XFile? hold = await _pickImage();
+    if (hold != null) {
+      setState(() {
+        selectedImage = File(hold.path);
+      });
+    }
+    widget.onUploadImage(selectedImage);
   }
 
   void _deletePressed() {
     setState(() {
-      selectedItem = null;
+      selectedImage = null;
     });
+    widget.onUploadImage(selectedImage);
   }
 }

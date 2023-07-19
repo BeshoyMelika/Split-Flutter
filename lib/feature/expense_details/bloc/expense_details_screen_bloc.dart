@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class ExpenseDetailsScreenBloc
     on<GetExpenseDetailsAPIEvent>(_loadExpenseDetailsEvent);
     on<SendReminderAPIEvent>(_sendReminderToAllUsersExpenseDetailsEvent);
     on<UploadPhotoAPIEvent>(_addPhotoOrReceiptForExpenseDetailsEvent);
+    on<AppBarSwitcherEvent>(_appBarSwitcherEvent);
   }
 
   FutureOr<void> _loadExpenseDetailsEvent(GetExpenseDetailsAPIEvent event,
@@ -38,5 +40,12 @@ class ExpenseDetailsScreenBloc
     emit(LoadingState());
     await Future.delayed(const Duration(seconds: 1));
     emit(PhotoUploadedSuccessfullyState());
+  }
+
+  FutureOr<void> _appBarSwitcherEvent(
+      AppBarSwitcherEvent event, Emitter<ExpenseDetailsScreenState> emit) {
+    if (event.isShrink != event.lastStatus) {
+      emit(AppBarSwitcherState(lastState: event.isShrink));
+    }
   }
 }

@@ -14,9 +14,17 @@ class SendReminderAPIEvent extends ExpenseDetailsScreenEvent {
 }
 
 class UploadPhotoAPIEvent extends ExpenseDetailsScreenEvent {
-  final String? imagePath;
+  final File? imagePath;
 
   UploadPhotoAPIEvent({required this.imagePath});
   @override
   List<Object?> get props => [imagePath];
+}
+
+class AppBarSwitcherEvent extends ExpenseDetailsScreenEvent {
+  final bool isShrink, lastStatus;
+
+  AppBarSwitcherEvent({required this.isShrink, required this.lastStatus});
+  @override
+  List<Object?> get props => [identityHashCode(this)];
 }

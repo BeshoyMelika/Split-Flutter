@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
 import 'package:split/feature/widgets/app_text_widget.dart';
 import 'package:split/res/app_colors.dart';
+import 'package:split/utils/widgets/empty_widgets.dart';
 
 // ignore: must_be_immutable
 class AppBarWidget extends BaseStatelessWidget implements PreferredSize {
@@ -40,7 +41,7 @@ class AppBarWidget extends BaseStatelessWidget implements PreferredSize {
             size: 30,
             color: AppColors.appBarIcon,
           ))
-      : const SizedBox.shrink();
+      : getEmptyWidget();
 
   @override
   Widget get child => AppBarWidget(title: title);

@@ -37,3 +37,11 @@ class PhotoUploadedSuccessfullyState extends ExpenseDetailsScreenState {
   @override
   List<Object?> get props => [];
 }
+
+class AppBarSwitcherState extends ExpenseDetailsScreenState {
+  final bool lastState;
+
+  AppBarSwitcherState({required this.lastState});
+  @override
+  List<Object?> get props => [identityHashCode(this)];
+}

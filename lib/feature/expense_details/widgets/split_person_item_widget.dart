@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
-import 'package:split/feature/expense_details/models/payment_details_ui_model.dart';
+import 'package:split/feature/expense_details/models/split_person_ui_model.dart';
 import 'package:split/feature/widgets/app_text_widget.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 import 'package:split/utils/widgets/app_cached_network_image.dart';
 
 //ignore:must_be_immutable
-class PaymentDetailsWidget extends BaseStatelessWidget {
-  PaymentDetailsWidget({required this.paymentDetails, Key? key})
+class SplitPersonItemWidget extends BaseStatelessWidget {
+  SplitPersonItemWidget({required this.paymentDetails, Key? key})
       : super(key: key);
-  final PaymentDetailsUIModel paymentDetails;
+  final SplitPersonUIModel paymentDetails;
   @override
   Widget baseBuild(BuildContext context) {
     return SizedBox(
@@ -36,10 +36,10 @@ class PaymentDetailsWidget extends BaseStatelessWidget {
             SizedBox(width: 10.w),
             Expanded(
                 flex: 3,
-                child:
-                    _column(paymentDetails.name, paymentDetails.amountOfMoney)),
+                child: _titleWidget(
+                    paymentDetails.name, paymentDetails.amountOfMoney)),
             const Spacer(),
-            Flexible(child: _paymentStatus()),
+            if (paymentDetails.paymentStatus) Flexible(child: _paymentStatus()),
             //   AppTextWidget(text: )
           ],
         ),
@@ -50,7 +50,7 @@ class PaymentDetailsWidget extends BaseStatelessWidget {
   /// /////////////////////////////////////////////////////////////
   /// ///////////////////////Helper Widgets////////////////////////
   /// /////////////////////////////////////////////////////////////
-  Widget _column(String text, double amountOfMoney) => Column(
+  Widget _titleWidget(String text, double amountOfMoney) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -70,33 +70,32 @@ class PaymentDetailsWidget extends BaseStatelessWidget {
           ),
         ],
       );
-  Widget _paymentStatus() => paymentDetails.paymentStatus
-      ? Align(
-          alignment: AlignmentDirectional.centerEnd,
-          child: Row(
-            children: [
-              Flexible(
-                  flex: 1,
-                  child: Icon(
-                    Icons.check,
-                    size: 14.spMax,
+
+  Widget _paymentStatus() => Align(
+        alignment: AlignmentDirectional.centerEnd,
+        child: Row(
+          children: [
+            Flexible(
+                flex: 1,
+                child: Icon(
+                  Icons.check,
+                  size: 14.spMax,
+                  color: AppColors.expenseDetailsScreenPaymentPaidStatus,
+                  weight: 400,
+                )),
+            SizedBox(width: 5.w),
+            Flexible(
+              flex: 2,
+              child: AppTextWidget(
+                boxFit: BoxFit.scaleDown,
+                text: translate(LocalizationKeys.paid)!,
+                style: TextStyle(
                     color: AppColors.expenseDetailsScreenPaymentPaidStatus,
-                    weight: 400,
-                  )),
-              SizedBox(width: 5.w),
-              Flexible(
-                flex: 2,
-                child: AppTextWidget(
-                  boxFit: BoxFit.scaleDown,
-                  text: translate(LocalizationKeys.paid)!,
-                  style: TextStyle(
-                      color: AppColors.expenseDetailsScreenPaymentPaidStatus,
-                      fontSize: 14.spMax,
-                      fontWeight: FontWeight.w500),
-                ),
-              )
-            ],
-          ),
-        )
-      : const SizedBox.shrink();
+                    fontSize: 14.spMax,
+                    fontWeight: FontWeight.w500),
+              ),
+            )
+          ],
+        ),
+      );
 }

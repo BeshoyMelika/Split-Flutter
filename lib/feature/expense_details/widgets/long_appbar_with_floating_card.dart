@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
 import 'package:split/res/app_asset_paths.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/res/app_icons.dart';
+import 'package:split/utils/format/app_date_format.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
+import 'package:split/utils/widgets/empty_widgets.dart';
 
 // ignore: must_be_immutable
 class LongAppBarWithFloatingCard extends BaseStatelessWidget {
@@ -115,7 +116,7 @@ class LongAppBarWithFloatingCard extends BaseStatelessWidget {
             size: 30,
             color: AppColors.appBarIcon,
           ))
-      : const SizedBox.shrink();
+      : getEmptyWidget();
 
   /// /////////////////////////////////////////////////////////////
   /// ///////////////////////Helper Methods////////////////////////
@@ -125,9 +126,8 @@ class LongAppBarWithFloatingCard extends BaseStatelessWidget {
   }
 
   String _getFormattedDate(DateTime expenseDateTime, BuildContext context) {
-    String currentLocale = Localizations.localeOf(context).languageCode;
-    String lastDate =
-        DateFormat("d MMM, yyy", currentLocale).format(expenseDateTime);
+    String lastDate = AppDateFormat.formattingDateDayMonthYear(
+        expenseDateTime, appLocale.locale.languageCode);
     return lastDate;
   }
 }

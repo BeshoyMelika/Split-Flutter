@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:split/feature/expense_details/models/payment_details_ui_model.dart';
+import 'package:split/feature/expense_details/models/split_person_ui_model.dart';
 
 class ExpenseDetailsUIModel {
   final String expenseTitle;
@@ -8,7 +8,7 @@ class ExpenseDetailsUIModel {
   final double amountReceivable;
   final String paidBy;
   final String paidByImageURL;
-  final List<PaymentDetailsUIModel> splitUpon;
+  final List<SplitPersonUIModel> splitUpon;
   final DateTime lastUpdate;
   final DateTime dueDateForPay;
 

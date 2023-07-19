@@ -11,6 +11,7 @@ import 'package:split/feature/onboarding/widgets/onboarding_item_widget.dart';
 import 'package:split/res/app_asset_paths.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
+import 'package:split/utils/widgets/empty_widgets.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
@@ -76,7 +77,7 @@ class _OnBoardingScreenWithBloc
                               subText:
                                   translate(onBoardingDataList[index].subText)!,
                               imagePath: onBoardingDataList[index].imageURL))
-                      : const SizedBox.shrink(),
+                      : getEmptyWidget(),
                   Positioned(
                     left: 0,
                     right: 0,

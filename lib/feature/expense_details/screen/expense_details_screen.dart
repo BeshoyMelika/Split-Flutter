@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,17 +9,18 @@ import 'package:split/feature/expense_details/models/expense_details_ui_model.da
 import 'package:split/feature/expense_details/widgets/long_appbar_with_floating_card.dart';
 import 'package:split/feature/expense_details/widgets/on_shrink_appbar_widget.dart';
 import 'package:split/feature/expense_details/widgets/paid_by_whom_widget.dart';
-import 'package:split/feature/expense_details/widgets/payment_details_widget.dart';
+import 'package:split/feature/expense_details/widgets/split_person_item_widget.dart';
 import 'package:split/feature/expense_details/widgets/receipt_photo_end_reminder_widget.dart';
 import 'package:split/feature/expense_details/widgets/spent_receivable_widget.dart';
 import 'package:split/feature/widgets/app_text_widget.dart';
 import 'package:split/res/app_colors.dart';
+import 'package:split/utils/feedback/feedback_message.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
+import 'package:split/utils/widgets/empty_widgets.dart';
 
 class ExpenseDetailsScreen extends StatelessWidget {
   const ExpenseDetailsScreen({Key? key}) : super(key: key);
   static const routeName = "expenseDetailsScreen";
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -42,11 +45,6 @@ class _ExpenseDetailsScreenWithBlocState
   double onShrinkHeight = 222.h;
   late ExpenseDetailsUIModel expenseDetails;
   bool initialized = false;
-  bool get _isShrink {
-    return _scrollController != null &&
-        _scrollController!.hasClients &&
-        _scrollController!.offset.h > onShrinkHeight;
-  }
 
   @override
   void initState() {
@@ -76,10 +74,15 @@ class _ExpenseDetailsScreenWithBlocState
           if (state is LoadedExpenseDetailsSuccessfullyState) {
             expenseDetails = state.expenseDetails;
             initialized = true;
+          } else if (state is ErrorState) {
+            showFeedbackMessage(state.errorMessage);
+          } else if (state is AppBarSwitcherState) {
+            lastStatus = state.lastState;
           }
         },
         buildWhen: (previous, current) {
-          if (current is LoadedExpenseDetailsSuccessfullyState) return true;
+          if (current is LoadedExpenseDetailsSuccessfullyState ||
+              current is AppBarSwitcherState) return true;
           return false;
         },
         builder: (context, state) {
@@ -89,7 +92,7 @@ class _ExpenseDetailsScreenWithBlocState
                   child: CustomScrollView(
                     controller: _scrollController,
                     slivers: [
-                      _appBar(),
+                      _appBarWidget(),
                       SliverToBoxAdapter(
                           child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -98,7 +101,7 @@ class _ExpenseDetailsScreenWithBlocState
                           receivableAmount: expenseDetails.amountReceivable,
                         ),
                       )),
-                      _space(height: 30.h),
+                      _spaceWidget(height: 30.h),
                       SliverToBoxAdapter(
                           child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -106,9 +109,9 @@ class _ExpenseDetailsScreenWithBlocState
                             imageURL: expenseDetails.paidByImageURL,
                             name: expenseDetails.paidBy),
                       )),
-                      _space(height: 20.h),
-                      _textSplitEquallyFor(),
-                      _space(height: 10.h),
+                      _spaceWidget(height: 20.h),
+                      _textSplitEquallyForWidget(),
+                      _spaceWidget(height: 10.h),
                       SliverList(
                         delegate: SliverChildBuilderDelegate(
                           childCount: expenseDetails.splitUpon.length,
@@ -116,7 +119,7 @@ class _ExpenseDetailsScreenWithBlocState
                             return Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 16.w, vertical: 10.h),
-                                child: PaymentDetailsWidget(
+                                child: SplitPersonItemWidget(
                                     paymentDetails:
                                         expenseDetails.splitUpon[index]));
                           },
@@ -127,13 +130,16 @@ class _ExpenseDetailsScreenWithBlocState
                         padding: EdgeInsets.symmetric(
                             horizontal: 16.w, vertical: 20.h),
                         child: ReceiptPhotoSSendReminderWidget(
-                            dueDateForPay: expenseDetails.dueDateForPay),
+                          dueDateForPay: expenseDetails.dueDateForPay,
+                          onSendReminder: _onSendReminder,
+                          onUploadImage: _onImageUpload,
+                        ),
                       )),
                     ],
                     //  )
                   ),
                 )
-              : const SizedBox.shrink();
+              : getEmptyWidget();
         },
       ),
     );
@@ -142,10 +148,10 @@ class _ExpenseDetailsScreenWithBlocState
   /// /////////////////////////////////////////////////////////////
   /// ///////////////////////Helper Widgets////////////////////////
   /// /////////////////////////////////////////////////////////////
-  Widget _space({double? height, double? width}) =>
+  Widget _spaceWidget({double? height, double? width}) =>
       SliverToBoxAdapter(child: SizedBox(height: height, width: width));
 
-  Widget _appBar() => SliverAppBar(
+  Widget _appBarWidget() => SliverAppBar(
         elevation: 0,
         backgroundColor: _isShrink
             ? AppColors.expenseDetailsScreenAppBarBackground
@@ -155,23 +161,23 @@ class _ExpenseDetailsScreenWithBlocState
         toolbarHeight: 70.h,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
-        leading: const SizedBox.shrink(),
+        leading: getEmptyWidget(),
         leadingWidth: 0.w,
         flexibleSpace: FlexibleSpaceBar(
           collapseMode: CollapseMode.parallax,
           background: LongAppBarWithFloatingCard(
               expenseIcon: expenseDetails.expenseIcon,
               title: expenseDetails.expenseTitle,
-              lastUpdate: DateTime.now()),
+              lastUpdate: expenseDetails.lastUpdate),
         ),
         title: _isShrink
             ? OnShrinkAppBarWidget(
                 expenseIcon: expenseDetails.expenseIcon,
                 title: expenseDetails.expenseTitle)
-            : const SizedBox.shrink(),
+            : getEmptyWidget(),
       );
 
-  Widget _textSplitEquallyFor() => SliverToBoxAdapter(
+  Widget _textSplitEquallyForWidget() => SliverToBoxAdapter(
           child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Align(
@@ -194,14 +200,25 @@ class _ExpenseDetailsScreenWithBlocState
   }
 
   void _scrollListener() {
-    if (_isShrink != lastStatus) {
-      setState(() {
-        lastStatus = _isShrink;
-      });
-    }
+    currentBloc
+        .add(AppBarSwitcherEvent(isShrink: _isShrink, lastStatus: lastStatus));
+  }
+
+  bool get _isShrink {
+    return _scrollController != null &&
+        _scrollController!.hasClients &&
+        _scrollController!.offset.h > onShrinkHeight;
   }
 
   void _loadExpenseDetailsAPIEvent() {
     currentBloc.add(GetExpenseDetailsAPIEvent());
+  }
+
+  void _onSendReminder() {
+    currentBloc.add(SendReminderAPIEvent());
+  }
+
+  void _onImageUpload(File? image) {
+    currentBloc.add(UploadPhotoAPIEvent(imagePath: image));
   }
 }
