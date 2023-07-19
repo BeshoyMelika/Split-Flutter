@@ -1,12 +1,10 @@
 import 'dart:async';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:split/feature/expense_details/models/expense_details_ui_model.dart';
 import 'package:split/feature/expense_details/models/payment_details_ui_model.dart';
 import 'package:split/res/app_icons.dart';
-import 'package:split/utils/locale/app_localization_keys.dart';
 part 'expense_details_screen_event.dart';
 part 'expense_details_screen_state.dart';
 
@@ -50,7 +48,7 @@ class ExpenseDetailsScreenBloc
           paymentStatus: paidStatus[PaymentStatus.notYet.name] ?? false),
     ];
     ExpenseDetailsUIModel expenseDetails = ExpenseDetailsUIModel(
-        expenseTitle: LocalizationKeys.food,
+        expenseTitle: "Food",
         expenseIcon: AppIcons.food,
         amountSpent: 520,
         lastUpdate: DateTime.now(),

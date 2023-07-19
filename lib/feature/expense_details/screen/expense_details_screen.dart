@@ -169,13 +169,13 @@ class _ExpenseDetailsScreenWithBlocState
           collapseMode: CollapseMode.parallax,
           background: LongAppBarWithFloatingCard(
               expenseIcon: expenseDetails.expenseIcon,
-              title: translate(expenseDetails.expenseTitle)!,
+              title: expenseDetails.expenseTitle,
               lastUpdate: DateTime.now()),
         ),
         title: _isShrink
             ? OnShrinkAppBarWidget(
                 expenseIcon: expenseDetails.expenseIcon,
-                title: translate(expenseDetails.expenseTitle)!)
+                title: expenseDetails.expenseTitle)
             : const SizedBox.shrink(),
       );
 
