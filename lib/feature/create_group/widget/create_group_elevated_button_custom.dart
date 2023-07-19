@@ -46,7 +46,7 @@ class CreateGroupElevatedButtonCustom extends BaseStatelessWidget {
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.zero,
-              backgroundColor: buttonColor ?? AppColors.homeScreenButton,
+              backgroundColor: buttonColor ?? AppColors.createGroupScreenButton,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.r)),
             ),

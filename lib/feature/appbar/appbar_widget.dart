@@ -10,22 +10,19 @@ class AppBarWidget extends BaseStatelessWidget implements PreferredSize {
   final String title;
   @override
   Widget baseBuild(BuildContext context) {
-    return PreferredSize(
-      preferredSize: Size(0, 59.h),
-      child: AppBar(
-        backgroundColor: AppColors.generalAppBarBackground,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(10.r),
-                bottomRight: Radius.circular(10.r))),
-        leading: _backArrow(context),
-        title: AppTextWidget(
-            text: title,
-            boxFit: BoxFit.scaleDown,
-            alignment: Alignment.center,
-            style: textTheme.titleLarge!
-                .copyWith(fontWeight: FontWeight.w700, fontSize: 20)),
-      ),
+    return AppBar(
+      backgroundColor: AppColors.generalAppBarBackground,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(10.r),
+              bottomRight: Radius.circular(10.r))),
+      leading: _backArrow(context),
+      title: AppTextWidget(
+          text: title,
+          boxFit: BoxFit.scaleDown,
+          alignment: Alignment.center,
+          style: textTheme.titleLarge!
+              .copyWith(fontWeight: FontWeight.w700, fontSize: 20)),
     );
   }
 

@@ -123,10 +123,8 @@ class _OnBoardingScreenWithBloc
   }
 
   void _navigateToHomeScreen() {
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const CreateGroupScreen()),
-        (route) => false);
+    Navigator.pushNamedAndRemoveUntil(
+        context, CreateGroupScreen.routeName, (route) => false);
   }
 
   OnBoardingScreenBloc get currentBloc => context.read<OnBoardingScreenBloc>();

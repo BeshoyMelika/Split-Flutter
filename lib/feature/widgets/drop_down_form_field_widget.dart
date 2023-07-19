@@ -175,9 +175,9 @@ class _DropDownWidget extends BaseStatelessWidget {
           buttonStyleData: ButtonStyleData(
             padding: const EdgeInsets.only(left: 14, right: 14),
             decoration: BoxDecoration(
-              color: AppColors.homeScreenGenderPickerDropDownMenu,
+              color: AppColors.createGroupScreenGenderPickerDropDownMenu,
               border: Border.all(
-                  color: AppColors.homeScreenGenderPickerDropDownMenu),
+                  color: AppColors.createGroupScreenGenderPickerDropDownMenu),
             ),
           ),
           iconStyleData: const IconStyleData(

@@ -121,6 +121,15 @@ flutter:
     - family: CloseIconFamily
       fonts:
         - asset: assets/font_icons/close_icon.ttf
+    - family: EditIconFamily
+      fonts:
+        - asset: assets/font_icons/edit_icon.ttf
+    - family: FoodIconFamily
+      fonts:
+        - asset: assets/font_icons/food_icon.ttf
+    - family: BellIconFamily
+      fonts:
+        - asset: assets/font_icons/bell_icon.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

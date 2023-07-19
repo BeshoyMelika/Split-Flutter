@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateful_screen_widget.dart';
-import 'package:split/feature/appbar/appbar.dart';
+import 'package:split/feature/appbar/appbar_widget.dart';
 import 'package:split/feature/create_group/bloc/create_group_screen_bloc.dart';
 import 'package:split/feature/create_group/helper/create_group_screen_helper.dart';
 import 'package:split/feature/create_group/models/group_send_ui_model.dart';
 import 'package:split/feature/create_group/widget/create_group_elevated_button_custom.dart';
+import 'package:split/feature/expense_details/screen/expense_details_screen.dart';
 import 'package:split/feature/widgets/drop_down_form_field_widget.dart';
 import 'package:split/feature/create_group/widget/image_picker_form_field_widget.dart';
 import 'package:split/feature/create_group/widget/new_group_type_items_list_form_field_widget.dart';
@@ -19,7 +20,7 @@ import 'package:split/utils/widgets/text_with_asterisk_widget.dart';
 
 class CreateGroupScreen extends StatelessWidget {
   const CreateGroupScreen({Key? key}) : super(key: key);
-
+  static const routeName = "createGroupScreen";
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -47,7 +48,7 @@ class _CreateGroupScreenWithBloc
   Widget baseScreenBuild(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: AppColors.homeScreenBackground,
+      backgroundColor: AppColors.createGroupScreenBackground,
       appBar: AppBarWidget(title: translate(LocalizationKeys.createNewGroup)!),
       body: BlocConsumer<CreateGroupScreenBloc, CreateGroupScreenState>(
         listener: (context, state) {
@@ -189,7 +190,7 @@ class _CreateGroupScreenWithBloc
                       .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
                   text: translate(LocalizationKeys.cancel)!,
                   onPressed: _onCancelPressed,
-                  buttonColor: AppColors.homeScreenCancelButton,
+                  buttonColor: AppColors.createGroupScreenCancelButton,
                   buttonHeight: 40.h,
                   alignment: AlignmentDirectional.center)),
         ],
@@ -204,6 +205,7 @@ class _CreateGroupScreenWithBloc
 
   void _onCancelPressed() {
     debugPrint("cancel Pressed");
+    Navigator.pushNamed(context, ExpenseDetailsScreen.routeName);
   }
 
   void _createNewGroup() {

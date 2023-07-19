@@ -18,9 +18,11 @@ class AppColors {
   static const _silverSplit = Color(0xffBDBDBD);
   static const _cloudBurst = Color(0xff253659);
   static const _alto = Color(0xffD9D9D9);
+  static const _crusta = Color(0xffFF792D);
 
   static const _whisper = Color(0xffF5F5FA);
   static const _alabaster = Color(0xffF9F9F9);
+  static const _caribbeanGreen = Color(0xff00C17D);
 
   static const _thunder = Color(0xff231F20);
   static const _mineShaft = Color(0xff3B3B3B);
@@ -28,6 +30,7 @@ class AppColors {
 
   static const _guardsmanRed = Color(0xffBC0000);
   static const _ecstasy = Color(0xffF58220);
+  static const _niagara = Color(0xff06A797);
 
   static const _buttercup10Opacity = Color.fromARGB(255, 245, 234, 211);
 
@@ -125,23 +128,33 @@ class AppColors {
   /// Auth Screen
   static const loginButtonBg = _apple;
 
-  /// home screen
-  static const homeScreenBackground = _alabaster;
-  static const homeScreenTextFormFieldFilled = _white;
-  static const homeScreenTextFormFieldFocusBorder = _cloudBurst;
-  static const homeScreenTextFormFieldErrorBorder = _red;
-  static const homeScreenTextFormFieldHintText = _gallery;
-  static const homeScreenTypeListIconsUnSelected = _silverSplit;
-  static const homeScreenTypeListIconsSelected = _white;
-  static const homeScreenTypeListCardSelected = _cloudBurst;
-  static const homeScreenAddPhotoBorder = _alto;
-  static const homeScreenButton = _cloudBurst;
-  static const homeScreenTypeListCardUnSelected = _white;
-  static const homeScreenGenderPickerDropDownMenu = _white;
-  static const homeScreenCancelButton = _alto;
+  /// createGroup screen
+  static const createGroupScreenBackground = _alabaster;
+  static const createGroupScreenTextFormFieldFilled = _white;
+  static const createGroupScreenTextFormFieldFocusBorder = _cloudBurst;
+  static const createGroupScreenTextFormFieldErrorBorder = _red;
+  static const createGroupScreenTextFormFieldHintText = _gallery;
+  static const createGroupScreenTypeListIconsUnSelected = _silverSplit;
+  static const createGroupScreenTypeListIconsSelected = _white;
+  static const createGroupScreenTypeListCardSelected = _cloudBurst;
+  static const createGroupScreenAddPhotoBorder = _alto;
+  static const createGroupScreenButton = _cloudBurst;
+  static const createGroupScreenTypeListCardUnSelected = _white;
+  static const createGroupScreenGenderPickerDropDownMenu = _white;
+  static const createGroupScreenCancelButton = _alto;
 
   /// onboarding screen
-
   static const onBoardingScreenScaffoldBackground = _white;
   static const onBoardingScreenIndicatorDots = _cloudBurst;
+
+  /// expense details
+  static const expenseDetailsScreenAppBarBackground = _niagara;
+  static const expenseDetailsScreenAppBarFloatingCard = _crusta;
+  static const expenseDetailsScreenAppBarFloatingCardIcon = _white;
+  static const expenseDetailsScreenBodyCardsBackground = _white;
+  static const expenseDetailsScreenBackground = _alabaster;
+  static const expenseDetailsScreenReceivableAmountText = _caribbeanGreen;
+  static const expenseDetailsScreenPaymentNotYetStatus = _red;
+  static const expenseDetailsScreenPaymentPaidStatus = _caribbeanGreen;
+  static const expenseDetailsScreenSendReminderButtonBackground = _cloudBurst;
 }

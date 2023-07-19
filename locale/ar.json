@@ -65,5 +65,16 @@
   "create": "انشاء",
   "cancel": "الغاء",
   "write_description": "اكتب الوصف",
-  "add_photo": "اضافة صورة"
+  "add_photo": "اضافة صورة",
+  "lastUpdate": "اخر تحديث",
+  "food": "طعام",
+  "spent": "أنفق:",
+  "receivable": "مستحق:",
+  "split_equally_for": "تقسيم بالتساوي؟",
+  "due_date_for_pay": "تاريخ استحقاق الدفع:",
+  "send_reminder": "يرسل تذكير",
+  "receipt_bill_photos": "صور الاستلام / الفاتورة",
+  "paid_by": "دفع بواسطة",
+  "not_yet": "ليس بعد",
+  "paid": "مدفوع"
 }

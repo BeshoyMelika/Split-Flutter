@@ -74,4 +74,16 @@ class LocalizationKeys {
   static const cancel = "cancel";
   static const writeDescription = "write_description";
   static const addPhoto = "add_photo";
+  static const food = "food";
+  static const lastUpdate = "lastUpdate";
+
+  static const spent = "spent";
+  static const receivable = "receivable";
+  static const splitEquallyFor = "split_equally_for";
+  static const dueDateForPay = "due_date_for_pay";
+  static const sendReminder = "send_reminder";
+  static const receiptBillPhotos = "receipt_bill_photos";
+  static const paidBy = "paid_by";
+  static const paid = "paid";
+  static const notYet = "not_yet";
 }

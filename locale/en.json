@@ -66,5 +66,16 @@
   "create": "Create",
   "cancel": "Cancel",
   "write_description": "write description",
-  "add_photo": "Add Photo"
+  "add_photo": "Add Photo",
+  "lastUpdate": "Last update",
+  "food": "Food",
+  "spent": "Spent:",
+  "receivable": "Receivable:",
+  "split_equally_for": "Split Equally for?",
+  "due_date_for_pay": "Due date for pay:",
+  "send_reminder": "Send Reminder",
+  "receipt_bill_photos": "Receipt/Bill photos",
+  "paid_by": "Paid By",
+  "not_yet": "Not Yet",
+  "paid": "Paid"
 }

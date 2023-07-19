@@ -184,8 +184,8 @@ class GroupTypeWidget extends BaseStatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
           elevation: 3,
           color: selected
-              ? AppColors.homeScreenTypeListCardSelected
-              : AppColors.homeScreenTypeListCardUnSelected,
+              ? AppColors.createGroupScreenTypeListCardSelected
+              : AppColors.createGroupScreenTypeListCardUnSelected,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
           child: icon == null
@@ -211,8 +211,10 @@ class GroupTypeWidget extends BaseStatelessWidget {
                       children: [
                         Icon(icon,
                             color: selected
-                                ? AppColors.homeScreenTypeListIconsSelected
-                                : AppColors.homeScreenTypeListIconsUnSelected),
+                                ? AppColors
+                                    .createGroupScreenTypeListIconsSelected
+                                : AppColors
+                                    .createGroupScreenTypeListIconsUnSelected),
                         SizedBox(width: 5.w),
                         AppTextWidget(
                           alignment: AlignmentDirectional.center,
