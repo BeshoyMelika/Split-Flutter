@@ -21,12 +21,12 @@ class SpentReceivableWidget extends BaseStatelessWidget {
         children: [
           _itemWidget(
               translate(LocalizationKeys.spent)!,
-              500,
+              spentAmount,
               textTheme.bodyMedium!
                   .copyWith(fontSize: 20.spMax, fontWeight: FontWeight.w600)),
           _itemWidget(
             translate(LocalizationKeys.receivable)!,
-            500,
+            receivableAmount,
             TextStyle(
                 color: AppColors.expenseDetailsScreenReceivableAmountText,
                 fontSize: 20.spMax,
