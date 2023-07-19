@@ -70,40 +70,33 @@ class PaymentDetailsWidget extends BaseStatelessWidget {
           ),
         ],
       );
-  Widget _paymentStatus() => Align(
-        alignment: AlignmentDirectional.centerEnd,
-        child: Row(
-          children: [
-            Flexible(
-                flex: 1,
-                child: Icon(
-                  paymentDetails.paymentStatus
-                      ? Icons.check
-                      : Icons.close_sharp,
-                  size: 14.spMax,
-                  color: paymentDetails.paymentStatus
-                      ? AppColors.expenseDetailsScreenPaymentPaidStatus
-                      : AppColors.expenseDetailsScreenPaymentNotYetStatus,
-                  weight: 400,
-                )),
-            SizedBox(width: 5.w),
-            Flexible(
-              flex: 2,
-              child: AppTextWidget(
-                boxFit: BoxFit.scaleDown,
-                text:
-                    translate(_getPaymentStatus(paymentDetails.paymentStatus))!,
-                style: TextStyle(
-                    color: paymentDetails.paymentStatus
-                        ? AppColors.expenseDetailsScreenPaymentPaidStatus
-                        : AppColors.expenseDetailsScreenPaymentNotYetStatus,
-                    fontSize: 14.spMax,
-                    fontWeight: FontWeight.w500),
-              ),
-            )
-          ],
-        ),
-      );
-  String _getPaymentStatus(bool status) =>
-      status ? LocalizationKeys.paid : LocalizationKeys.notYet;
+  Widget _paymentStatus() => paymentDetails.paymentStatus
+      ? Align(
+          alignment: AlignmentDirectional.centerEnd,
+          child: Row(
+            children: [
+              Flexible(
+                  flex: 1,
+                  child: Icon(
+                    Icons.check,
+                    size: 14.spMax,
+                    color: AppColors.expenseDetailsScreenPaymentPaidStatus,
+                    weight: 400,
+                  )),
+              SizedBox(width: 5.w),
+              Flexible(
+                flex: 2,
+                child: AppTextWidget(
+                  boxFit: BoxFit.scaleDown,
+                  text: translate(LocalizationKeys.paid)!,
+                  style: TextStyle(
+                      color: AppColors.expenseDetailsScreenPaymentPaidStatus,
+                      fontSize: 14.spMax,
+                      fontWeight: FontWeight.w500),
+                ),
+              )
+            ],
+          ),
+        )
+      : const SizedBox.shrink();
 }
