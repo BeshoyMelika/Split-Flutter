@@ -37,6 +37,19 @@ dependencies:
   keyboard_dismisser: ^3.0.0
   package_info_plus: ^4.0.2
   shared_preferences: ^2.2.0
+  #pick images from phone
+  image_picker: ^0.8.9
+#  drop down menu
+  dropdown_button2: ^2.1.0
+  #indicating current pageView
+  smooth_page_indicator: ^1.1.0
+  #give a dotted border
+  dotted_border: ^2.0.0+3
+
+
+  #dropDownMenu
+  #dropdown_button2: ^2.1.0
+
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -58,6 +71,10 @@ flutter:
     # Localization json files
     - locale/en.json
     - locale/ar.json
+    - assets/home_screen/
+    - assets/onboarding/
+    # Images Folder
+    - assets/images/
     # Images Folder
     - assets/images/
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -76,6 +93,16 @@ flutter:
     - family:  Activty_icon
       fonts:
         - asset: assets/groups_font_icons/Activty_icon.ttf   
+    - family: HomeScreenIconsFamily
+      fonts:
+        - asset: assets/font_icons/home_screen_icons.ttf
+
+    - family: AddParticipantIconFamily
+      fonts:
+        - asset: assets/font_icons/add_participant.ttf
+    - family: CloseIconFamily
+      fonts:
+        - asset: assets/font_icons/close_icon.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

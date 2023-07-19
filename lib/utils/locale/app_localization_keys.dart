@@ -63,4 +63,28 @@ class LocalizationKeys {
   static const expenses = 'expenses';
   static const quickAccess = 'quick_access';
   static const allGroups = 'all_groups';
+  static const calculateAllOfYourExpensesInOnePlace =
+      "calculate_all_of_your_expenses_in_one_place";
+  static const aPlatFormToManageYourFinancesWithAnyoneEasily =
+      "a_platform_to_manage_your_finances_with_anyone_easily";
+
+  static const groupName = "group_name";
+  static const enterGroupName = "enter_group_name";
+  static const type = "type";
+  static const typeOfSplit = "type_of_split";
+  static const trip = "trip";
+  static const tower = "tower";
+  static const addParticipants = "add_participants";
+  static const equal = "equal";
+  static const specified = "specified";
+  static const percentage = "percentage";
+  static const currency = "currency";
+  static const dollar = "dollar";
+  static const pound = "pound";
+  static const description = "description";
+  static const getStarted = "get_started";
+  static const create = "create";
+  static const cancel = "cancel";
+  static const writeDescription = "write_description";
+  static const addPhoto = "add_photo";
 }

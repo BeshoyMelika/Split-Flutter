@@ -8,6 +8,7 @@ class AppTheme {
   AppTheme(this.locale) {
     arabicTextTheme = const TextTheme(
       headlineMedium: TextStyle(color: AppColors.headlineMedium, fontSize: 22),
+
       bodyMedium: TextStyle(
         color: AppColors.bodyMedium,
         fontSize: 16,
@@ -70,9 +71,17 @@ class AppTheme {
           color: AppColors.headlineMedium,
           fontSize: 20,
         ),
+        titleLarge: const TextStyle(
+          color: AppColors.titleLarge,
+        ),
+        bodyLarge: _textTheme.bodyMedium?.copyWith(
+          color: AppColors.bodyLarge,
+        ),
         bodyMedium: _textTheme.bodyMedium?.copyWith(
           color: AppColors.bodyMedium,
-          fontSize: 16,
+        ),
+        bodySmall: _textTheme.bodyMedium?.copyWith(
+          color: AppColors.bodySmall,
         ),
         titleMedium: _textTheme.titleMedium?.copyWith(
           color: AppColors.titleMedium,

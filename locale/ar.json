@@ -45,13 +45,64 @@
   "no_internet_connection": "لا يوجد اتصال بالإنترنت",
   "connection_restored": "تمت استعادة الاتصال",
 
-  "groups": "مجموعات",
-  "all_groups": "كل المجموعات",
-  "friends": "أصدقاء",
-  "activity": "النشاط",
-  "expenses": "المصاريف",
-  "quick_access": "الوصول السريع",
-  "you_don't_have_any_groups_statement": "ليس لديك أي مجموعات",
+  "calculate_all_of_your_expenses_in_one_place": "احسب كل ما تبذلونه من المصروفات في مكان واحد",
+  "a_platform_to_manage_your_finances_with_anyone_easily": "منصة مصممة لإدارة أموالك مع أي شخص بسهولة",
   "create_new_group": "إنشاء مجموعة جديدة",
-  "create_group_now": "انش مجموعة الان !"
+  "group_name": "أسم المجموعة",
+  "enter_group_name": "أدخل اسم المجموعة",
+  "type": "نوع",
+  "trip": "رحلة",
+  "tower": "برج",
+  "add_participants": "أضف مشاركين",
+  "equal": "متساوي",
+  "specified": "محدد",
+  "percentage": "نسبة مئوية",
+  "type_of_split": "نوع الانقسام",
+  "currency": "عملة",
+  "dollar": "$ دولار",
+  "pound": "جنية",
+  "get_started": "البدء",
+  "description": "وصف",
+  "create": "انشاء",
+  "cancel": "الغاء",
+  "write_description": "اكتب الوصف",
+  "add_photo": "اضافة صورة",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"groups": "مجموعات",
+"all_groups": "كل المجموعات",
+"friends": "أصدقاء",
+"activity": "النشاط",
+"expenses": "المصاريف",
+"quick_access": "الوصول السريع",
+"you_don't_have_any_groups_statement": "ليس لديك أي مجموعات",
+"create_new_group": "إنشاء مجموعة جديدة",
+"create_group_now": "انش مجموعة الان !"
+
 }

@@ -17,21 +17,20 @@ class AppColors {
   static const _chestnutRose = Color(0xffD15957);
   static const _blueRibbon = Color(0xff0437F2);
   static const _silver = Color(0xffc8c8c8);
+  static const _silverSplit = Color(0xffBDBDBD);
   static const _cloudBurst = Color(0xff253659);
-  static const _robinsEggBlue = Color(0xff00DCB4);
-  static const _alto = Color(0xff253659);
-  //#D9D9D900 //   static const _alto = Color(0xffD9D9D9);
-
-  static const _alabaster = Color(0xffF9F9F9);
+  static const _alto = Color(0xffD9D9D9);
 
   static const _whisper = Color(0xffF5F5FA);
+  static const _alabaster = Color(0xffF9F9F9);
 
   static const _thunder = Color(0xff231F20);
   static const _mineShaft = Color(0xff3B3B3B);
+  static const _gallery = Color(0xffECECEC);
 
   static const _guardsmanRed = Color(0xffBC0000);
   static const _ecstasy = Color(0xffF58220);
-
+  static const _robinsEggBlue = Color(0xff00DCB4);
   static const _buttercup10Opacity = Color.fromARGB(255, 245, 234, 211);
 
   static const _mandysPink = Color(0xffF2B9B9);
@@ -41,8 +40,8 @@ class AppColors {
 
   /// app main theme ...
 
-  static const colorSchemeSeed = _silver;
-  static const colorPrimary = _alto;
+  static const colorSchemeSeed = _cloudBurst;
+  static const colorPrimary = _cloudBurst;
   static const focus = _blueRibbon;
   static const appBarTextColor = _white;
   static const statusBar = _blueZodiac;
@@ -53,8 +52,11 @@ class AppColors {
   static const iconTheme = _blueZodiac;
   static const appBarIcon = _white;
   static const titleMedium = _blueRibbon;
-  static const headlineMedium = _silver;
-  static const bodyMedium = _blueZodiac;
+  static const headlineMedium = _blueZodiac;
+  static const bodyMedium = _black;
+  static const bodyLarge = _cloudBurst;
+  static const bodySmall = _silverSplit;
+  static const titleLarge = _white;
   static const labelLarge = _thunder;
   static const labelMedium = _mineShaft;
   static const labelSmall = _grey;
@@ -66,6 +68,10 @@ class AppColors {
 
   /// base widget
   static const baseWidgetBackground = _transparent;
+  static const selectableFormFieldText = _black;
+  static const selectableFormFieldBackground = _black;
+  static const unSelectableFormFieldText = _red;
+  static const unSelectableFormFieldBackground = _red;
 
   /// toast ..
   static const toastBackground = _black;
@@ -88,6 +94,9 @@ class AppColors {
 
   /// paging
   static const paginationLoadingBackground = _white;
+
+  /// general app bar
+  static const generalAppBarBackground = _cloudBurst;
 
   /// home
 
@@ -138,4 +147,24 @@ class AppColors {
   static const groupItemPinedIcon = _alto;
   static const groupItemColor = _white;
   static const groupMainText = _silver;
+
+  /// home screen
+  static const homeScreenBackground = _alabaster;
+  static const homeScreenTextFormFieldFilled = _white;
+  static const homeScreenTextFormFieldFocusBorder = _cloudBurst;
+  static const homeScreenTextFormFieldErrorBorder = _red;
+  static const homeScreenTextFormFieldHintText = _gallery;
+  static const homeScreenTypeListIconsUnSelected = _silverSplit;
+  static const homeScreenTypeListIconsSelected = _white;
+  static const homeScreenTypeListCardSelected = _cloudBurst;
+  static const homeScreenAddPhotoBorder = _alto;
+  static const homeScreenButton = _cloudBurst;
+  static const homeScreenTypeListCardUnSelected = _white;
+  static const homeScreenGenderPickerDropDownMenu = _white;
+  static const homeScreenCancelButton = _alto;
+
+  /// onboarding screen
+
+  static const onBoardingScreenScaffoldBackground = _white;
+  static const onBoardingScreenIndicatorDots = _cloudBurst;
 }

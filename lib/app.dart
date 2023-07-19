@@ -7,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:split/apis/_base/dio_api_manager.dart';
+import 'package:split/feature/onboarding/screen/onboarding_screen.dart';
+
 import 'package:split/preferences/preferences_manager.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization.dart';
