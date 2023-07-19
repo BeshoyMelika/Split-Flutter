@@ -29,27 +29,17 @@ class GroupsMangerScreen extends BaseStatelessWidget {
         listener: (context, state) {
           if (state is AllGroupsListLoadingState) {
             const CircularProgressIndicator(
-              value: 25,
+              value: .5,
             );
           }
         },
-        //beshoy I don't know why this doesn't work
-        buildWhen: (previous, current) {
-          if (current is EmptyGroupsListState) {
-            emptyScreen(context);
-          }
-          return true;
-        },
         builder: (context, state) {
-          if (state is AllGroupsListLoadedState) {
-            //
+          if (state is GroupsListIsEmptyState) {
+            return emptyGroupsListScreen(context);
+          } else if (state is AllGroupsListLoadedState) {
             return pinnedAndAllGroupsListWidget(
                 scrollController, state, context);
-            //
-          } else if (state is EmptyGroupsListState) {
-            return emptyScreen(context);
           }
-
           return Container();
         },
       ),
@@ -67,7 +57,6 @@ class GroupsMangerScreen extends BaseStatelessWidget {
         body: Container(
           padding: EdgeInsets.fromLTRB(25.w, 10, 15.w, 0),
           height: double.infinity,
-
           // this to scroll in the   all screen
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -87,7 +76,6 @@ class GroupsMangerScreen extends BaseStatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: state.pinnedGroupsList.length,
                   itemBuilder: (context, index) {
-                    debugPrint(state.pinnedGroupsList.length.toString());
                     GroupItemDate groupItemDate = state.pinnedGroupsList[index];
                     return GroupItemView(groupItemDate: groupItemDate);
                   },
@@ -104,7 +92,6 @@ class GroupsMangerScreen extends BaseStatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: state.allGroupsList.length,
                   itemBuilder: (context, index) {
-                    debugPrint(state.allGroupsList.length.toString());
                     GroupItemDate groupItemDate = state.allGroupsList[index];
                     return GroupItemView(groupItemDate: groupItemDate);
                   },
@@ -115,7 +102,7 @@ class GroupsMangerScreen extends BaseStatelessWidget {
         ));
   }
 
-  Widget emptyScreen(BuildContext context) {
+  Widget emptyGroupsListScreen(BuildContext context) {
     return Scaffold(
       appBar: GroupsAppBar(
           showAction: true, titleLocalizationsKey: LocalizationKeys.groups),

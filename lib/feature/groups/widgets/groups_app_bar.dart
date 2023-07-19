@@ -23,7 +23,7 @@ class GroupsAppBar extends BaseStatelessWidget implements PreferredSizeWidget {
 
       actions: showAction == false
           ? appBarActionsList(context)
-          : null, //this will appearers only when the groups list is empty
+          : null, //this will appearers only when the groups lists is empty
 
       title: Padding(
         padding: EdgeInsets.only(top: 20.h),

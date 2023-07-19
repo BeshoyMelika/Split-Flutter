@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
 import 'package:split/feature/groups/bloc/groups_manger_bloc.dart';
 import 'package:split/feature/groups/data/models/group_item_data.dart';
+import 'package:split/feature/navigator/widgets/network_image_bloc/network_image_bloc.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/res/app_icons.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
@@ -17,60 +18,85 @@ class GroupItemView extends BaseStatelessWidget {
 
   @override
   Widget baseBuild(BuildContext context) {
-    return BlocBuilder<GroupsMangerBloc, GroupsMangerState>(
-      builder: (context, state) {
-        return Container(
-          height: 91.h,
-          width: 328.w,
-          margin: EdgeInsets.fromLTRB(0, 5.h, 0, 5.h),
-          decoration: BoxDecoration(
-              border: Border.all(color: AppColors.groupItemBorder, width: .3),
-              borderRadius: BorderRadius.circular(10),
-              color: AppColors.groupItemColor),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5.h, vertical: 5.w),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  child: 4 > 3
-                      ? Container(
-                          color: const Color.fromARGB(0, 194, 14, 14),
-                          height: 71,
-                          width: 71,
-                          child: Image.network(
-                              'https://cdn2.vectorstock.com/i/1000x1000/03/11/home-house-building-and-family-design-vector-10680311.jpg'))
-                      : const CircularProgressIndicator()),
+    return Container(
+      height: 91.h,
+      width: 328.w,
+      margin: EdgeInsets.fromLTRB(0, 5.h, 0, 5.h),
+      decoration: BoxDecoration(
+          border: Border.all(color: AppColors.groupItemBorder, width: .3),
+          borderRadius: BorderRadius.circular(10),
+          color: AppColors.groupItemColor),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          // this is the Group's image if it's exist otherwise  I will add default icon
+          putGroupImageOrDefaultIcon(), //why this don't need context Beshoy
 
-              //
-              groupTitleAndDetails(),
+          //
+          groupTitleAndDetails(),
 
-              /// the pin
-              Align(
+          /// the pin button
+          BlocBuilder<GroupsMangerBloc, GroupsMangerState>(
+            builder: (context, state) {
+              return Align(
                 alignment: Alignment.topLeft,
                 child: IconButton(
-                  onPressed: () => currentBloc(context)
-                      .add(PinItemSwitcherEvent(groupItemDate)),
+                  onPressed: () => _pinOrUnPinButtonPressed(context),
                   icon: Icon(
                     Icons.push_pin_rounded,
-                    color: groupItemDate.isPinned
-                        ? AppColors.groupItemPinedIcon
-                        : AppColors.groupItemIcon,
+                    color: getPinIconColor(),
                   ),
                 ),
-              )
-            ],
-          ),
-        );
-      },
+              );
+            },
+          )
+        ],
+      ),
     );
   }
 
   /// ////////////////////////////////////////////////////////
   /// ///////////////// Widget methods ///////////////////////
   /// ////////////////////////////////////////////////////////
+  BlocProvider<NetworkImageBloc> putGroupImageOrDefaultIcon() {
+    return BlocProvider(
+      create: (_) => NetworkImageBloc()..add(GetGroupImageEvent()),
+      child: BlocBuilder<NetworkImageBloc, NetworkImageState>(
+        builder: (context, state) {
+          if (state is NetworkImageLoadedState) {
+            return _imageHolder(
+                child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.r),
+                        // image: DecorationImage(
+                        //     image: NetworkImage(groupItemDate.imagePath),
+                        //     fit: BoxFit.cover)),
+                        color: Colors.green)));
+            //
+          } else if (state is NetworkImageLoadingState) {
+            _imageHolder(
+              child: Center(
+                  child: CircularProgressIndicator(
+                      color: AppColors.appBarBackground, value: .5.r)),
+            );
+          } else if (state is NetworkImageNotFoundState) {
+            return _imageHolder(
+                child: const Center(child: Icon(Icons.groups_2)));
+          }
+          return SizedBox(width: 71.w);
+        },
+      ),
+    );
+  }
+
+  Container _imageHolder({required Widget child}) {
+    return Container(
+        height: 71.h,
+        width: 71.w,
+        margin: EdgeInsets.symmetric(horizontal: 5.h, vertical: 5.w),
+        child: child);
+  }
+
   Widget groupTitleAndDetails() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,4 +161,13 @@ class GroupItemView extends BaseStatelessWidget {
 
   GroupsMangerBloc currentBloc(BuildContext context) =>
       context.read<GroupsMangerBloc>();
+
+  //
+  _pinOrUnPinButtonPressed(BuildContext context) =>
+      currentBloc(context)..add(PinGroupSwitcherEvent(groupItemDate));
+
+  //
+  getPinIconColor() => groupItemDate.isPinned
+      ? AppColors.groupItemPinedIcon
+      : AppColors.groupItemIcon;
 }

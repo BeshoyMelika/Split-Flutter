@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
 import 'package:split/feature/navigator/navigator_bloc/navigator_bloc.dart';
 import 'package:split/feature/navigator/navigator_bloc/navigator_state.dart';
-import 'package:split/feature/navigator/navigator_widget_list.dart';
-import 'package:split/feature/navigator/widgets/custom_nav_bar.dart';
+import 'package:split/feature/navigator/navigator_screen_list.dart';
+import 'package:split/feature/navigator/widgets/custom_bottom_navigation_bar.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/res/app_icons.dart';
 
@@ -51,7 +51,7 @@ class AppNavScreenBlocProvider extends StatelessWidget {
         //
         body: IndexedStack(
           index: currentScreen,
-          children: bottomNavScreen,
+          children: navigatorScreenList,
         ),
 
         //fab
@@ -67,7 +67,7 @@ class AppNavScreenBlocProvider extends StatelessWidget {
         ),
 
         // bottomNavBar
-        bottomNavigationBar: CustomNavBar(),
+        bottomNavigationBar: CustomBottomNavigationBar(),
       ),
     );
   }

@@ -8,27 +8,21 @@ abstract class GroupsMangerEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class PinItemSwitcherEvent extends GroupsMangerEvent {
+class PinGroupSwitcherEvent extends GroupsMangerEvent {
   final GroupItemDate groupItemDate;
 
-  const PinItemSwitcherEvent(this.groupItemDate);
-  @override
-  List<Object> get props => [identityHashCode(this)];
-}
-
-class AddItemEvent extends GroupsMangerEvent {
-  final GroupItemDate groupItemDate;
-
-  const AddItemEvent(this.groupItemDate);
+  const PinGroupSwitcherEvent(this.groupItemDate);
   @override
   List<Object> get props => [groupItemDate];
 }
 
 class GetGroupsDataEvent extends GroupsMangerEvent {}
 
-class CheckGroupPinnedOrNotEvent extends GroupsMangerEvent {
+class CheckIsGroupPinnedOrNotEvent extends GroupsMangerEvent {
   final GroupItemDate groupItemDate;
-  const CheckGroupPinnedOrNotEvent({
+  const CheckIsGroupPinnedOrNotEvent({
     required this.groupItemDate,
   });
+  @override
+  List<Object> get props => [groupItemDate];
 }

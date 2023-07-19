@@ -7,11 +7,11 @@ import 'package:split/core/widgets/base_stateless_widget.dart';
 import 'package:split/feature/navigator/navigator_bloc/navigator_bloc.dart';
 import 'package:split/feature/navigator/navigator_bloc/navigator_event.dart';
 import 'package:split/feature/navigator/navigator_bloc/navigator_state.dart';
-import 'package:split/feature/navigator/widgets/custom_nav_bar_icon.dart';
+import 'package:split/feature/navigator/widgets/custom_navigation_bar_icon.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 
-class CustomNavBar extends BaseStatelessWidget {
-  CustomNavBar({Key? key}) : super(key: key);
+class CustomBottomNavigationBar extends BaseStatelessWidget {
+  CustomBottomNavigationBar({Key? key}) : super(key: key);
 
   @override
   Widget baseBuild(BuildContext context) {
@@ -19,7 +19,7 @@ class CustomNavBar extends BaseStatelessWidget {
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
       child: SizedBox(
-        height: 50,
+        height: 55.h,
         child: BlocBuilder<NavigatorBloc, NavigatorBlocSates>(
           builder: (context, state) {
             if (state is NavigateToGroupScreenState) {
@@ -34,7 +34,6 @@ class CustomNavBar extends BaseStatelessWidget {
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w),
               child: Row(
-                mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   /// Group Icon
@@ -69,13 +68,13 @@ class CustomNavBar extends BaseStatelessWidget {
     return InkWell(
       onTap: () {
         if (iconIndex == 0) {
-          _groupEventFired(context);
+          _navigateToGroupScreen(context);
         } else if (iconIndex == 1) {
-          _friendsEventFired(context);
+          _navigateToFriendsScreen(context);
         } else if (iconIndex == 2) {
-          _activityEventFired(context);
+          _navigateToActivityScreen(context);
         } else if (iconIndex == 3) {
-          _accountEventFired(context);
+          _navigateToProfileScreen(context);
         }
       },
       child: CustomNavigationBarIcon(
@@ -91,16 +90,16 @@ class CustomNavBar extends BaseStatelessWidget {
       context.read<NavigatorBloc>();
 
   /// this is a list of fired events
-  _groupEventFired(BuildContext context) {
+  _navigateToGroupScreen(BuildContext context) {
     currentBloc(context).add(NavigateToGroupScreenEvent());
   }
 
-  _friendsEventFired(BuildContext context) =>
+  _navigateToFriendsScreen(BuildContext context) =>
       currentBloc(context).add(NavigateToFriendsScreenEvent());
 
-  _activityEventFired(BuildContext context) =>
+  _navigateToActivityScreen(BuildContext context) =>
       currentBloc(context).add(NavigateToActivityScreenEvent());
 
-  _accountEventFired(BuildContext context) =>
+  _navigateToProfileScreen(BuildContext context) =>
       currentBloc(context).add(NavigateToProfileScreenEvent());
 }

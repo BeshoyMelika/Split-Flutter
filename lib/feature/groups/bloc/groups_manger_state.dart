@@ -13,6 +13,9 @@ class GroupItemIsPinnedState extends GroupsMangerState {
   const GroupItemIsPinnedState({
     required this.isPinned,
   });
+
+  @override
+  List<Object> get props => [isPinned];
 }
 
 ///
@@ -22,7 +25,10 @@ class GroupsMangerInitialState extends GroupsMangerState {}
 
 class AllGroupsListLoadingState extends GroupsMangerState {}
 
-class EmptyGroupsListState extends GroupsMangerState {}
+class GroupsListIsEmptyState extends GroupsMangerState {
+  @override
+  List<Object> get props => [];
+}
 
 class AllGroupsListLoadedState extends GroupsMangerState {
   final List<GroupItemDate> allGroupsList;
@@ -31,8 +37,11 @@ class AllGroupsListLoadedState extends GroupsMangerState {
   const AllGroupsListLoadedState(this.allGroupsList, this.pinnedGroupsList);
 
   @override
-  List<Object> get props =>
-      [allGroupsList, pinnedGroupsList, identityHashCode(this)];
+  List<Object> get props => [
+        allGroupsList, pinnedGroupsList,
+        //this to make the state rebuild after every pin or unPin event
+        identityHashCode(this)
+      ];
 }
 
 class GroupsListLoadingFailedState extends GroupsMangerState {
@@ -40,4 +49,6 @@ class GroupsListLoadingFailedState extends GroupsMangerState {
   const GroupsListLoadingFailedState({
     required this.filedMsg,
   });
+  @override
+  List<Object> get props => [filedMsg];
 }
