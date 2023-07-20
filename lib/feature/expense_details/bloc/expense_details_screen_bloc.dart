@@ -11,17 +11,16 @@ part 'expense_details_screen_state.dart';
 class ExpenseDetailsScreenBloc
     extends Bloc<ExpenseDetailsScreenEvent, ExpenseDetailsScreenState> {
   ExpenseDetailsScreenBloc() : super(ExpenseDetailsScreenInitial()) {
-    on<GetExpenseDetailsAPIEvent>(_loadExpenseDetailsEvent);
+    on<GetExpenseDetailsAPIEvent>(_getExpenseDetailsAPIEvent);
     on<SendReminderAPIEvent>(_sendReminderToAllUsersExpenseDetailsEvent);
     on<UploadPhotoAPIEvent>(_addPhotoOrReceiptForExpenseDetailsEvent);
     on<AppBarSwitcherEvent>(_appBarSwitcherEvent);
   }
 
-  FutureOr<void> _loadExpenseDetailsEvent(GetExpenseDetailsAPIEvent event,
+  FutureOr<void> _getExpenseDetailsAPIEvent(GetExpenseDetailsAPIEvent event,
       Emitter<ExpenseDetailsScreenState> emit) async {
     emit(LoadingState());
     await Future.delayed(const Duration(seconds: 1));
-
     emit(LoadedExpenseDetailsSuccessfullyState(
         expenseDetails: DemoData.expenseDetails));
   }

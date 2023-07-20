@@ -11,8 +11,8 @@ import 'package:split/utils/format/app_date_format.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 
 //ignore:must_be_immutable
-class ReceiptPhotoSSendReminderWidget extends BaseStatelessWidget {
-  ReceiptPhotoSSendReminderWidget(
+class ReceiptPhotoAndReminderWidget extends BaseStatelessWidget {
+  ReceiptPhotoAndReminderWidget(
       {required this.onSendReminder,
       required this.onUploadImage,
       required this.dueDateForPay,

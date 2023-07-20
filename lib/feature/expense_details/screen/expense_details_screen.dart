@@ -10,7 +10,7 @@ import 'package:split/feature/expense_details/widgets/long_appbar_with_floating_
 import 'package:split/feature/expense_details/widgets/on_shrink_appbar_widget.dart';
 import 'package:split/feature/expense_details/widgets/paid_by_whom_widget.dart';
 import 'package:split/feature/expense_details/widgets/split_person_item_widget.dart';
-import 'package:split/feature/expense_details/widgets/receipt_photo_end_reminder_widget.dart';
+import 'package:split/feature/expense_details/widgets/receipt_photo_and_reminder_widget.dart';
 import 'package:split/feature/expense_details/widgets/spent_receivable_widget.dart';
 import 'package:split/feature/widgets/app_text_widget.dart';
 import 'package:split/res/app_colors.dart';
@@ -129,7 +129,7 @@ class _ExpenseDetailsScreenWithBlocState
                           child: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 16.w, vertical: 20.h),
-                        child: ReceiptPhotoSSendReminderWidget(
+                        child: ReceiptPhotoAndReminderWidget(
                           dueDateForPay: expenseDetails.dueDateForPay,
                           onSendReminder: _onSendReminder,
                           onUploadImage: _onImageUpload,
@@ -195,6 +195,7 @@ class _ExpenseDetailsScreenWithBlocState
   /// /////////////////////////////////////////////////////////////
   ExpenseDetailsScreenBloc get currentBloc =>
       context.read<ExpenseDetailsScreenBloc>();
+
   Future<void> _onRefresh() async {
     _loadExpenseDetailsAPIEvent();
   }

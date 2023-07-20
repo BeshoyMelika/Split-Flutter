@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,41 +61,12 @@ class _AddPhotoReceiptState extends BaseState<AddPhotoReceipt> {
             : SizedBox(
                 height: 70.h,
                 width: 71.w,
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(5.r),
-                      child: Image.file(
-                        selectedImage!,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    Positioned(
-                      right: -11,
-                      top: -8,
-                      child: IconButton(
-                          onPressed: _deletePressed,
-                          icon: SizedBox(
-                            height: 15.w,
-                            width: 15.w,
-                            child: Card(
-                              margin: EdgeInsets.zero,
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.r)),
-                              child: Center(
-                                child: Icon(
-                                  AppIcons.close,
-                                  color: Colors.black,
-                                  size: 15.sp,
-                                  weight: 900,
-                                ),
-                              ),
-                            ),
-                          )),
-                    )
-                  ],
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5.r),
+                  child: Image.file(
+                    selectedImage!,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
       ),
@@ -126,13 +96,6 @@ class _AddPhotoReceiptState extends BaseState<AddPhotoReceipt> {
         selectedImage = File(hold.path);
       });
     }
-    widget.onUploadImage(selectedImage);
-  }
-
-  void _deletePressed() {
-    setState(() {
-      selectedImage = null;
-    });
     widget.onUploadImage(selectedImage);
   }
 }

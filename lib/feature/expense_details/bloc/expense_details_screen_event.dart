@@ -23,7 +23,6 @@ class UploadPhotoAPIEvent extends ExpenseDetailsScreenEvent {
 
 class AppBarSwitcherEvent extends ExpenseDetailsScreenEvent {
   final bool isShrink, lastStatus;
-
   AppBarSwitcherEvent({required this.isShrink, required this.lastStatus});
   @override
   List<Object?> get props => [identityHashCode(this)];
