@@ -33,7 +33,6 @@ class AppIcons {
       fontFamily: _homeFontFamilyKey, fontPackage: _fontPackageKey);
 
   static const _homeScreenIconsFamily = 'HomeScreenIconsFamily';
-
   static const IconData plane =
       IconData(0xe811, fontFamily: _homeScreenIconsFamily);
   static const IconData tower =
@@ -42,14 +41,23 @@ class AppIcons {
       IconData(0xe813, fontFamily: _homeScreenIconsFamily);
   static const IconData addPhoto =
       IconData(0xe814, fontFamily: _homeScreenIconsFamily);
-  static const _addParticipantFamily = 'AddParticipantIconFamily';
 
+  static const _addParticipantFamily = 'AddParticipantIconFamily';
   static const IconData addParticipant =
       IconData(0xe815, fontFamily: _addParticipantFamily);
-  static const _closeIconFamily = 'CloseIconFamily';
 
-  static const IconData closeIcon =
-      IconData(0xe810, fontFamily: _closeIconFamily);
+  static const _closeIconFamily = 'CloseIconFamily';
+  static const IconData close = IconData(0xe810, fontFamily: _closeIconFamily);
+
+  static const _editIconFamily = 'EditIconFamily';
+  static const IconData edit = IconData(0xe817, fontFamily: _editIconFamily);
+
+  static const _foodIconFamily = 'FoodIconFamily';
+  static const IconData food = IconData(0xe818, fontFamily: _foodIconFamily);
+
+  static const _bellIconFamily = 'BellIconFamily';
+
+  static const IconData bell = IconData(0xe819, fontFamily: _bellIconFamily);
 }
 
 /// generator helper website

@@ -74,30 +74,31 @@ class TextFormFieldCustom extends BaseStatelessWidget {
   InputDecoration inputDecorationForTextFormFields(String hintTxt) {
     return InputDecoration(
       errorBorder: const OutlineInputBorder(
-        borderSide:
-            BorderSide(color: AppColors.homeScreenTextFormFieldErrorBorder),
+        borderSide: BorderSide(
+            color: AppColors.createGroupScreenTextFormFieldErrorBorder),
         // borderRadius: BorderRadius.circular(15.r),
       ),
       focusedBorder: const OutlineInputBorder(
-        borderSide:
-            BorderSide(color: AppColors.homeScreenTextFormFieldFocusBorder),
+        borderSide: BorderSide(
+            color: AppColors.createGroupScreenTextFormFieldFocusBorder),
         //borderRadius: BorderRadius.circular(15.r),
       ),
       contentPadding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
       hintText: hintTxt,
       hintStyle: const TextStyle(
-          color: AppColors.homeScreenTextFormFieldHintText,
+          color: AppColors.createGroupScreenTextFormFieldHintText,
           fontSize: 16,
           fontWeight: FontWeight.w600),
-      fillColor: AppColors.homeScreenTextFormFieldFilled,
+      fillColor: AppColors.createGroupScreenTextFormFieldFilled,
       filled: true,
       enabledBorder: const OutlineInputBorder(
-        borderSide: BorderSide(color: AppColors.homeScreenTextFormFieldFilled),
+        borderSide:
+            BorderSide(color: AppColors.createGroupScreenTextFormFieldFilled),
         //  borderRadius: BorderRadius.circular(15.r),
       ),
       focusedErrorBorder: const OutlineInputBorder(
-        borderSide:
-            BorderSide(color: AppColors.homeScreenTextFormFieldErrorBorder),
+        borderSide: BorderSide(
+            color: AppColors.createGroupScreenTextFormFieldErrorBorder),
         //  borderRadius: BorderRadius.circular(15.r),
       ),
     );

@@ -139,7 +139,7 @@ class ImagePickerWidget extends BaseStatelessWidget {
         alignment: AlignmentDirectional.centerStart,
         child: selectedItem == null
             ? DottedBorder(
-                color: AppColors.homeScreenAddPhotoBorder,
+                color: AppColors.createGroupScreenAddPhotoBorder,
                 strokeWidth: 2,
                 radius: Radius.circular(10.r),
                 borderType: BorderType.RRect,
@@ -193,7 +193,7 @@ class ImagePickerWidget extends BaseStatelessWidget {
                                   borderRadius: BorderRadius.circular(15.r)),
                               child: Center(
                                 child: Icon(
-                                  AppIcons.closeIcon,
+                                  AppIcons.close,
                                   color: Colors.black,
                                   size: 15.sp,
                                   weight: 900,
