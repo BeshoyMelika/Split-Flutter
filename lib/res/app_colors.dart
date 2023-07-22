@@ -131,7 +131,6 @@ class AppColors {
   /// groups manger
 
   static const emptyGroupButton = _cloudBurst;
-
   static const emptyGroupIconButton = _white;
   static const scaffoldBackground = _alabaster;
   static const unSelectedNavBarIcon = _silver;
@@ -140,10 +139,10 @@ class AppColors {
   static const appBarBackground = _cloudBurst;
   static const mediumText = _mineShaft;
   static const bodyLargeText = _silver;
-
   static const groupItemBorder = _silver;
   static const groupItemIcon = _silver;
   static const groupItemText = _silver;
+  static const emptyGroupScreenText = _silver;
   static const groupItemPinedIcon = _cloudBurst;
   static const groupItemColor = _white;
   static const groupMainText = _silver;

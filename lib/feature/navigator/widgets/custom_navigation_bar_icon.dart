@@ -1,16 +1,16 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
+import 'package:split/feature/navigator/data/user_model.dart';
 import 'package:split/feature/navigator/widgets/network_image_bloc/network_image_bloc.dart';
+import 'package:split/feature/widgets/app_loading_skeleton_container.dart';
 import 'package:split/res/app_icons.dart';
-
 import 'package:split/res/app_colors.dart';
+import 'package:split/utils/widgets/app_cached_network_image.dart';
 
 /// This Class is Used to make Icons in BottomNavigationBar
-/// it takes string and int
 class CustomNavigationBarIcon extends BaseStatelessWidget {
   /// this is the text used under the icon
   final String name;
@@ -20,7 +20,6 @@ class CustomNavigationBarIcon extends BaseStatelessWidget {
 
   /// this variable is used to define which icon to show in the BottomNavigationBar
   final int selectedIconIndex;
-
   CustomNavigationBarIcon(
       {Key? key,
       required this.name,
@@ -31,7 +30,7 @@ class CustomNavigationBarIcon extends BaseStatelessWidget {
   ///this List contains all possible icons
   final List<dynamic> iconList = [
     Icons.people_alt_outlined,
-    Icons.person,
+    Icons.person_outlined,
     AppIcons.activityIcon,
   ];
 
@@ -47,12 +46,10 @@ class CustomNavigationBarIcon extends BaseStatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: Text(
-              name,
-              style: TextStyle(
-                color: _getCurrentIconColor(),
-              ),
-            ),
+            child: Text(name,
+                style: textTheme.bodyLarge!.copyWith(
+                  color: _getCurrentIconColor(),
+                )),
           ),
         ],
       ),
@@ -69,18 +66,16 @@ class CustomNavigationBarIcon extends BaseStatelessWidget {
         builder: (context, state) {
           if (state is NetworkImageLoadedState) {
             return Container(
-                width: 25,
+                width: 24.w,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(50.r)),
                     border: Border.all(color: _getCurrentIconColor()),
                     image: const DecorationImage(
-                        image: NetworkImage(
-                            'https://image.lexica.art/full_jpg/7515495b-982d-44d2-9931-5a8bbbf27532'))));
+                        image: AppCachedNetworkImageProvider(
+                            imageUrl: UserDataModel.userProfileImage))));
           } else if (state is NetworkImageLoadingState) {
-            return CircleAvatar(
-              radius: 15.r,
-              child: const CircularProgressIndicator(),
-            );
+            return AppLoadingSkeletonContainer.circular(
+                width: 24.w, height: 50.h);
           } else if (state is NetworkImageNotFoundState) {
             return const Center(child: Icon(Icons.account_circle_rounded));
           }
@@ -91,9 +86,17 @@ class CustomNavigationBarIcon extends BaseStatelessWidget {
   }
 
   Widget _showIconOrAccountImage(BuildContext context) {
+    // this widget wil show the icon widget until the index is lower than  3 then
+    // it will show the account widget
     return iconIndex < 3
-        ? Icon(iconList[iconIndex % iconList.length],
-            color: _getCurrentIconColor())
+        ? Container(
+            // this to handle the space for floatingActionButton
+            padding: iconIndex == 1 || iconIndex == 2
+                ? EdgeInsets.symmetric(horizontal: 35.w)
+                : null,
+            child: Icon(iconList[iconIndex % iconList.length],
+                color: _getCurrentIconColor()),
+          )
         : accountPhoto(context);
   }
 

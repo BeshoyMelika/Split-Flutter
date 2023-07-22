@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'groups_manger_bloc.dart';
 
 abstract class GroupsMangerEvent extends Equatable {
@@ -24,5 +23,7 @@ class CheckIsGroupPinnedOrNotEvent extends GroupsMangerEvent {
     required this.groupItemDate,
   });
   @override
-  List<Object> get props => [groupItemDate];
+  List<Object> get props => [
+        groupItemDate,
+      ];
 }

@@ -1,5 +1,4 @@
-// ignore_for_file: must_be_immutable, sized_box_for_whitespace
-
+// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,29 +15,40 @@ import 'package:split/utils/locale/app_localization_keys.dart';
 
 class GroupsMangerScreen extends BaseStatelessWidget {
   GroupsMangerScreen({super.key});
-
+  List<GroupItemDate> currentAllGroupsList = [];
+  List<GroupItemDate> currentPinnedGroupsList = [];
   @override
   Widget baseBuild(BuildContext context) {
     final ScrollController scrollController = ScrollController();
-
     DemyGroupsDataRepo dataRepo = DemyGroupsDataRepo();
-
     return BlocProvider(
       create: (_) => GroupsMangerBloc(dataRepo)..add(GetGroupsDataEvent()),
       child: BlocConsumer<GroupsMangerBloc, GroupsMangerState>(
         listener: (context, state) {
           if (state is AllGroupsListLoadingState) {
-            const CircularProgressIndicator(
-              value: .5,
-            );
+            const CircularProgressIndicator();
+          }
+          if (state is AllGroupsListLoadedState) {
+            currentAllGroupsList = state.allGroupsList;
+            currentPinnedGroupsList = state.pinnedGroupsList;
+          }
+          if (state is GroupsListLoadingFailedState) {
+            showDialog(
+                context: context,
+                builder: (context) => AboutDialog(children: [
+                      Center(
+                        child: Text(state.filedMsg),
+                      )
+                    ]));
           }
         },
         builder: (context, state) {
-          if (state is GroupsListIsEmptyState) {
-            return emptyGroupsListScreen(context);
-          } else if (state is AllGroupsListLoadedState) {
+          if (state is AllGroupsListLoadedState) {
             return pinnedAndAllGroupsListWidget(
                 scrollController, state, context);
+          } else if (currentAllGroupsList.isEmpty &&
+              currentPinnedGroupsList.isEmpty) {
+            emptyGroupsListScreen(context);
           }
           return Container();
         },
@@ -49,13 +59,13 @@ class GroupsMangerScreen extends BaseStatelessWidget {
   /// ////////////////////////////////////////////////////////
   /// ///////////////// Widget methods ///////////////////////
   /// ////////////////////////////////////////////////////////
-  Scaffold pinnedAndAllGroupsListWidget(ScrollController scrollController,
+  Widget pinnedAndAllGroupsListWidget(ScrollController scrollController,
       AllGroupsListLoadedState state, BuildContext context) {
     return Scaffold(
         appBar: GroupsAppBar(
             titleLocalizationsKey: LocalizationKeys.groups, showAction: false),
         body: Container(
-          padding: EdgeInsets.fromLTRB(25.w, 10, 15.w, 0),
+          padding: EdgeInsets.fromLTRB(25.w, 10.h, 15.w, 0),
           height: double.infinity,
           // this to scroll in the   all screen
           child: SingleChildScrollView(
@@ -67,32 +77,32 @@ class GroupsMangerScreen extends BaseStatelessWidget {
               children: [
                 Text(
                   translate(LocalizationKeys.quickAccess)!,
-                  style: textTheme.bodyLarge!.copyWith(fontSize: 18),
+                  style: textTheme.titleSmall!.copyWith(fontSize: 17.sp),
                 ),
-
 // first list for quick access
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: state.pinnedGroupsList.length,
+                  itemCount: currentPinnedGroupsList.length,
                   itemBuilder: (context, index) {
-                    GroupItemDate groupItemDate = state.pinnedGroupsList[index];
+                    GroupItemDate groupItemDate =
+                        currentPinnedGroupsList[index];
                     return GroupItemView(groupItemDate: groupItemDate);
                   },
                 ),
 
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
 /////all group list
                 Text(
                   translate(LocalizationKeys.allGroups)!,
-                  style: textTheme.bodyLarge!.copyWith(fontSize: 18),
+                  style: textTheme.titleSmall!.copyWith(fontSize: 17.sp),
                 ),
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: state.allGroupsList.length,
+                  itemCount: currentAllGroupsList.length,
                   itemBuilder: (context, index) {
-                    GroupItemDate groupItemDate = state.allGroupsList[index];
+                    GroupItemDate groupItemDate = currentAllGroupsList[index];
                     return GroupItemView(groupItemDate: groupItemDate);
                   },
                 ),
@@ -113,24 +123,26 @@ class GroupsMangerScreen extends BaseStatelessWidget {
             SizedBox(height: 150.h),
             SvgPicture.asset(
               AppAssetPaths.emptyGroupBackground,
-              height: 242,
-              width: 200,
+              height: 242.h,
+              width: 200.w,
             ),
             SizedBox(height: 30.h),
             Text(translate(LocalizationKeys.youDonNotHaveAnyGroupStatement)!,
-                style: textTheme.headlineMedium),
+                style: textTheme.headlineMedium!
+                    .copyWith(color: AppColors.emptyGroupScreenText)),
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 70.w),
                 child: Text(translate(LocalizationKeys.createGroupNow)!,
-                    style: textTheme.headlineMedium)),
+                    style: textTheme.headlineMedium!
+                        .copyWith(color: AppColors.emptyGroupScreenText))),
             SizedBox(height: 30.h),
             GestureDetector(
                 child: Container(
-                    height: 50,
-                    margin: const EdgeInsets.symmetric(horizontal: 120),
-                    decoration: const BoxDecoration(
+                    height: 50.h,
+                    margin: EdgeInsets.symmetric(horizontal: 100.w),
+                    decoration: BoxDecoration(
                         color: AppColors.emptyGroupButton,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                        borderRadius: BorderRadius.all(Radius.circular(10.r))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -138,7 +150,7 @@ class GroupsMangerScreen extends BaseStatelessWidget {
                           Icons.person_add_alt,
                           color: AppColors.appBarIcon,
                         ),
-                        const SizedBox(width: 15),
+                        SizedBox(width: 15.w),
                         Text(
                           translate(LocalizationKeys.createNewGroup)!,
                           style: textTheme.titleMedium!

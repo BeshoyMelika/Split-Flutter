@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
 import 'package:split/feature/navigator/navigator_bloc/navigator_bloc.dart';
 import 'package:split/feature/navigator/navigator_bloc/navigator_state.dart';
@@ -48,7 +49,6 @@ class AppNavScreenBlocProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        //
         body: IndexedStack(
           index: currentScreen,
           children: navigatorScreenList,
@@ -57,7 +57,7 @@ class AppNavScreenBlocProvider extends StatelessWidget {
         //fab
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Container(
-          margin: const EdgeInsets.all(3),
+          margin: EdgeInsets.all(3.r),
           child: FloatingActionButton(
             elevation: 0,
             onPressed: () {},

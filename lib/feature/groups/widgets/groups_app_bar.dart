@@ -26,11 +26,11 @@ class GroupsAppBar extends BaseStatelessWidget implements PreferredSizeWidget {
           : null, //this will appearers only when the groups lists is empty
 
       title: Padding(
-        padding: EdgeInsets.only(top: 20.h),
+        padding: EdgeInsets.only(top: 10.h),
         child: Text(translate(titleLocalizationsKey)!,
             style: textTheme.titleLarge!.copyWith(
-                fontWeight: FontWeight.w700,
-                fontSize: 20,
+                fontWeight: FontWeight.w400,
+                fontSize: 18.w,
                 color: AppColors.appBarTextColor)),
       ),
     );
@@ -41,21 +41,21 @@ class GroupsAppBar extends BaseStatelessWidget implements PreferredSizeWidget {
   /// ////////////////////////////////////////////////////////////////////////////////
   ///
   List<Widget> appBarActionsList(BuildContext context) {
-    return const [
+    return [
       IconButton(
           onPressed: null,
           icon: Icon(
             Icons.search_sharp,
-            weight: 900,
-            size: 30,
+            weight: 900.w,
+            size: 25.r,
             color: AppColors.appBarIcon,
           )),
       IconButton(
           onPressed: null,
           icon: Icon(
             Icons.add,
-            weight: 900,
-            size: 30,
+            weight: 900.w,
+            size: 30.r,
             color: AppColors.appBarIcon,
           )),
     ];

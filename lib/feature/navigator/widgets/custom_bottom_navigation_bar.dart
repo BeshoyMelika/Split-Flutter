@@ -31,28 +31,25 @@ class CustomBottomNavigationBar extends BaseStatelessWidget {
             } else if (state is NavigateToProfileScreenState) {
               currentScreen = 3;
             }
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  /// Group Icon
-                  _navigationIconWidget(translate(LocalizationKeys.groups)!, 0,
-                      currentScreen, context),
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                /// Group Icon
+                _navigationIconWidget(translate(LocalizationKeys.groups)!, 0,
+                    currentScreen, context),
 
-                  /// friends Icon
-                  _navigationIconWidget(translate(LocalizationKeys.friends)!, 1,
-                      currentScreen, context),
+                /// friends Icon
+                _navigationIconWidget(translate(LocalizationKeys.friends)!, 1,
+                    currentScreen, context),
 
-                  ///  activity
-                  _navigationIconWidget(translate(LocalizationKeys.activity)!,
-                      2, currentScreen, context),
+                ///  activity
+                _navigationIconWidget(translate(LocalizationKeys.activity)!, 2,
+                    currentScreen, context),
 
-                  // account
-                  _navigationIconWidget(translate(LocalizationKeys.account)!, 3,
-                      currentScreen, context)
-                ],
-              ),
+                // account
+                _navigationIconWidget(translate(LocalizationKeys.account)!, 3,
+                    currentScreen, context)
+              ],
             );
           },
         ),
@@ -68,13 +65,13 @@ class CustomBottomNavigationBar extends BaseStatelessWidget {
     return InkWell(
       onTap: () {
         if (iconIndex == 0) {
-          _navigateToGroupScreen(context);
+          _makeGroupsTheScreen(context);
         } else if (iconIndex == 1) {
-          _navigateToFriendsScreen(context);
+          _makeFriendsTheCurrentScreen(context);
         } else if (iconIndex == 2) {
-          _navigateToActivityScreen(context);
+          _makeActivityTheCurrentScreen(context);
         } else if (iconIndex == 3) {
-          _navigateToProfileScreen(context);
+          _makeProfileTheCurrentScreen(context);
         }
       },
       child: CustomNavigationBarIcon(
@@ -90,16 +87,16 @@ class CustomBottomNavigationBar extends BaseStatelessWidget {
       context.read<NavigatorBloc>();
 
   /// this is a list of fired events
-  _navigateToGroupScreen(BuildContext context) {
-    currentBloc(context).add(NavigateToGroupScreenEvent());
+  _makeGroupsTheScreen(BuildContext context) {
+    currentBloc(context).add(MakeGroupsTheCurrentScreenEvent());
   }
 
-  _navigateToFriendsScreen(BuildContext context) =>
-      currentBloc(context).add(NavigateToFriendsScreenEvent());
+  _makeFriendsTheCurrentScreen(BuildContext context) =>
+      currentBloc(context).add(MakeFriendsTheCurrentScreenEvent());
 
-  _navigateToActivityScreen(BuildContext context) =>
-      currentBloc(context).add(NavigateToActivityScreenEvent());
+  _makeActivityTheCurrentScreen(BuildContext context) =>
+      currentBloc(context).add(MakeActivityTheCurrentScreenEvent());
 
-  _navigateToProfileScreen(BuildContext context) =>
-      currentBloc(context).add(NavigateToProfileScreenEvent());
+  _makeProfileTheCurrentScreen(BuildContext context) =>
+      currentBloc(context).add(MakeProfileTheCurrentScreenEvent());
 }

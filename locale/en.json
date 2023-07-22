@@ -67,19 +67,6 @@
   "cancel": "Cancel",
   "write_description": "write description",
   "add_photo": "Add Photo",
-
-
-
-
-
-
-
-
-
-
-
-  
-
   "groups": "Groups",
   "all_groups": "All Groups",
   "friends": "Friends",
@@ -87,9 +74,5 @@
   "expenses": "Expenses",
   "quick_access": "Quick Access",
   "you_don't_have_any_groups_statement": "You don’t have any groups yet.",
- 
   "create_group_now": "Create group now !"
-
-
-
 }

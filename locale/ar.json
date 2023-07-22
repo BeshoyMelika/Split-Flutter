@@ -67,42 +67,14 @@
   "cancel": "الغاء",
   "write_description": "اكتب الوصف",
   "add_photo": "اضافة صورة",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"groups": "مجموعات",
-"all_groups": "كل المجموعات",
-"friends": "أصدقاء",
-"activity": "النشاط",
-"expenses": "المصاريف",
-"quick_access": "الوصول السريع",
-"you_don't_have_any_groups_statement": "ليس لديك أي مجموعات",
-"create_new_group": "إنشاء مجموعة جديدة",
-"create_group_now": "انش مجموعة الان !"
+  "groups": "مجموعات",
+  "all_groups": "كل المجموعات",
+  "friends": "أصدقاء",
+  "activity": "النشاط",
+  "expenses": "المصاريف",
+  "quick_access": "الوصول السريع",
+  "you_don't_have_any_groups_statement": "ليس لديك أي مجموعات",
+  "create_new_group": "إنشاء مجموعة جديدة",
+  "create_group_now": "انش مجموعة الان !"
 
 }

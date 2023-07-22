@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'groups_manger_bloc.dart';
 
 abstract class GroupsMangerState extends Equatable {
