@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
                   DefaultCupertinoLocalizations.delegate,
                 ],
                 locale: state,
-
+                routes: const {},
                 home: AppNavigatorScreen(),
               ),
             ),
