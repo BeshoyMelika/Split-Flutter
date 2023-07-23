@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'package:flutter/material.dart';
 
 /// to control all colors, app theme, without any need to dig into code
@@ -28,7 +30,7 @@ class AppColors {
 
   static const _guardsmanRed = Color(0xffBC0000);
   static const _ecstasy = Color(0xffF58220);
-
+  static const _robinsEggBlue = Color(0xff00DCB4);
   static const _buttercup10Opacity = Color.fromARGB(255, 245, 234, 211);
 
   static const _mandysPink = Color(0xffF2B9B9);
@@ -41,9 +43,7 @@ class AppColors {
   static const colorSchemeSeed = _cloudBurst;
   static const colorPrimary = _cloudBurst;
   static const focus = _blueRibbon;
-  static const scaffoldBackground = _whisper;
-  static const appBarBackground = _white;
-  static const appBarTextColor = _blueZodiac;
+  static const appBarTextColor = _white;
   static const statusBar = _blueZodiac;
   static const floatActionBtnIcon = _white;
   static const floatActionBtnText = _white;
@@ -124,6 +124,28 @@ class AppColors {
 
   /// Auth Screen
   static const loginButtonBg = _apple;
+
+  ///
+  ///
+  ///
+  /// groups manger
+
+  static const emptyGroupButton = _cloudBurst;
+  static const emptyGroupIconButton = _white;
+  static const scaffoldBackground = _alabaster;
+  static const unSelectedNavBarIcon = _silver;
+  static const selectedNavBarIcon = _cloudBurst;
+  static const floatingactionButtonLightMode = _robinsEggBlue;
+  static const appBarBackground = _cloudBurst;
+  static const mediumText = _mineShaft;
+  static const bodyLargeText = _silver;
+  static const groupItemBorder = _silver;
+  static const groupItemIcon = _silver;
+  static const groupItemText = _silver;
+  static const emptyGroupScreenText = _silver;
+  static const groupItemPinedIcon = _cloudBurst;
+  static const groupItemColor = _white;
+  static const groupMainText = _silver;
 
   /// home screen
   static const homeScreenBackground = _alabaster;

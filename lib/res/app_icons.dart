@@ -5,8 +5,9 @@ class AppIcons {
 
   static const String? _fontPackageKey = null;
   static const _homeFontFamilyKey = 'HomeIconsFont';
-
+  static const _groupFontFam = 'GroupsFontIcon';
   static const _connectivityIcons = 'ConnectivityIcons';
+  static const _kFontFam = 'Activty_icon';
 
   //
   // /// date time icons
@@ -32,6 +33,19 @@ class AppIcons {
   static const IconData video = IconData(0xe807,
       fontFamily: _homeFontFamilyKey, fontPackage: _fontPackageKey);
 
+  // groups
+  static const IconData activityIcon =
+      IconData(0xe800, fontFamily: _groupFontFam, fontPackage: _fontPackageKey);
+
+  static const IconData expenses =
+      IconData(0xe801, fontFamily: _groupFontFam, fontPackage: _fontPackageKey);
+  static const IconData page =
+      IconData(0xe802, fontFamily: _groupFontFam, fontPackage: _fontPackageKey);
+
+  //
+
+  static const IconData activtyIcon =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _fontPackageKey);
   static const _homeScreenIconsFamily = 'HomeScreenIconsFamily';
 
   static const IconData plane =

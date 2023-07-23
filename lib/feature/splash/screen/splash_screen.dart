@@ -5,10 +5,9 @@ import 'package:get_it/get_it.dart';
 import 'package:split/core/widgets/base_stateful_widget.dart';
 import 'package:split/preferences/preferences_manager.dart';
 import 'package:split/res/app_asset_paths.dart';
+import 'package:split/res/routes.dart';
 
 class SplashScreen extends BaseStatefulWidget {
-  static const String routeName = '/splash';
-
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
@@ -85,12 +84,12 @@ class _SplashScreenState extends BaseState<SplashScreen> {
   }
 
   void _openLoginScreen() async {
-    // await Navigator.of(context)
-    //     .pushNamedAndRemoveUntil(LoginScreen.routeName, (_) => false);
+    await Navigator.of(context)
+        .pushNamedAndRemoveUntil(Routes.navigator, (_) => false);
   }
 
   void _openHomeScreen() async {
-    // await Navigator.of(context)
-    //     .pushNamedAndRemoveUntil(HomeScreen.routeName, (_) => false);
+    await Navigator.of(context)
+        .pushNamedAndRemoveUntil(Routes.navigator, (_) => false);
   }
 }

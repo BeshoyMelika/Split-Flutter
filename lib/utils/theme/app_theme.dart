@@ -59,7 +59,7 @@ class AppTheme {
             titleTextStyle: txtThemeLight.bodyMedium?.copyWith(
               fontSize: 20,
               color: AppColors.appBarTextColor,
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w600,
             ),
             backgroundColor: AppColors.appBarBackground,
           ),
@@ -69,7 +69,7 @@ class AppTheme {
   TextTheme get txtThemeLight => _textTheme.copyWith(
         headlineMedium: _textTheme.headlineMedium?.copyWith(
           color: AppColors.headlineMedium,
-          fontSize: 22,
+          fontSize: 20,
         ),
         titleLarge: const TextStyle(
           color: AppColors.titleLarge,
