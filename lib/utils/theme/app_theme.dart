@@ -71,29 +71,44 @@ class AppTheme {
           color: AppColors.headlineMedium,
           fontSize: 22,
         ),
-        titleLarge: const TextStyle(
-          color: AppColors.titleLarge,
-        ),
-        bodyLarge: _textTheme.bodyMedium?.copyWith(
-          color: AppColors.bodyLarge,
-        ),
+
+        // black
         bodyMedium: _textTheme.bodyMedium?.copyWith(
           color: AppColors.bodyMedium,
         ),
+
+        // white
+        titleLarge: const TextStyle(
+          color: AppColors.titleLarge,
+        ),
+
+        // for desc of widget and title of text form field
+        titleSmall: _textTheme.titleLarge?.copyWith(
+          color: AppColors.titleSmall,
+        ),
+
+        //for title of widget
+        bodyLarge: _textTheme.bodyMedium?.copyWith(
+          color: AppColors.bodyLarge,
+        ),
+
         bodySmall: _textTheme.bodyMedium?.copyWith(
           color: AppColors.bodySmall,
         ),
         titleMedium: _textTheme.titleMedium?.copyWith(
           color: AppColors.titleMedium,
         ),
-        // for subtitle
+        // for title of widget
         labelLarge: const TextStyle(
           color: AppColors.labelLarge,
-          fontSize: 14,
         ),
         labelMedium: const TextStyle(
           fontSize: 14,
           color: AppColors.labelMedium,
+        ),
+        // for hint text of text field
+        labelSmall: _textTheme.labelSmall?.copyWith(
+          color: AppColors.labelSmall,
         ),
       );
 

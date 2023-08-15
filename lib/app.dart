@@ -9,8 +9,15 @@ import 'package:get_it/get_it.dart';
 
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:split/apis/_base/dio_api_manager.dart';
-import 'package:split/feature/onboarding/screen/onboarding_screen.dart';
-
+import 'package:split/feature/auth/forget_password/screen/forget_password_screen.dart';
+import 'package:split/feature/auth/otp_verification/screen/otp_screen.dart';
+import 'package:split/feature/auth/reset_password/screen/reset_password_screen.dart';
+import 'package:split/feature/auth/set_account/screen/set_account_screen.dart';
+import 'package:split/feature/auth/sign_in/screen/sign_in_screen.dart';
+import 'package:split/feature/auth/sign_up/screen/sign_up_screen.dart';
+import 'package:split/feature/auth/success_message/screen/success_message_screen.dart';
+import 'package:split/feature/home/screen/home_screen.dart';
+import 'package:split/feature/splash/screen/splash_screen.dart';
 import 'package:split/preferences/preferences_manager.dart';
 import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization.dart';
@@ -80,8 +87,23 @@ class MyApp extends StatelessWidget {
                 ],
                 locale: state,
 
-                routes: const {},
-                home: const OnBoardingScreen(),
+                routes: {
+                  SignInScreen.routeName: (context) => const SignInScreen(),
+                  SignUpScreen.routeName: (context) => const SignUpScreen(),
+                  ForgetPasswordScreen.routeName: (context) =>
+                      const ForgetPasswordScreen(),
+                  ResetPasswordScreen.routeName: (context) =>
+                      const ResetPasswordScreen(),
+                  SuccessMessageScreen.routeName: (context) =>
+                      const SuccessMessageScreen(),
+                  OtpVerificationScreen.routName: (context) =>
+                      const OtpVerificationScreen(),
+                  SetAccountScreen.routeName: (context) =>
+                      const SetAccountScreen(),
+                  HomeScreen.routeName: (context) => const HomeScreen(),
+                  SplashScreen.routeName: (context) => const SplashScreen(),
+                },
+                initialRoute: SplashScreen.routeName,
               ),
             ),
           );

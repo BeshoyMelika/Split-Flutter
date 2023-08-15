@@ -16,7 +16,7 @@ class AppColors {
   static const _blueRibbon = Color(0xff0437F2);
   static const _silver = Color(0xffc8c8c8);
   static const _silverSplit = Color(0xffBDBDBD);
-  static const _cloudBurst = Color(0xff253659);
+  static const _cloudBurst = Color(0xFF253659);
   static const _alto = Color(0xffD9D9D9);
 
   static const _whisper = Color(0xffF5F5FA);
@@ -35,6 +35,9 @@ class AppColors {
   static const _goblink = Color(0xff378A3A);
   static const _madang = Color(0xffC0F1C2);
   static const _apple = Color(0xff54B435);
+  static const _mineShaft2 = Color(0xFF333333);
+  static const _silver2 = Color(0xFFBDBDBD);
+  static const _robinsEggBlue = Color(0xFF00DCB4);
 
   /// app main theme ...
 
@@ -54,12 +57,13 @@ class AppColors {
   static const titleMedium = _blueRibbon;
   static const headlineMedium = _blueZodiac;
   static const bodyMedium = _black;
+  static const titleSmall = _mineShaft2;
   static const bodyLarge = _cloudBurst;
   static const bodySmall = _silverSplit;
   static const titleLarge = _white;
   static const labelLarge = _thunder;
   static const labelMedium = _mineShaft;
-  static const labelSmall = _grey;
+  static const labelSmall = _alto;
   static const backLoginIconBackground = _white;
   static const removeHighlight = _transparent;
   static const backGroundCard = _white;
@@ -124,6 +128,20 @@ class AppColors {
 
   /// Auth Screen
   static const loginButtonBg = _apple;
+
+  /// Auth Feature
+  static const backgroundOfWidget = _alabaster;
+  static const appElevatedButton = _cloudBurst;
+  static const divider = _gallery;
+  static const textFieldBorder = _gallery;
+  static const textBetweenDivider = _silver2;
+  static const backgroundOfTextFormField = _white;
+  static const backgroundOfOtp = _white;
+  static const backgroundOfSocialButton = _white;
+  static const arrowBack = _white;
+  static const hintText = _alto;
+  static const textOfTermsCondition = _robinsEggBlue;
+  static const checkAgreeIcon = _cloudBurst;
 
   /// home screen
   static const homeScreenBackground = _alabaster;

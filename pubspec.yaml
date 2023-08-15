@@ -51,6 +51,9 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   connectivity_plus: ^4.0.1
   intl: ^0.18.0
+  pinput: ^2.2.31
+
+
   #pick images from phone
   image_picker: ^0.8.9
 #  drop down menu
@@ -111,6 +114,10 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/raleway_regular.ttf
+
     - family: HomeScreenIconsFamily
       fonts:
         - asset: assets/font_icons/home_screen_icons.ttf

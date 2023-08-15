@@ -19,4 +19,12 @@ class AppAssetPaths {
 
   static const splashScreenBackground =
       "assets/images/splash_screen_background.png";
+  static const googleLogo =
+      "assets/images/google_logo.svg";
+  static const appleLogo =
+      "assets/images/apple_logo.svg";
+  static const checkMarkSuccess =
+      "assets/images/check_mark.svg";
+  static const splitLogo =
+      "assets/images/spilt.svg";
 }

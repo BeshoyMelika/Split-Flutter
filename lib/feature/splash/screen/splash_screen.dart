@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:split/core/widgets/base_stateful_widget.dart';
+import 'package:split/feature/auth/sign_in/screen/sign_in_screen.dart';
 import 'package:split/preferences/preferences_manager.dart';
 import 'package:split/res/app_asset_paths.dart';
 
@@ -17,7 +19,9 @@ class SplashScreen extends BaseStatefulWidget {
 
 class _SplashScreenState extends BaseState<SplashScreen> {
   var preferencesManager = GetIt.I<PreferencesManager>();
-  late Timer time;
+  //late Timer time;
+  Timer? time;
+
   @override
   void initState() {
     super.initState();
@@ -28,7 +32,7 @@ class _SplashScreenState extends BaseState<SplashScreen> {
 
   @override
   void dispose() {
-    time.cancel();
+    time?.cancel();
     super.dispose();
   }
 
@@ -41,12 +45,12 @@ class _SplashScreenState extends BaseState<SplashScreen> {
     );
   }
 
-  ///////////////////////////////////////////////////////////
-  //////////////////// Widget methods ///////////////////////
-  ///////////////////////////////////////////////////////////
+  /// ////////////////////////////////////////////////////////
+  /// ///////////////// Widget methods ///////////////////////
+  /// ////////////////////////////////////////////////////////
 
   Widget _logoWidget() {
-    return const Center(child: FlutterLogo());
+    return Center(child: SvgPicture.asset(AppAssetPaths.splitLogo));
   }
 
   Widget _backgroundImage() {
@@ -60,13 +64,13 @@ class _SplashScreenState extends BaseState<SplashScreen> {
     );
   }
 
-  ///////////////////////////////////////////////////////////
-  /////////////////// Helper methods ////////////////////////
-  ///////////////////////////////////////////////////////////
+  /// ////////////////////////////////////////////////////////
+  /// //////////////// Helper methods ////////////////////////
+  /// ////////////////////////////////////////////////////////
 
   /// time to switch with dummy screen
   Future<Timer> _startTime() async {
-    var duration = const Duration(milliseconds: 1000);
+    var duration = const Duration(milliseconds: 2000);
     return Timer(duration, _navigationPage);
   }
 
@@ -85,8 +89,8 @@ class _SplashScreenState extends BaseState<SplashScreen> {
   }
 
   void _openLoginScreen() async {
-    // await Navigator.of(context)
-    //     .pushNamedAndRemoveUntil(LoginScreen.routeName, (_) => false);
+    await Navigator.of(context)
+        .pushNamedAndRemoveUntil(SignInScreen.routeName, (_) => false);
   }
 
   void _openHomeScreen() async {

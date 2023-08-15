@@ -18,7 +18,7 @@ class Validator {
     return regExp.hasMatch(number.trim());
   }
 
-  static bool isName(String name) {
+  static bool isUserName(String name) {
     const String pattern = r'^[a-zA-Z]+$';
     var regExp = RegExp(pattern);
     return regExp.hasMatch(name.trim());
@@ -44,6 +44,16 @@ class Validator {
     if (password.isNullOrEmpty) {
       return ValidationState.empty;
     } else if (password!.length < 8) {
+      return ValidationState.formatting;
+    } else {
+      return ValidationState.valid;
+    }
+  }
+
+  static ValidationState validateUsername(String? username) {
+    if (username.isNullOrEmpty) {
+      return ValidationState.empty;
+    } else if (!isUserName(username!)) {
       return ValidationState.formatting;
     } else {
       return ValidationState.valid;
