@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateful_screen_widget.dart';
 import 'package:split/feature/auth/auth_base.dart';
+import 'package:split/feature/auth/constants.dart';
 import 'package:split/feature/auth/reset_password/bloc/reset_password_bloc.dart';
 import 'package:split/feature/auth/success_message/screen/success_message_screen.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
@@ -10,7 +11,6 @@ import 'package:split/feature/auth/widgets/app_text_form_field.dart';
 import 'package:split/feature/auth/widgets/screen_description_widget.dart';
 import 'package:split/feature/auth/widgets/screen_title_widget.dart';
 import 'package:split/feature/auth/widgets/text_field_label_widget.dart';
-import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 import 'package:split/utils/validations/auth_validate.dart';
 
@@ -40,17 +40,22 @@ class _ResetPasswordScreenWithBlocState
   final GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? newPassword, confirmNewPassword;
-  TextEditingController? newPasswordController, confirmNewPasswordController;
+  TextEditingController? newPasswordController = TextEditingController();
+  final ScreenBeforeCongrats screenBeforeCongrats =
+      ScreenBeforeCongrats.resetPasswordScreen;
   @override
   Widget baseScreenBuild(BuildContext context) {
     return BlocConsumer<ResetPasswordBloc, ResetPasswordState>(
       listener: (context, state) {
+        if (state is SubmitPasswordLoadingState) {
+          showLoading();
+        } else {
+          hideLoading();
+        }
         if (state is SubmitPasswordSuccessState) {
           _openSuccessMessageScreen(context);
         } else if (state is ValidateResetPasswordFormState) {
           _submitPassword(context);
-        } else if (state is SubmitPasswordLoadingState) {
-          showLoading();
         } else if (state is NotValidateResetPasswordFormState) {
           _autoValidateMode();
         }
@@ -87,9 +92,7 @@ class _ResetPasswordScreenWithBlocState
                     keyboardType: TextInputType.visiblePassword,
                     secure: true,
                     controller: newPasswordController,
-                    onSaved: (value) {
-                      _saveNewPassword(value);
-                    },
+                    onSaved: _saveNewPassword,
                     validator: passwordValidator,
                   ),
                   SizedBox(height: 24.h),
@@ -101,11 +104,9 @@ class _ResetPasswordScreenWithBlocState
                     hint: translate(LocalizationKeys.confirmYourNewPassword)!,
                     keyboardType: TextInputType.visiblePassword,
                     secure: true,
-                    controller: confirmNewPasswordController,
-                    onSaved: (value) {
-                      _saveConfirmNewPassword(value);
-                    },
-                    //validator: confirmPasswordValidator(confirmNewPasswordController!.text,newPasswordController!.text),
+                    onSaved: _saveConfirmNewPassword,
+                    validator: (value) => confirmPasswordValidator(
+                        value, newPasswordController!.text),
                   ),
                   SizedBox(height: 75.h),
                   Row(
@@ -113,9 +114,7 @@ class _ResetPasswordScreenWithBlocState
                       Expanded(
                         child: AppElevatedButton(
                           title: translate(LocalizationKeys.submit)!,
-                          onPressed: () {
-                            _validateResetPasswordFormEvent(context);
-                          },
+                          onPressed: _validateResetPasswordFormEvent,
                         ),
                       ),
                     ],
@@ -133,7 +132,7 @@ class _ResetPasswordScreenWithBlocState
   /// ////////////////////// helper methods ///////////////////////////////////
   /// /////////////////////////////////////////////////////////////////////////
 
-  void _validateResetPasswordFormEvent(BuildContext context) {
+  void _validateResetPasswordFormEvent() {
     BlocProvider.of<ResetPasswordBloc>(context)
         .add(ValidateResetPasswordFormEvent(formKey: formKey));
   }
@@ -143,7 +142,8 @@ class _ResetPasswordScreenWithBlocState
   }
 
   void _openSuccessMessageScreen(BuildContext context) {
-    Navigator.of(context).pushNamed(SuccessMessageScreen.routeName);
+    Navigator.of(context).pushNamed(SuccessMessageScreen.routeName,
+        arguments: {kScreenBeforeCongrats: screenBeforeCongrats});
   }
 
   void _submitPassword(BuildContext context) {

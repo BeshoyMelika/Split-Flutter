@@ -4,13 +4,11 @@ abstract class ResetPasswordState extends Equatable {}
 
 class ResetPasswordInitial extends ResetPasswordState {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
 class SubmitPasswordSuccessState extends ResetPasswordState {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -19,24 +17,20 @@ class SubmitPasswordFailureState extends ResetPasswordState {
 
   SubmitPasswordFailureState({required this.errMessage});
   @override
-  // TODO: implement props
   List<Object?> get props => [errMessage];
 }
 
 class SubmitPasswordLoadingState extends ResetPasswordState {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
 class ValidateResetPasswordFormState extends ResetPasswordState {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
 class NotValidateResetPasswordFormState extends ResetPasswordState {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }

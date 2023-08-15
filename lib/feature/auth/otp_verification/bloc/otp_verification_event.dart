@@ -8,13 +8,11 @@ class OtpVerifyEvent extends OtpVerificationEvent {
   OtpVerifyEvent({required this.pinCode});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [pinCode];
 }
 
 class OtpRequestAgainEvent extends OtpVerificationEvent {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -24,6 +22,5 @@ class ValidateOtpVerificationFormEvent extends OtpVerificationEvent {
   ValidateOtpVerificationFormEvent({required this.formKey});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [formKey];
 }

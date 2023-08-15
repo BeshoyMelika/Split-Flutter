@@ -8,7 +8,6 @@ class SubmitSetAccountEvent extends SetAccountEvent {
   SubmitSetAccountEvent({required this.username});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [username];
 }
 
@@ -18,6 +17,5 @@ class ValidateSetAccountFormEvent extends SetAccountEvent {
   ValidateSetAccountFormEvent({required this.formKey});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [formKey];
 }

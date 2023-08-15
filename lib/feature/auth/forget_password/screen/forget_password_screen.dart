@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateful_screen_widget.dart';
 import 'package:split/feature/auth/auth_base.dart';
+import 'package:split/feature/auth/constants.dart';
 import 'package:split/feature/auth/forget_password/bloc/forget_password_bloc.dart';
 import 'package:split/feature/auth/otp_verification/screen/otp_screen.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
@@ -39,16 +40,20 @@ class _ForgetPasswordScreenWithBlocState
   final GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? email;
+  final ScreenAfterOtp screenAfterOtp = ScreenAfterOtp.resetPasswordScreen;
   @override
   Widget baseScreenBuild(BuildContext context) {
     return BlocConsumer<ForgetPasswordBloc, ForgetPasswordState>(
       listener: (context, state) {
+        if (state is ResetPasswordLoadingState) {
+          showLoading();
+        } else {
+          hideLoading();
+        }
         if (state is ResetPasswordSuccessState) {
           _openOtpScreen(context);
         } else if (state is ValidateForgetPasswordFormState) {
           _resetPassword(context);
-        } else if (state is ResetPasswordLoadingState) {
-          showLoading();
         } else if (state is NotValidateForgetPasswordFormState) {
           _autoValidateMode();
         }
@@ -84,9 +89,7 @@ class _ForgetPasswordScreenWithBlocState
                   AppTextFormField(
                     hint: translate(LocalizationKeys.enterYourEmail)!,
                     keyboardType: TextInputType.emailAddress,
-                    onSaved: (value) {
-                      _saveEmailAddress(value);
-                    },
+                    onSaved: _saveEmailAddress,
                     validator: emailValidator,
                   ),
                   SizedBox(height: 150.h),
@@ -95,9 +98,7 @@ class _ForgetPasswordScreenWithBlocState
                       Expanded(
                         child: AppElevatedButton(
                           title: translate(LocalizationKeys.resetYourPassword)!,
-                          onPressed: () {
-                            _validateForgetPasswordFormEvent(context);
-                          },
+                          onPressed: _validateForgetPasswordFormEvent,
                         ),
                       ),
                     ],
@@ -115,7 +116,7 @@ class _ForgetPasswordScreenWithBlocState
   /// ////////////////////// helper methods ///////////////////////////////////
   /// /////////////////////////////////////////////////////////////////////////
 
-  void _validateForgetPasswordFormEvent(BuildContext context) {
+  void _validateForgetPasswordFormEvent() {
     BlocProvider.of<ForgetPasswordBloc>(context)
         .add(ValidateForgetPasswordFormEvent(formKey: formKey));
   }
@@ -130,7 +131,10 @@ class _ForgetPasswordScreenWithBlocState
   }
 
   void _openOtpScreen(BuildContext context) {
-    Navigator.of(context).pushNamed(OtpVerificationScreen.routName);
+    Navigator.of(context).pushNamed(OtpVerificationScreen.routName, arguments: {
+      kEmail: email,
+      kScreenAfterOtp: screenAfterOtp,
+    });
   }
 
   void _saveEmailAddress(String? value) {

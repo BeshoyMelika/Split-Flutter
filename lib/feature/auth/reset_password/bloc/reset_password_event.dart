@@ -9,7 +9,6 @@ class SubmitPasswordEvent extends ResetPasswordEvent {
       {required this.newPassword, required this.confirmNewPassword});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [newPassword, confirmNewPassword];
 }
 
@@ -19,6 +18,5 @@ class ValidateResetPasswordFormEvent extends ResetPasswordEvent {
   ValidateResetPasswordFormEvent({required this.formKey});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [formKey];
 }

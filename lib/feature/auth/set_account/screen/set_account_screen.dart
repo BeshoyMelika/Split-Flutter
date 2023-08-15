@@ -43,12 +43,15 @@ class _SetAccountScreenWithBlocState
   Widget baseScreenBuild(BuildContext context) {
     return BlocConsumer<SetAccountBloc, SetAccountState>(
       listener: (context, state) {
+        if (state is SubmitSetAccountLoadingState) {
+          showLoading();
+        } else {
+          hideLoading();
+        }
         if (state is SubmitSetAccountSuccessState) {
           _openHomeScreen(context);
         } else if (state is ValidateSetAccountState) {
           _submitSetAccount(context);
-        } else if (state is SubmitSetAccountLoadingState) {
-          showLoading();
         } else if (state is NotValidateSetAccountState) {
           _autoValidateMode();
         }
@@ -83,21 +86,18 @@ class _SetAccountScreenWithBlocState
                   AppTextFormField(
                     hint: translate(LocalizationKeys.setUsername)!,
                     keyboardType: TextInputType.text,
-                    onSaved: (value) {
-                      _saveUsername(value);
-                    },
+                    onSaved: _saveUsername,
                     validator: usernameValidator,
                   ),
                   SizedBox(height: 30.h),
                   Row(
                     children: [
                       Expanded(
-                          child: AppElevatedButton(
-                        title: translate(LocalizationKeys.submit)!,
-                        onPressed: () {
-                          _validateSetAccountFormEvent(context);
-                        },
-                      )),
+                        child: AppElevatedButton(
+                          title: translate(LocalizationKeys.submit)!,
+                          onPressed: _validateSetAccountFormEvent,
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -113,7 +113,7 @@ class _SetAccountScreenWithBlocState
   /// ////////////////////// helper methods ///////////////////////////////////
   /// /////////////////////////////////////////////////////////////////////////
 
-  void _validateSetAccountFormEvent(BuildContext context) {
+  void _validateSetAccountFormEvent() {
     BlocProvider.of<SetAccountBloc>(context)
         .add(ValidateSetAccountFormEvent(formKey: formKey));
   }

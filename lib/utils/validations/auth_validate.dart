@@ -7,9 +7,9 @@ mixin AuthValidate on Translator {
     ValidationState validationState = Validator.validateEmail(value);
     switch (validationState) {
       case ValidationState.empty:
-        return translate(LocalizationKeys.required);
+        return translate(LocalizationKeys.pleaseEnterEmail);
       case ValidationState.formatting:
-        return translate(LocalizationKeys.emailInvalid);
+        return translate(LocalizationKeys.pleaseEnterValidEmail);
       case ValidationState.valid:
         return null;
     }
@@ -17,12 +17,12 @@ mixin AuthValidate on Translator {
 
   String? phoneNumberValidator(String? value) {
     ValidationState validationState =
-        Validator.validateNumber(value, length: 9);
+        Validator.validateNumber(value, length: 11);
     switch (validationState) {
       case ValidationState.empty:
-        return translate(LocalizationKeys.required);
+        return translate(LocalizationKeys.pleaseEnterPhoneNumber);
       case ValidationState.formatting:
-        return translate(LocalizationKeys.emailOrPhoneNumberInvalid);
+        return translate(LocalizationKeys.pleaseEnterValidPhoneNumber);
       case ValidationState.valid:
         return null;
     }
@@ -45,7 +45,7 @@ mixin AuthValidate on Translator {
     ValidationState validationState = Validator.validatePassword(value);
     switch (validationState) {
       case ValidationState.empty:
-        return translate(LocalizationKeys.required);
+        return translate(LocalizationKeys.pleaseEnterPassword);
       case ValidationState.formatting:
         return translate(LocalizationKeys.pleaseEnterValidPassword);
       case ValidationState.valid:
@@ -57,9 +57,9 @@ mixin AuthValidate on Translator {
     ValidationState validationState = Validator.validateText(value);
     switch (validationState) {
       case ValidationState.empty:
-        return translate(LocalizationKeys.required);
+        return translate(LocalizationKeys.pleaseEnterName);
       case ValidationState.formatting:
-        return translate(LocalizationKeys.required);
+        return translate(LocalizationKeys.pleaseEnterValidName);
       case ValidationState.valid:
         return null;
     }

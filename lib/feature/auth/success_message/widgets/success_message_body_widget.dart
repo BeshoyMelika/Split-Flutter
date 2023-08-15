@@ -3,20 +3,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:split/core/widgets/base_stateless_widget.dart';
-import 'package:split/feature/auth/sign_in/screen/sign_in_screen.dart';
 import 'package:split/feature/auth/success_message/bloc/success_message_bloc.dart';
+import 'package:split/feature/auth/success_message/screen/success_message_screen.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
 import 'package:split/feature/auth/widgets/screen_description_widget.dart';
 import 'package:split/feature/auth/widgets/screen_title_widget.dart';
 import 'package:split/res/app_asset_paths.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 
-
-
 // ignore: must_be_immutable
 class SuccessMessageBodyWidget extends BaseStatelessWidget {
-  SuccessMessageBodyWidget({super.key});
-
+  SuccessMessageBodyWidget({
+    super.key,
+    required this.screenBeforeCongrats,
+  });
+  final ScreenBeforeCongrats screenBeforeCongrats;
   @override
   Widget baseBuild(BuildContext context) {
     return Padding(
@@ -28,7 +29,7 @@ class SuccessMessageBodyWidget extends BaseStatelessWidget {
           SizedBox(height: 20.h),
           ScreenTitleWidget(titleLocalizationKey: LocalizationKeys.congrats),
           SizedBox(height: 15.h),
-          source
+          screenBeforeCongrats == ScreenBeforeCongrats.resetPasswordScreen
               ? ScreenDescriptionWidget(
                   descriptionLocalizationKey:
                       LocalizationKeys.resetPasswordSuccessfully)

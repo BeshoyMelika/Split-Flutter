@@ -13,31 +13,26 @@ class RegisterEvent extends SignUpEvent {
   });
 
   @override
-  // TODO: implement props
   List<Object?> get props => [email, password, name, phone];
 }
 
 class RegisterWithGoogleEvent extends SignUpEvent {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
 class RegisterWithAppleEvent extends SignUpEvent {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
 class SignInScreenEvent extends SignUpEvent {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
 class ChangeCheckIconEvent extends SignUpEvent {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -47,6 +42,5 @@ class ValidateRegisterFormEvent extends SignUpEvent {
   ValidateRegisterFormEvent({required this.formKey});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [formKey];
 }

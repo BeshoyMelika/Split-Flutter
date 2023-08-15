@@ -28,17 +28,20 @@ class SocialMediaLoginAndSignUpWidget extends BaseStatelessWidget {
               height: 1,
             )),
             SizedBox(width: 5.w),
-            Text(translate(textORLocalizationKey)!,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                    )),
+            Text(
+              translate(textORLocalizationKey)!,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
             SizedBox(width: 5.w),
             Expanded(
-                child: Container(
-              color: AppColors.divider,
-              height: 1,
-            )),
+              child: Container(
+                color: AppColors.divider,
+                height: 1,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 16.h),

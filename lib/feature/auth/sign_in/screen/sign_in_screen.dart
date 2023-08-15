@@ -18,8 +18,6 @@ import 'package:split/feature/home/screen/home_screen.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 import 'package:split/utils/validations/auth_validate.dart';
 
-bool source = true;
-
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
   static const routeName = 'signInScreen';
@@ -50,18 +48,19 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc>
   Widget baseScreenBuild(BuildContext context) {
     return BlocConsumer<SignInBloc, SignInState>(
       listener: (context, state) {
+        if (state is LoadingState) {
+          showLoading();
+        } else {
+          hideLoading();
+        }
         if (state is SignInSuccessState) {
           _openHomeScreen(context);
         } else if (state is OpenForgetPasswordScreenState) {
-          source = true;
           _openForgetScreen(context);
         } else if (state is OpenSignUpScreenState) {
-          source = false;
           _openSignUpScreen(context);
         } else if (state is ValidateLoginState) {
           _login(context);
-        } else if (state is LoadingState) {
-          showLoading();
         } else if (state is NotValidateLoginState) {
           _autoValidateMode();
         }
@@ -96,9 +95,7 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc>
                   AppTextFormField(
                     hint: translate(LocalizationKeys.enterYourEmail)!,
                     keyboardType: TextInputType.emailAddress,
-                    onSaved: (value) {
-                      _saveEmailAddress(value);
-                    },
+                    onSaved: _saveEmailAddress,
                     validator: emailValidator,
                   ),
                   SizedBox(height: 24.h),
@@ -109,9 +106,7 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc>
                     hint: translate(LocalizationKeys.enterYourPassword)!,
                     secure: true,
                     keyboardType: TextInputType.visiblePassword,
-                    onSaved: (value) {
-                      _savePassword(value);
-                    },
+                    onSaved: _savePassword,
                     validator: passwordValidator,
                   ),
                   ForgetPasswordTextButtonWidget(),
@@ -119,11 +114,8 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc>
                     children: [
                       Expanded(
                         child: AppElevatedButton(
-                          title: translate(LocalizationKeys.signIn)!,
-                          onPressed: () {
-                            _validateLoginFormEvent(context);
-                          },
-                        ),
+                            title: translate(LocalizationKeys.signIn)!,
+                            onPressed: _validateLoginFormEvent),
                       ),
                     ],
                   ),
@@ -156,7 +148,7 @@ class _SignInScreenWithBlocState extends BaseScreenState<SignInScreenWithBloc>
     autovalidateMode = AutovalidateMode.always;
   }
 
-  void _validateLoginFormEvent(BuildContext context) {
+  void _validateLoginFormEvent() {
     BlocProvider.of<SignInBloc>(context)
         .add(ValidateLoginFormEvent(formKey: formKey));
   }

@@ -4,10 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 import 'package:split/core/widgets/base_stateful_screen_widget.dart';
 import 'package:split/feature/auth/auth_base.dart';
+import 'package:split/feature/auth/constants.dart';
 import 'package:split/feature/auth/otp_verification/bloc/otp_verification_bloc.dart';
 import 'package:split/feature/auth/otp_verification/widgets/dont_receive_code_text_widget.dart';
 import 'package:split/feature/auth/reset_password/screen/reset_password_screen.dart';
-import 'package:split/feature/auth/sign_in/screen/sign_in_screen.dart';
 import 'package:split/feature/auth/success_message/screen/success_message_screen.dart';
 import 'package:split/feature/auth/widgets/app_elevated_button.dart';
 import 'package:split/feature/auth/widgets/screen_description_widget.dart';
@@ -16,23 +16,37 @@ import 'package:split/res/app_colors.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 import 'package:split/utils/validations/auth_validate.dart';
 
+enum ScreenAfterOtp { resetPasswordScreen, congratsScreen }
+
 class OtpVerificationScreen extends StatelessWidget {
   const OtpVerificationScreen({super.key});
   static const routName = 'otpScreen';
   @override
   Widget build(BuildContext context) {
-    var arg = ModalRoute.of(context)!.settings.arguments;
-    debugPrint(arg.toString());
+    final arguments = (ModalRoute.of(context)?.settings.arguments ??
+        <String, dynamic>{}) as Map;
+    debugPrint(arguments.toString());
     return BlocProvider(
       create: (context) => OtpVerificationBloc(),
-      child: OtpVerificationScreenWithBloc(phoneNumber: arg.toString()),
+      child: OtpVerificationScreenWithBloc(
+        screenAfterOtp: arguments[kScreenAfterOtp],
+        phoneNumber: arguments[kPhoneNumber],
+        email: arguments[kEmail],
+      ),
     );
   }
 }
 
 class OtpVerificationScreenWithBloc extends BaseStatefulScreenWidget {
-  const OtpVerificationScreenWithBloc({super.key, required this.phoneNumber});
-  final String phoneNumber;
+  const OtpVerificationScreenWithBloc({
+    super.key,
+    required this.screenAfterOtp,
+    this.phoneNumber,
+    this.email,
+  });
+  final String? phoneNumber;
+  final String? email;
+  final ScreenAfterOtp screenAfterOtp;
   @override
   BaseScreenState<OtpVerificationScreenWithBloc> baseScreenCreateState() =>
       _OtpVerificationScreenWithBlocState();
@@ -43,19 +57,31 @@ class _OtpVerificationScreenWithBlocState
   final GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? pinCode;
-  //String newPhoneNumber = convertPhoneNumber(phoneNumber);
+  final ScreenBeforeCongrats screenBeforeCongrats =
+      ScreenBeforeCongrats.otpScreen;
   @override
   Widget baseScreenBuild(BuildContext context) {
+    String newPhoneNumber =
+        widget.phoneNumber?.replaceRange(0, 8, "********") ?? '';
+    debugPrint(newPhoneNumber);
     return BlocConsumer<OtpVerificationBloc, OtpVerificationState>(
       listener: (context, state) {
+        if (state is OtpVerifyLoadingState) {
+          showLoading();
+        } else {
+          hideLoading();
+        }
         if (state is OtpVerifySuccessState) {
-          source
-              ? _openResetScreen(context)
-              : _openSuccessMessageScreen(context);
+          switch (widget.screenAfterOtp) {
+            case ScreenAfterOtp.congratsScreen:
+              _openSuccessMessageScreen(context);
+              break;
+            case ScreenAfterOtp.resetPasswordScreen:
+              _openResetScreen(context);
+              break;
+          }
         } else if (state is ValidateOtpVerificationState) {
           _otpVerify(context);
-        } else if (state is OtpVerifyLoadingState) {
-          showLoading();
         } else if (state is NotValidateOtpVerificationState) {
           _autoValidateMode();
         }
@@ -82,7 +108,11 @@ class _OtpVerificationScreenWithBlocState
                   SizedBox(height: 8.h),
                   ScreenDescriptionWidget(
                       descriptionLocalizationKey: LocalizationKeys
-                          .an4DigitsCodeHasBeenSentToYourNumberEndingWith),
+                          .an4DigitsCodeHasBeenSentToYourNumberEndingWith,
+                      append: widget.screenAfterOtp ==
+                              ScreenAfterOtp.resetPasswordScreen
+                          ? widget.email
+                          : newPhoneNumber),
                   SizedBox(height: 20.h),
                   SizedBox(
                     width: width.w,
@@ -103,9 +133,7 @@ class _OtpVerificationScreenWithBlocState
                       ),
                       validator: otpValidator,
                       pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-                      onCompleted: (pin) {
-                        _onCompletedOtp(pin);
-                      },
+                      onCompleted: _onCompletedOtp,
                     ),
                   ),
                   SizedBox(height: 40.h),
@@ -114,9 +142,7 @@ class _OtpVerificationScreenWithBlocState
                       Expanded(
                         child: AppElevatedButton(
                           title: translate(LocalizationKeys.verify)!,
-                          onPressed: () {
-                            _validateOtpVerificationFormEvent(context);
-                          },
+                          onPressed: _validateOtpVerificationFormEvent,
                         ),
                       ),
                     ],
@@ -135,7 +161,7 @@ class _OtpVerificationScreenWithBlocState
   /// ////////////////////// helper methods ///////////////////////////////////
   /// /////////////////////////////////////////////////////////////////////////
 
-  void _validateOtpVerificationFormEvent(BuildContext context) {
+  void _validateOtpVerificationFormEvent() {
     BlocProvider.of<OtpVerificationBloc>(context)
         .add(ValidateOtpVerificationFormEvent(formKey: formKey));
   }
@@ -145,7 +171,8 @@ class _OtpVerificationScreenWithBlocState
   }
 
   void _openSuccessMessageScreen(BuildContext context) {
-    Navigator.of(context).pushNamed(SuccessMessageScreen.routeName);
+    Navigator.of(context).pushNamed(SuccessMessageScreen.routeName,
+        arguments: {kScreenBeforeCongrats: screenBeforeCongrats});
   }
 
   void _openResetScreen(BuildContext context) {
@@ -159,17 +186,5 @@ class _OtpVerificationScreenWithBlocState
 
   void _onCompletedOtp(String pin) {
     pinCode = pin;
-  }
-
-  String replaceCharAt(String oldString, int index, String char) {
-    return char + oldString.substring(index + 1);
-  }
-
-  String convertPhoneNumber(String phoneNumber) {
-    String newPhoneNumber = phoneNumber;
-    for (int i = 0; i < 8; i++) {
-      newPhoneNumber = replaceCharAt(phoneNumber, 0, '*');
-    }
-    return newPhoneNumber;
   }
 }

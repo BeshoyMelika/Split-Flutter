@@ -116,7 +116,7 @@ flutter:
   fonts:
     - family: Raleway
       fonts:
-        - asset: assets/fonts/Raleway-Regular.ttf
+        - asset: assets/fonts/raleway_regular.ttf
 
     - family: HomeScreenIconsFamily
       fonts:

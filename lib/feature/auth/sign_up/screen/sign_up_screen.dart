@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:split/core/widgets/base_stateful_screen_widget.dart';
 import 'package:split/feature/auth/auth_base.dart';
+import 'package:split/feature/auth/constants.dart';
 import 'package:split/feature/auth/otp_verification/screen/otp_screen.dart';
 import 'package:split/feature/auth/set_account/screen/set_account_screen.dart';
 import 'package:split/feature/auth/sign_in/screen/sign_in_screen.dart';
@@ -15,6 +16,7 @@ import 'package:split/feature/auth/widgets/screen_description_widget.dart';
 import 'package:split/feature/auth/widgets/screen_title_widget.dart';
 import 'package:split/feature/auth/widgets/social_media_login_signup_widget.dart';
 import 'package:split/feature/auth/widgets/text_field_label_widget.dart';
+import 'package:split/utils/feedback/feedback_message.dart';
 import 'package:split/utils/locale/app_localization_keys.dart';
 import 'package:split/utils/validations/auth_validate.dart';
 
@@ -44,21 +46,29 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
   final GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? email, password, name, phone;
+  final ScreenAfterOtp screenAfterOtp = ScreenAfterOtp.congratsScreen;
   @override
   Widget baseScreenBuild(BuildContext context) {
     return BlocConsumer<SignUpBloc, SignUpState>(
       listener: (context, state) {
+        if (state is LoadingState) {
+          showLoading();
+        } else {
+          hideLoading();
+        }
         if (state is SignUpSuccessState) {
           _openOtpScreen(context);
-        } else if (state is LoadingState) {
-          showLoading();
         } else if (state is SignUpWithGoogleSuccessState ||
             state is SignUpWithAppleSuccessState) {
           _openSetAccountScreen(context);
         } else if (state is OpenSignInScreenState) {
           _openSignInScreen(context);
         } else if (state is ValidateRegisterState) {
-          _register(context);
+          if (BlocProvider.of<SignUpBloc>(context).isAgree) {
+            _register(context);
+          } else {
+            showFeedbackMessage('You must agree to all Terms and Condition');
+          }
         } else if (state is NotValidateRegisterState) {
           _autoValidateMode();
         }
@@ -95,10 +105,8 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
                   AppTextFormField(
                     hint: translate(LocalizationKeys.enterYourName)!,
                     keyboardType: TextInputType.text,
-                    onSaved: (value) {
-                      _saveName(value);
-                    },
-                    validator: textValidator,
+                    onSaved: _saveName,
+                    validator: fullNameValidator,
                   ),
                   SizedBox(height: 24.h),
                   TextFieldLabelWidget(
@@ -107,9 +115,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
                   AppTextFormField(
                     hint: translate(LocalizationKeys.enterYourEmailAddress)!,
                     keyboardType: TextInputType.emailAddress,
-                    onSaved: (value) {
-                      _saveEmailAddress(value);
-                    },
+                    onSaved: _saveEmailAddress,
                     validator: emailValidator,
                   ),
                   SizedBox(height: 24.h),
@@ -119,9 +125,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
                   AppTextFormField(
                     hint: translate(LocalizationKeys.enterYourPhone)!,
                     keyboardType: TextInputType.phone,
-                    onSaved: (value) {
-                      _savePhoneNumber(value);
-                    },
+                    onSaved: _savePhoneNumber,
                     validator: phoneNumberValidator,
                   ),
                   SizedBox(height: 24.h),
@@ -132,9 +136,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
                     hint: translate(LocalizationKeys.enterYourPassword)!,
                     keyboardType: TextInputType.visiblePassword,
                     secure: true,
-                    onSaved: (value) {
-                      _savePassword(value);
-                    },
+                    onSaved: _savePassword,
                     validator: passwordValidator,
                   ),
                   SizedBox(height: 18.h),
@@ -145,9 +147,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
                       Expanded(
                           child: AppElevatedButton(
                         title: translate(LocalizationKeys.signUp)!,
-                        onPressed: () {
-                          _validateRegisterFormEvent(context);
-                        },
+                        onPressed: _validateRegisterFormEvent,
                       )),
                     ],
                   ),
@@ -176,8 +176,10 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
   /// /////////////////////////////////////////////////////////////////////////
 
   void _openOtpScreen(BuildContext context) {
-    Navigator.of(context)
-        .pushNamed(OtpVerificationScreen.routName, arguments: phone);
+    Navigator.of(context).pushNamed(OtpVerificationScreen.routName, arguments: {
+      kPhoneNumber: phone,
+      kScreenAfterOtp: screenAfterOtp,
+    });
   }
 
   void _openSignInScreen(BuildContext context) {
@@ -197,7 +199,7 @@ class _SignUpScreenWithBlocState extends BaseScreenState<SignUpScreenWithBloc>
     Navigator.of(context).pushNamed(SetAccountScreen.routeName);
   }
 
-  void _validateRegisterFormEvent(BuildContext context) {
+  void _validateRegisterFormEvent() {
     BlocProvider.of<SignUpBloc>(context)
         .add(ValidateRegisterFormEvent(formKey: formKey));
   }

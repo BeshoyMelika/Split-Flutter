@@ -4,13 +4,11 @@ abstract class SuccessMessageState extends Equatable {}
 
 class SuccessMessageInitial extends SuccessMessageState {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
 class OpenLoginScreenSuccessState extends SuccessMessageState {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -19,12 +17,10 @@ class OpenLoginScreenFailureState extends SuccessMessageState {
 
   OpenLoginScreenFailureState({required this.errMessage});
   @override
-  // TODO: implement props
   List<Object?> get props => [errMessage];
 }
 
 class OpenLoginScreenLoadingState extends SuccessMessageState {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }

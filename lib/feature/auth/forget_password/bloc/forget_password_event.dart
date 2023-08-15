@@ -9,7 +9,6 @@ class ResetPasswordEvent extends ForgetPasswordEvent {
   ResetPasswordEvent({required this.email});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [email];
 }
 
@@ -19,6 +18,5 @@ class ValidateForgetPasswordFormEvent extends ForgetPasswordEvent {
   ValidateForgetPasswordFormEvent({required this.formKey});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [formKey];
 }

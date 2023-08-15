@@ -9,31 +9,26 @@ class LoginEvent extends SignInEvent {
   LoginEvent({required this.email, required this.password});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [email, password];
 }
 
 class LoginWithGoogleEvent extends SignInEvent {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
 class LoginWithAppleEvent extends SignInEvent {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
 class ForgetPasswordEvent extends SignInEvent {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
 class SignUpScreenEvent extends SignInEvent {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -43,6 +38,5 @@ class ValidateLoginFormEvent extends SignInEvent {
   ValidateLoginFormEvent({required this.formKey});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [formKey];
 }

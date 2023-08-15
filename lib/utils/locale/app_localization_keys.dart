@@ -91,8 +91,10 @@ class LocalizationKeys {
   static const confirmYourNewPassword = "confirm_your_new_password";
   static const otpVerification = "otp_verification";
   static const an4DigitsCodeHasBeenSentToYourNumberEndingWith =
-      "an_4_digits_code_has_been_sent_to_your_number_ending_with_*******444";
+      "an_4_digits_code_has_been_sent_to_your_number_ending_with";
   static const verify = "verify";
+  static const pleaseEnterName = "please_enter_name";
+  static const pleaseEnterValidName = "please_enter_valid_name";
   static const didNotReceiveACode = "didn’t_receive_a_code";
   static const requestAgain = "request_again";
   static const forgetYourPassword = "forget_your_password";
